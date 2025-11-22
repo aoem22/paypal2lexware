@@ -342,9 +342,18 @@
         <footer class="mt-20 pt-8 border-t border-gray-200 text-gray-500 text-sm">
             <div class="flex flex-col items-center space-y-4">
                 <p>Entwickelt von <span class="font-semibold text-gray-700">Alan Özalp</span></p>
-                <div class="flex space-x-6">
-                    <a href="mailto:al.oezalp@gmail.com" class="hover:text-blue-600 transition-colors">Kontakt:
-                        al.oezalp@gmail.com</a>
+                <div class="flex space-x-6 items-center">
+                    <button onclick="copyEmail()"
+                        class="group relative flex items-center space-x-2 px-4 py-2 rounded-full hover:bg-blue-50 hover:text-[#003087] transition-all duration-300 focus:outline-none">
+                        <span id="contact-icon" class="text-lg group-hover:scale-110 transition-transform">✉️</span>
+                        <span id="contact-text" class="font-medium">Kontakt: al.oezalp@gmail.com</span>
+
+                        <!-- Tooltip -->
+                        <span id="copy-tooltip"
+                            class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-300 pointer-events-none">
+                            In Zwischenablage kopieren
+                        </span>
+                    </button>
                     <span>•</span>
                     <span>Offen für Vorschläge</span>
                 </div>
@@ -1264,6 +1273,35 @@
         function parseGermanFloat(str) {
             if (!str) return 0;
             return parseFloat(str.replace(/\./g, '').replace(',', '.').trim());
+        }
+
+        function copyEmail() {
+            const email = "al.oezalp@gmail.com";
+            navigator.clipboard.writeText(email).then(() => {
+                const textEl = document.getElementById('contact-text');
+                const iconEl = document.getElementById('contact-icon');
+                const tooltip = document.getElementById('copy-tooltip');
+
+                // Visual Feedback
+                const originalText = textEl.textContent;
+                textEl.textContent = "Kopiert! ✅";
+                textEl.classList.add('text-green-600');
+                iconEl.textContent = "📋";
+
+                // Show tooltip briefly
+                tooltip.textContent = "Kopiert!";
+                tooltip.classList.remove('opacity-0');
+
+                setTimeout(() => {
+                    textEl.textContent = originalText;
+                    textEl.classList.remove('text-green-600');
+                    iconEl.textContent = "✉️";
+                    tooltip.classList.add('opacity-0');
+                    tooltip.textContent = "In Zwischenablage kopieren";
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
         }
     </script>
 </body>
