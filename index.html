@@ -108,7 +108,7 @@
 
     <main class="w-full max-w-3xl text-center">
         <header>
-            <p class="text-sm font-bold text-green-600 mb-2 uppercase tracking-wider">Kostenlos & 100% Lokal + Privat
+            <p class="text-sm font-bold text-green-600 mb-2 uppercase tracking-wider">100% Kostenlos & Privat
             </p>
             <h1 class="text-5xl font-extrabold mb-4">
                 <span class="text-[#003087]">PayPal</span> 2 <span class="text-[#C40029]">Lexware</span>
@@ -117,6 +117,10 @@
         </header>
 
         <section id="upload-section">
+            <p class="text-gray-600 mb-6 max-w-xl mx-auto">
+                Laden Sie hier Ihren PayPal-Export hoch. Generieren Sie daraus automatisch eine CSV-Datei, die Sie
+                direkt in Lexware importieren können.
+            </p>
             <div id="drop-zone"
                 class="border-2 border-dashed border-gray-300 rounded-xl p-12 text-center transition-all hover:border-blue-500 hover:bg-blue-50 cursor-pointer bg-white shadow-sm">
                 <div class="text-5xl mb-4">📂</div>
@@ -301,6 +305,8 @@
             statusEl.textContent = message;
             statusEl.className = 'mt-6 p-4 rounded-lg text-sm font-medium bg-blue-50 text-blue-700';
             statusEl.classList.remove('hidden');
+
+
         }
 
         function showError(message) {
@@ -308,7 +314,15 @@
             statusEl.textContent = "⚠️ " + message;
             statusEl.className = 'mt-6 p-4 rounded-lg text-sm font-medium bg-red-50 text-red-700 border border-red-100';
             statusEl.classList.remove('hidden');
+
+            if (typeof gtag === 'function') {
+                gtag('event', 'paypal_lexware_error', {
+                    event_category: 'tool_usage',
+                    event_label: message.slice(0, 80) // kurz halten, kein PII
+                });
+            }
         }
+
 
         function resetUI() {
             document.getElementById('status').classList.add('hidden');
@@ -518,6 +532,15 @@
             document.getElementById('download-area').classList.remove('hidden');
             showStatus(`${outputRows.length} Zeilen erfolgreich generiert.`, "success");
             renderConversionDetails(conversionLogs);
+
+            // 🔹 GA4 Event: user successfully transformed data
+            if (typeof gtag === 'function') {
+                gtag('event', 'paypal_lexware_conversion', {
+                    event_category: 'tool_usage',
+                    event_label: 'conversion_success',
+                    rows_generated: outputRows.length
+                });
+            }
         }
 
         function processConflictCases(rows, rates, outputRows, conversionLogs) {
