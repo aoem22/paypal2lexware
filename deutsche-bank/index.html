@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deutsche Bank zu Lexware Konverter | Kostenlos & Sicher | CSV Tool</title>
+    <meta name="description"
+        content="Kostenloses Tool zum Konvertieren von Deutsche Bank CSV-Exporten in das Lexware-Importformat. Automatische Datumskonvertierung und Betragsformatierung. 100% lokal im Browser.">
+    <meta name="keywords"
+        content="Deutsche Bank Lexware Konverter, Deutsche Bank CSV importieren, Lexware Buchhaltung, Bankumsätze importieren, kostenlos, online tool">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Alan Özalp">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏦</text></svg>">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Deutsche Bank zu Lexware Konverter - Kostenlos & Privat">
+    <meta property="og:description"
+        content="Wandeln Sie Ihre Deutsche Bank-Umsätze in Sekunden für Lexware um. Mit automatischer Datumskonvertierung und korrekter Betragsformatierung.">
+    <meta property="og:locale" content="de_DE">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    [
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Deutsche Bank zu Lexware Konverter",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Any",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "EUR"
+            },
+            "featureList": [
+                "CSV Konvertierung",
+                "Automatische Datumsformatierung",
+                "Betrags-Splitting (Soll/Haben)",
+                "Lokale Verarbeitung"
+            ],
+            "author": {
+                "@type": "Person",
+                "name": "Alan Özalp"
+            }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "Ist das Tool wirklich kostenlos?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Ja, das Tool ist komplett kostenlos und Open Source. Es gibt keine versteckten Kosten oder Abos."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Werden meine Daten gespeichert?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Nein. Die Verarbeitung erfolgt zu 100% lokal in Ihrem Browser. Ihre Finanzdaten verlassen niemals Ihren Computer."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Welches Format benötigt Lexware?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Lexware benötigt ein spezifisches CSV-Format mit Datum, Auftraggeber/Empfänger, Verwendungszweck und Beträgen. Dieses Tool erstellt genau dieses Format automatisch aus Ihrem Deutsche Bank-Export."
+                    }
+                }
+            ]
+        }
+    ]
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col items-center justify-center p-4">
+
+    <main class="w-full max-w-3xl text-center">
+        <div class="max-w-3xl mx-auto text-left mb-8">
+            <a href="../"
+                class="inline-flex items-center gap-2 text-sm font-medium text-[#0018A8] hover:text-[#001080] transition-colors">
+                <span>←</span>
+                <span>Zur Übersicht</span>
+            </a>
+        </div>
+
+        <header>
+            <div
+                class="inline-flex items-center space-x-2 text-green-600 bg-green-50 px-3 py-1 rounded-full text-xs font-medium mb-4">
+                <span>🔒</span>
+                <span>100% Lokal & Privat - Dateien verlassen Ihren PC nicht</span>
+            </div>
+            <h1 class="text-5xl font-extrabold mb-2 tracking-tight">
+                <span class="text-[#0018A8]">Deutsche Bank</span><span class="text-gray-300 mx-2">→</span><span
+                    class="text-[#C40029]">Lexware</span>
+            </h1>
+        </header>
+
+        <section id="upload-section" class="mt-12">
+            <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+                <span class="font-semibold text-[#0018A8] block mb-2">Konvertieren Sie Ihre Deutsche Bank Umsätze für
+                    Lexware.</span>
+                Laden Sie hier Ihren Deutsche Bank CSV-Export hoch. Generieren Sie daraus automatisch eine CSV-Datei,
+                die Sie direkt in Lexware importieren können.
+            </p>
+            <div id="drop-zone"
+                class="border-2 border-dashed border-gray-300 rounded-sm p-16 text-center transition-all hover:border-[#0018A8] hover:bg-blue-50/30 cursor-pointer bg-white shadow-sm group">
+                <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">🏦</div>
+                <p class="text-xl font-medium text-gray-700 group-hover:text-[#0018A8] transition-colors">Deutsche Bank
+                    CSV-Datei hier ablegen
+                </p>
+                <p class="text-sm text-gray-400 mt-3">oder klicken zum Auswählen</p>
+                <input type="file" id="fileInput" accept=".csv" class="hidden" />
+            </div>
+
+            <!-- Date Selection Section (Collapsible) -->
+            <div id="date-selection-container"
+                class="hidden mt-8 bg-white p-6 rounded-sm shadow-sm border border-gray-200 max-w-xl mx-auto text-left">
+                <button onclick="toggleDateSelection()"
+                    class="flex items-center justify-between w-full text-left group focus:outline-none">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-700 group-hover:text-[#0018A8] transition-colors">
+                            Zeitraum anpassen (Optional)</h3>
+                        <p class="text-sm text-gray-500 mt-1">Standardmäßig wird der gesamte Zeitraum der Datei
+                            konvertiert.</p>
+                    </div>
+                    <span id="date-selection-icon"
+                        class="text-2xl text-gray-400 group-hover:text-[#0018A8] transition-transform transform">▼</span>
+                </button>
+
+                <div id="date-selection-content" class="hidden mt-6 transition-all duration-300 ease-in-out">
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <label for="startDate" class="block text-sm font-medium text-gray-700 mb-1">Von</label>
+                            <input type="date" id="startDate"
+                                class="w-full border-gray-300 rounded-sm shadow-sm focus:border-[#0018A8] focus:ring focus:ring-[#0018A8] focus:ring-opacity-50">
+                        </div>
+                        <div>
+                            <label for="endDate" class="block text-sm font-medium text-gray-700 mb-1">Bis</label>
+                            <input type="date" id="endDate"
+                                class="w-full border-gray-300 rounded-sm shadow-sm focus:border-[#0018A8] focus:ring focus:ring-[#0018A8] focus:ring-opacity-50">
+                        </div>
+                    </div>
+                    <button onclick="startConversion()"
+                        class="w-full px-6 py-3 rounded-sm bg-[#0018A8] text-white font-bold shadow-md hover:bg-[#001080] transition-all transform hover:-translate-y-0.5">
+                        Zeitraum anwenden & Konvertieren
+                    </button>
+                </div>
+            </div>
+
+            <!-- Loading Indicator -->
+            <div id="loading-indicator" class="hidden mt-8 max-w-md mx-auto">
+                <div class="flex justify-between mb-1">
+                    <span class="text-sm font-medium text-[#0018A8]">Verarbeite Daten...</span>
+                    <span id="progress-text" class="text-sm font-medium text-[#0018A8]">0%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div id="progress-bar" class="bg-[#0018A8] h-2.5 rounded-full transition-all duration-300 ease-out"
+                        style="width: 0%"></div>
+                </div>
+                <p class="mt-2 text-xs text-gray-500 animate-pulse">Konvertiere Buchungen...</p>
+            </div>
+
+            <div id="status" class="hidden mt-6 p-4 rounded-sm text-sm font-medium border-l-4"></div>
+
+            <div id="download-area" class="hidden mt-8">
+                <a id="downloadLink"
+                    class="inline-block px-10 py-4 rounded-sm bg-[#0018A8] text-white font-bold shadow-md hover:bg-[#001080] transition-all transform hover:-translate-y-0.5">
+                    Lexware CSV herunterladen
+                </a>
+            </div>
+        </section>
+
+        <!-- Conversion Details Table (Collapsible) -->
+        <section id="details-section">
+            <div id="conversion-details-container"
+                class="hidden mt-8 text-left max-w-4xl mx-auto bg-white rounded-sm shadow-sm border border-gray-200 overflow-hidden transition-all">
+                <button onclick="toggleDetails()"
+                    class="flex items-center justify-between w-full p-6 text-left group focus:outline-none hover:bg-gray-50 transition-colors">
+                    <div>
+                        <h3 id="details-title"
+                            class="text-lg font-bold text-gray-800 group-hover:text-[#0018A8] transition-colors">
+                            Konvertierungsdetails</h3>
+                        <p id="details-subtitle" class="text-sm text-gray-500 mt-1">Hier sehen Sie eine Vorschau der
+                            konvertierten Buchungen.</p>
+                    </div>
+                    <span id="details-icon"
+                        class="text-2xl text-gray-400 group-hover:text-[#0018A8] transition-transform transform">▼</span>
+                </button>
+
+                <div id="conversion-details-content" class="hidden border-t border-gray-100">
+                    <div class="overflow-x-auto bg-white max-h-96">
+                        <table class="min-w-full text-sm text-left text-gray-500">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b sticky top-0">
+                                <tr>
+                                    <th class="px-4 py-3">Datum</th>
+                                    <th class="px-4 py-3">Auftraggeber/Empfänger</th>
+                                    <th class="px-4 py-3">Verwendungszweck</th>
+                                    <th class="px-4 py-3 text-right">Betrag</th>
+                                </tr>
+                            </thead>
+                            <tbody id="conversion-table-body" class="divide-y divide-gray-100">
+                                <!-- Rows will be added here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Overview -->
+        <section id="features-section" class="mt-16 text-left max-w-2xl mx-auto">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Was dieses Tool leistet</h2>
+            <div class="grid gap-6 md:grid-cols-2">
+                <div
+                    class="bg-white p-8 rounded-sm shadow-sm border border-gray-200 hover:border-[#0018A8]/30 transition-colors">
+                    <h3 class="font-bold text-gray-800 mb-2 flex items-center"><span class="text-xl mr-2">📅</span>
+                        Datumskonvertierung</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Automatische Umwandlung vom US-Format (M/D/YYYY) in
+                        das deutsche Format (DD.MM.YYYY), das Lexware benötigt.</p>
+                </div>
+                <div
+                    class="bg-white p-8 rounded-sm shadow-sm border border-gray-200 hover:border-[#0018A8]/30 transition-colors">
+                    <h3 class="font-bold text-gray-800 mb-2 flex items-center"><span class="text-xl mr-2">💶</span>
+                        Einheitlicher Betrag</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Einnahmen (positiv) und Ausgaben (negativ) werden
+                        in einer einzigen Betrag-Spalte zusammengefasst.</p>
+                </div>
+                <div
+                    class="bg-white p-8 rounded-sm shadow-sm border border-gray-200 hover:border-[#0018A8]/30 transition-colors">
+                    <h3 class="font-bold text-gray-800 mb-2 flex items-center"><span class="text-xl mr-2">🔢</span>
+                        Zahlenformatierung</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Konvertierung der Beträge ins deutsche Format mit
+                        Komma als Dezimaltrennzeichen.</p>
+                </div>
+                <div
+                    class="bg-white p-8 rounded-sm shadow-sm border border-gray-200 hover:border-[#0018A8]/30 transition-colors">
+                    <h3 class="font-bold text-gray-800 mb-2 flex items-center"><span class="text-xl mr-2">🧹</span>
+                        Header-Bereinigung</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Automatisches Überspringen von Kontoinformationen
+                        und Metadaten am Anfang der Deutsche Bank CSV.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instructions / SEO Content -->
+        <section id="instructions-section"
+            class="mt-16 text-left max-w-2xl mx-auto bg-white p-8 rounded-sm shadow-sm border border-gray-200">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Anleitung: Deutsche Bank CSV für Lexware vorbereiten</h2>
+            <ol class="list-decimal list-inside space-y-3 text-sm text-gray-600 leading-relaxed">
+                <li>Loggen Sie sich in Ihr <strong>Deutsche Bank Online-Banking</strong> ein.</li>
+                <li>Gehen Sie zu "Umsätze" oder "Kontoauszüge".</li>
+                <li>Wählen Sie den gewünschten Zeitraum aus.</li>
+                <li>Exportieren Sie die Umsätze als <strong>CSV-Datei</strong>.</li>
+                <li>Laden Sie die erstellte CSV-Datei herunter und ziehen Sie sie oben in das Feld.</li>
+            </ol>
+            <p class="mt-4 text-xs text-gray-400">
+                Dieses Tool optimiert Ihre Daten für den Import in Lexware buchhaltung, Lexware office und andere
+                Buchhaltungssoftware, die das Standard-Lexware-Format unterstützt.
+            </p>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq-section" class="mt-16 text-left max-w-2xl mx-auto">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Häufig gestellte Fragen (FAQ)</h2>
+            <div class="space-y-4">
+                <div class="bg-white p-6 rounded-sm shadow-sm border border-gray-200">
+                    <h3 class="font-bold text-gray-800 mb-2">Ist das Tool wirklich kostenlos?</h3>
+                    <p class="text-sm text-gray-600">Ja, das Tool ist komplett kostenlos. Es gibt keine
+                        versteckten Kosten oder Abos.</p>
+                </div>
+                <div class="bg-white p-6 rounded-sm shadow-sm border border-gray-200">
+                    <h3 class="font-bold text-gray-800 mb-2">Werden meine Daten gespeichert?</h3>
+                    <p class="text-sm text-gray-600">Nein. Die Verarbeitung erfolgt zu 100% lokal in Ihrem Browser.
+                        Ihre Finanzdaten verlassen niemals Ihren Computer.</p>
+                </div>
+                <div class="bg-white p-6 rounded-sm shadow-sm border border-gray-200">
+                    <h3 class="font-bold text-gray-800 mb-2">Welches Format benötigt Lexware?</h3>
+                    <p class="text-sm text-gray-600">Lexware benötigt ein CSV mit Datum (DD.MM.YYYY),
+                        Auftraggeber/Empfänger, Verwendungszweck und Betrag (positiv für Einnahmen, negativ für
+                        Ausgaben).</p>
+                </div>
+                <div class="bg-white p-6 rounded-sm shadow-sm border border-gray-200">
+                    <h3 class="font-bold text-gray-800 mb-2">Warum werden manche Zeilen übersprungen?</h3>
+                    <p class="text-sm text-gray-600">Zeilen ohne Verwendungszweck oder ohne Betrag werden
+                        übersprungen, da Lexware diese Pflichtfelder erfordert.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-20 text-gray-500 text-sm">
+            <div class="max-w-4xl mx-auto rounded-sm border border-gray-200 bg-white shadow-sm">
+                <div class="px-6 py-6 md:px-8">
+                    <div class="flex flex-col items-center gap-4 text-center">
+                        <p class="text-sm text-gray-500">Entwickelt von <span class="font-semibold text-gray-700">Alan
+                                Özalp</span></p>
+                        <div class="flex flex-col items-center gap-3 md:flex-row md:gap-4">
+                            <button onclick="copyEmail()"
+                                class="group relative inline-flex items-center space-x-2 rounded-full border border-gray-200 bg-gray-50 px-4 py-2 hover:border-[#0018A8]/20 hover:bg-blue-50 hover:text-[#0018A8] transition-all duration-300 focus:outline-none">
+                                <span id="contact-icon" class="text-lg group-hover:scale-110 transition-transform">✉️</span>
+                                <span id="contact-text" class="font-medium">Kontakt: al.oezalp@gmail.com</span>
+
+                                <!-- Tooltip -->
+                                <span id="copy-tooltip"
+                                    class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-300 pointer-events-none">
+                                    In Zwischenablage kopieren
+                                </span>
+                            </button>
+                        </div>
+                        <div
+                            class="inline-flex items-center space-x-2 rounded-full border border-green-100 bg-green-50 px-4 py-2 text-xs font-medium text-green-700">
+                            <span>🔒</span>
+                            <span>100% Lokal & Privat - Dateien verlassen Ihren PC nicht</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+        function showStatus(message, type = 'info') {
+            const statusEl = document.getElementById('status');
+
+            if (type === 'success') {
+                statusEl.classList.add('hidden');
+
+                const container = document.getElementById('conversion-details-container');
+                const title = document.getElementById('details-title');
+                const subtitle = document.getElementById('details-subtitle');
+
+                container.classList.remove('hidden');
+                container.className = "mt-8 text-left max-w-4xl mx-auto bg-green-50 rounded-sm shadow-sm border border-green-200 overflow-hidden transition-all";
+
+                title.innerHTML = `✅ ${message}`;
+                title.className = "text-lg font-bold text-green-800 flex items-center";
+
+                subtitle.textContent = "Hier klicken für Buchungsvorschau";
+                subtitle.className = "text-sm text-green-600 mt-1";
+
+            } else {
+                statusEl.textContent = message;
+                statusEl.className = 'mt-6 p-4 rounded-sm text-sm font-medium bg-blue-50 text-[#0018A8] border-l-4 border-[#0018A8]';
+                statusEl.classList.remove('hidden');
+
+                if (type === 'info') {
+                    document.getElementById('conversion-details-container').classList.add('hidden');
+                }
+            }
+        }
+
+        function showError(message) {
+            const statusEl = document.getElementById('status');
+            statusEl.textContent = "⚠️ " + message;
+            statusEl.className = 'mt-6 p-4 rounded-sm text-sm font-medium bg-red-50 text-[#C40029] border-l-4 border-[#C40029]';
+            statusEl.classList.remove('hidden');
+            document.getElementById('loading-indicator').classList.add('hidden');
+            document.getElementById('conversion-details-container').classList.add('hidden');
+        }
+
+        function resetUI() {
+            document.getElementById('status').classList.add('hidden');
+            document.getElementById('download-area').classList.add('hidden');
+            document.getElementById('date-selection-container').classList.add('hidden');
+            document.getElementById('date-selection-content').classList.add('hidden');
+            document.getElementById('date-selection-icon').style.transform = 'rotate(0deg)';
+            document.getElementById('loading-indicator').classList.add('hidden');
+            stopProgress();
+            document.getElementById('conversion-details-container').classList.add('hidden');
+            document.getElementById('conversion-details-content').classList.add('hidden');
+            document.getElementById('details-icon').style.transform = 'rotate(0deg)';
+            document.getElementById('conversion-table-body').innerHTML = '';
+        }
+
+        function toggleDetails() {
+            const content = document.getElementById('conversion-details-content');
+            const icon = document.getElementById('details-icon');
+
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        function toggleDateSelection() {
+            const content = document.getElementById('date-selection-content');
+            const icon = document.getElementById('date-selection-icon');
+
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        function renderConversionDetails(rows) {
+            const tbody = document.getElementById('conversion-table-body');
+            tbody.innerHTML = '';
+
+            if (rows.length === 0) {
+                const tr = document.createElement('tr');
+                tr.innerHTML = '<td colspan="4" class="px-4 py-3 text-center text-gray-500">Keine Buchungen gefunden.</td>';
+                tbody.appendChild(tr);
+            } else {
+                // Show first 50 rows as preview
+                const previewRows = rows.slice(0, 50);
+                previewRows.forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.className = "bg-white hover:bg-gray-50 transition-colors";
+
+                    const betrag = row['Betrag'] || '';
+                    const isNegative = betrag.startsWith('-');
+                    const betragClass = isNegative ? 'text-red-600 font-medium' : 'text-green-600 font-medium';
+
+                    tr.innerHTML = `
+                        <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">${row['Datum'] || '-'}</td>
+                        <td class="px-4 py-3 text-gray-600 max-w-xs truncate" title="${row['Auftraggeber/Empfänger'] || ''}">${row['Auftraggeber/Empfänger'] || '-'}</td>
+                        <td class="px-4 py-3 text-gray-600 max-w-sm truncate" title="${row['Verwendungszweck'] || ''}">${row['Verwendungszweck'] || '-'}</td>
+                        <td class="px-4 py-3 text-right ${betragClass}">${betrag || '-'}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+                if (rows.length > 50) {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `<td colspan="4" class="px-4 py-3 text-center text-gray-500 italic">... und ${rows.length - 50} weitere Buchungen</td>`;
+                    tbody.appendChild(tr);
+                }
+            }
+        }
+
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('fileInput');
+        let rawCSVData = [];
+        let progressInterval;
+
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-[#0018A8]', 'bg-blue-50/30');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('border-[#0018A8]', 'bg-blue-50/30');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('border-[#0018A8]', 'bg-blue-50/30');
+            const files = e.dataTransfer.files;
+            if (files.length) {
+                resetUI();
+                parseCSV(files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length) {
+                resetUI();
+                parseCSV(e.target.files[0]);
+            }
+        });
+
+        function parseCSV(file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const text = e.target.result;
+                const lines = text.split('\n');
+
+                // Find the header row (contains "Booking date")
+                let headerIndex = -1;
+                for (let i = 0; i < lines.length; i++) {
+                    if (lines[i].includes('Booking date') || lines[i].includes('Buchungsdatum')) {
+                        headerIndex = i;
+                        break;
+                    }
+                }
+
+                if (headerIndex === -1) {
+                    showError("Keine gültige Deutsche Bank CSV-Datei erkannt. Header-Zeile mit 'Booking date' nicht gefunden.");
+                    return;
+                }
+
+                // Extract data from header onwards
+                const csvContent = lines.slice(headerIndex).join('\n');
+
+                Papa.parse(csvContent, {
+                    header: true,
+                    skipEmptyLines: true,
+                    delimiter: ';',
+                    complete: function (results) {
+                        if (results.errors.length > 0 && results.data.length === 0) {
+                            showError("Fehler beim Lesen der CSV-Datei: " + results.errors[0].message);
+                            return;
+                        }
+                        try {
+                            rawCSVData = results.data;
+                            showDateSelection(rawCSVData);
+                        } catch (err) {
+                            console.error(err);
+                            showError("Fehler bei der Datenverarbeitung: " + err.message);
+                        }
+                    },
+                    error: function (err) {
+                        showError("Parsing Fehler: " + err.message);
+                    }
+                });
+            };
+            reader.readAsText(file, 'UTF-8');
+        }
+
+        function convertDate(dateStr) {
+            // Convert M/D/YYYY to DD.MM.YYYY
+            if (!dateStr) return null;
+
+            // Handle various formats
+            let parts;
+            if (dateStr.includes('/')) {
+                // US format: M/D/YYYY
+                parts = dateStr.split('/');
+                if (parts.length === 3) {
+                    const month = parts[0].padStart(2, '0');
+                    const day = parts[1].padStart(2, '0');
+                    const year = parts[2];
+                    return `${day}.${month}.${year}`;
+                }
+            } else if (dateStr.includes('.')) {
+                // Already German format
+                return dateStr;
+            } else if (dateStr.includes('-')) {
+                // ISO format: YYYY-MM-DD
+                parts = dateStr.split('-');
+                if (parts.length === 3) {
+                    return `${parts[2]}.${parts[1]}.${parts[0]}`;
+                }
+            }
+            return dateStr;
+        }
+
+        function toISODate(dateStr) {
+            // Convert M/D/YYYY to YYYY-MM-DD for comparison
+            if (!dateStr) return null;
+
+            if (dateStr.includes('/')) {
+                const parts = dateStr.split('/');
+                if (parts.length === 3) {
+                    const month = parts[0].padStart(2, '0');
+                    const day = parts[1].padStart(2, '0');
+                    const year = parts[2];
+                    return `${year}-${month}-${day}`;
+                }
+            } else if (dateStr.includes('.')) {
+                const parts = dateStr.split('.');
+                if (parts.length === 3) {
+                    return `${parts[2]}-${parts[1]}-${parts[0]}`;
+                }
+            }
+            return dateStr;
+        }
+
+        function getVal(row, ...keys) {
+            const rowKeys = Object.keys(row);
+
+            for (const key of keys) {
+                const exactKey = rowKeys.find(k => k.trim().toLowerCase() === key.toLowerCase());
+                if (exactKey && row[exactKey]) return row[exactKey];
+            }
+
+            for (const key of keys) {
+                const fuzzyKey = rowKeys.find(k => k.trim().toLowerCase().includes(key.toLowerCase()));
+                if (fuzzyKey && row[fuzzyKey]) return row[fuzzyKey];
+            }
+
+            return "";
+        }
+
+        function debugFirstRow(data) {
+            if (data.length > 0) {
+                console.log("=== DEBUG: First row columns ===");
+                console.log("Available columns:", Object.keys(data[0]));
+                console.log("First row data:", data[0]);
+            }
+        }
+
+        function showDateSelection(data) {
+            let minDate = null;
+            let maxDate = null;
+
+            data.forEach(row => {
+                const dateStr = getVal(row, "Booking date", "Buchungsdatum");
+                if (dateStr) {
+                    const isoDate = toISODate(dateStr);
+                    if (isoDate) {
+                        if (!minDate || isoDate < minDate) minDate = isoDate;
+                        if (!maxDate || isoDate > maxDate) maxDate = isoDate;
+                    }
+                }
+            });
+
+            if (minDate && maxDate) {
+                document.getElementById('startDate').value = minDate;
+                document.getElementById('endDate').value = maxDate;
+                document.getElementById('startDate').min = minDate;
+                document.getElementById('startDate').max = maxDate;
+                document.getElementById('endDate').min = minDate;
+                document.getElementById('endDate').max = maxDate;
+            }
+
+            document.getElementById('date-selection-container').classList.remove('hidden');
+            startConversion();
+        }
+
+        function startConversion() {
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+
+            document.getElementById('status').classList.add('hidden');
+            document.getElementById('loading-indicator').classList.remove('hidden');
+            startProgress();
+
+            // Filter data only if dates are selected, otherwise use all data
+            let filteredData;
+            if (startDate && endDate) {
+                filteredData = rawCSVData.filter(row => {
+                    const dateStr = getVal(row, "Booking date", "Buchungsdatum");
+                    if (!dateStr) return false;
+                    const isoDate = toISODate(dateStr);
+                    return isoDate && isoDate >= startDate && isoDate <= endDate;
+                });
+            } else {
+                // No date filter - use all data
+                filteredData = rawCSVData;
+            }
+
+            if (filteredData.length === 0) {
+                showError("Keine Transaktionen gefunden.");
+                return;
+            }
+
+            setTimeout(() => {
+                processData(filteredData);
+            }, 100);
+        }
+
+        function startProgress() {
+            const bar = document.getElementById('progress-bar');
+            const text = document.getElementById('progress-text');
+            let width = 0;
+            bar.style.width = '0%';
+            text.textContent = '0%';
+
+            clearInterval(progressInterval);
+            progressInterval = setInterval(() => {
+                if (width >= 90) {
+                    clearInterval(progressInterval);
+                } else {
+                    width += Math.random() * 15;
+                    if (width > 90) width = 90;
+                    bar.style.width = width + '%';
+                    text.textContent = Math.round(width) + '%';
+                }
+            }, 100);
+        }
+
+        function stopProgress() {
+            clearInterval(progressInterval);
+        }
+
+        function completeProgress() {
+            clearInterval(progressInterval);
+            const bar = document.getElementById('progress-bar');
+            const text = document.getElementById('progress-text');
+            bar.style.width = '100%';
+            text.textContent = '100%';
+        }
+
+        function cleanAmount(amountStr) {
+            // Convert -123.45 or 123.45 to German format (positive only)
+            if (!amountStr || amountStr.trim() === '') return '';
+
+            let amount = amountStr.trim();
+            amount = amount.replace('-', '').replace(/,/g, '');
+
+            try {
+                const num = parseFloat(amount);
+                if (isNaN(num)) return '';
+                return num.toFixed(2).replace('.', ',');
+            } catch {
+                return '';
+            }
+        }
+
+        function cleanAmountWithSign(amountStr) {
+            // Convert -123.45 or 123.45 to German format (keep sign)
+            if (!amountStr || amountStr.trim() === '') return '';
+
+            let amount = amountStr.trim();
+            const isNegative = amount.startsWith('-');
+            amount = amount.replace('-', '').replace(/,/g, '');
+
+            try {
+                const num = parseFloat(amount);
+                if (isNaN(num)) return '';
+                const formatted = num.toFixed(2).replace('.', ',');
+                return isNegative ? '-' + formatted : formatted;
+            } catch {
+                return '';
+            }
+        }
+
+        function sanitizeCSVField(field) {
+            if (!field) return '';
+            return String(field)
+                .replace(/;/g, ',')
+                .replace(/"/g, '')
+                .replace(/[\r\n]+/g, ' ')
+                .trim();
+        }
+
+        function processData(data) {
+            const outputRows = [];
+            let skipped = 0;
+
+            // Debug: show available columns
+            debugFirstRow(data);
+
+            data.forEach(row => {
+                // Skip rows without valid data
+                const bookingDate = getVal(row, "Booking date", "Buchungsdatum");
+                const beneficiary = getVal(row, "Beneficiary", "Originator", "Auftraggeber", "Empfänger");
+                const paymentDetails = getVal(row, "Payment Details", "Verwendungszweck");
+                const transactionType = getVal(row, "Transaction Type", "Transaktionsart");
+
+                // Primary: Original Amount, Fallback: Debit/Credit
+                const originalAmount = getVal(row, "Original Amount");
+                const debit = getVal(row, "Debit", "Soll");
+                const credit = getVal(row, "Credit", "Haben");
+
+                // Skip if no date
+                if (!bookingDate) {
+                    skipped++;
+                    return;
+                }
+
+                // Skip "Account balance" rows
+                if (bookingDate.toLowerCase().includes('account balance') ||
+                    bookingDate.toLowerCase().includes('kontostand')) {
+                    skipped++;
+                    return;
+                }
+
+                // Convert date
+                const datum = convertDate(bookingDate);
+
+                // Auftraggeber/Empfänger - use beneficiary, fallback to transaction type
+                let auftraggeber = beneficiary.trim();
+                if (!auftraggeber) {
+                    auftraggeber = transactionType.trim();
+                }
+
+                // Verwendungszweck - must not be empty
+                let verwendungszweck = paymentDetails.trim();
+                if (!verwendungszweck) {
+                    verwendungszweck = transactionType ? `${transactionType} - ${auftraggeber}` : auftraggeber;
+                }
+                if (!verwendungszweck) {
+                    verwendungszweck = "Keine Angabe";
+                }
+
+                // Get Betrag: prefer Original Amount, then try Debit/Credit
+                let betrag = '';
+                if (originalAmount && originalAmount.trim()) {
+                    betrag = cleanAmountWithSign(originalAmount);
+                } else if (credit && credit.trim()) {
+                    betrag = cleanAmount(credit);
+                } else if (debit && debit.trim()) {
+                    betrag = cleanAmountWithSign(debit);
+                }
+
+                // Only add if we have an amount
+                if (betrag) {
+                    outputRows.push({
+                        'Datum': datum,
+                        'Auftraggeber/Empfänger': auftraggeber,
+                        'Verwendungszweck': verwendungszweck,
+                        'Betrag': betrag
+                    });
+                } else {
+                    skipped++;
+                }
+            });
+
+            if (outputRows.length === 0) {
+                showError("Keine gültigen Transaktionen gefunden.");
+                stopProgress();
+                return;
+            }
+
+            // Keep original order from bank statement (no sorting)
+
+            // Generate CSV to match the working Revolut export style:
+            // semicolons, no quotes, sanitized text fields, ISO-8859-1 encoding.
+            const header = 'Datum;Auftraggeber/Empfänger;Verwendungszweck;Betrag';
+            const lines = outputRows.map(row => {
+                const datum = row['Datum'];
+                const auftraggeber = sanitizeCSVField(row['Auftraggeber/Empfänger']);
+                const verwendungszweck = sanitizeCSVField(row['Verwendungszweck']);
+                const betrag = row['Betrag'];
+                return `${datum};${auftraggeber};${verwendungszweck};${betrag}`;
+            });
+            const csvContent = header + '\n' + lines.join('\n');
+
+            const bytes = new Uint8Array(csvContent.length);
+            for (let i = 0; i < csvContent.length; i++) {
+                bytes[i] = csvContent.charCodeAt(i) & 0xFF;
+            }
+
+            const blob = new Blob([bytes], { type: 'text/csv;charset=iso-8859-1;' });
+            const url = URL.createObjectURL(blob);
+            const downloadLink = document.getElementById('downloadLink');
+            downloadLink.href = url;
+
+            // Dynamic filename
+            let filenameDatePart = "export";
+            if (outputRows.length > 0) {
+                const firstDateParts = outputRows[0]['Datum'].split('.');
+                const lastDateParts = outputRows[outputRows.length - 1]['Datum'].split('.');
+
+                const firstDate = `${firstDateParts[2]}-${firstDateParts[1]}-${firstDateParts[0]}`;
+                const lastDate = `${lastDateParts[2]}-${lastDateParts[1]}-${lastDateParts[0]}`;
+
+                if (firstDate === lastDate) {
+                    filenameDatePart = firstDate;
+                } else {
+                    filenameDatePart = `${firstDate}_bis_${lastDate}`;
+                }
+            }
+
+            downloadLink.download = `DeutscheBank_${filenameDatePart}_lexware_import.csv`;
+
+            completeProgress();
+
+            setTimeout(() => {
+                document.getElementById('download-area').classList.remove('hidden');
+                document.getElementById('loading-indicator').classList.add('hidden');
+
+                let statusMsg = `${outputRows.length} Buchungen erfolgreich konvertiert.`;
+                if (skipped > 0) {
+                    statusMsg += ` (${skipped} Zeilen ohne Betrag/Datum übersprungen)`;
+                }
+                showStatus(statusMsg, "success");
+                renderConversionDetails(outputRows);
+            }, 400);
+        }
+
+        function copyEmail() {
+            const email = "al.oezalp@gmail.com";
+            navigator.clipboard.writeText(email).then(() => {
+                const textEl = document.getElementById('contact-text');
+                const iconEl = document.getElementById('contact-icon');
+                const tooltip = document.getElementById('copy-tooltip');
+
+                const originalText = textEl.textContent;
+                textEl.textContent = "Kopiert! ✅";
+                textEl.classList.add('text-green-600');
+                iconEl.textContent = "📋";
+
+                tooltip.textContent = "Kopiert!";
+                tooltip.classList.remove('opacity-0');
+
+                setTimeout(() => {
+                    textEl.textContent = originalText;
+                    textEl.classList.remove('text-green-600');
+                    iconEl.textContent = "✉️";
+                    tooltip.classList.add('opacity-0');
+                    tooltip.textContent = "In Zwischenablage kopieren";
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
+</body>
+
+</html>
