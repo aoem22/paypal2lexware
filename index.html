@@ -4,32 +4,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bank2Lexware | Bankauszüge lokal in Lexware-CSV umwandeln</title>
+    <title>Bank2Lexware | PayPal, Revolut und Bankauszüge für Lexware</title>
     <meta name="description"
-        content="Bank2Lexware konvertiert Bankauszüge und Zahlungs-Exporte lokal in Lexware-kompatible CSV-Dateien – ideal für Offline-Konten, historische Kontoauszüge und fehlende Umsätze.">
-    <meta name="keywords"
-        content="Lexware CSV Import, Bankauszug CSV, Offline Konto Lexware, historische Umsätze Lexware, PayPal Lexware Konverter, Revolut Lexware, Deutsche Bank CSV Import, elektronische Kontoauszüge">
+        content="PayPal-, Revolut- und Bankauszüge lokal in Lexware-kompatible CSV-Dateien umwandeln. Ideal für fehlende Umsätze, historische Kontoauszüge und Offline-Konten.">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Alan Özalp">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#f4f6fa">
+    <link rel="canonical" href="https://www.bank2lexware.de/">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💶</text></svg>">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Bank2Lexware - Wenn Lexware nicht automatisch abruft">
+    <meta property="og:title" content="Bank2Lexware | PayPal, Revolut und Bankauszüge für Lexware">
     <meta property="og:description"
-        content="Konvertieren Sie Bankauszüge und Zahlungs-Exporte lokal in ein CSV-Format, das sich in Lexware Office importieren lässt.">
+        content="Lokale CSV-Konvertierung für Lexware Office bei fehlenden Umsätzen, historischen Kontoauszügen und Offline-Konten.">
     <meta property="og:locale" content="de_DE">
+    <meta property="og:site_name" content="Bank2Lexware">
+    <meta property="og:url" content="https://www.bank2lexware.de/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Bank2Lexware | PayPal, Revolut und Bankauszüge für Lexware">
+    <meta name="twitter:description"
+        content="Lokale CSV-Konvertierung für Lexware Office bei fehlenden Umsätzen, historischen Kontoauszügen und Offline-Konten.">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
     [
         {
             "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Bank2Lexware",
+            "alternateName": "Bank 2 Lexware",
+            "url": "https://www.bank2lexware.de/"
+        },
+        {
+            "@context": "https://schema.org",
             "@type": "WebApplication",
             "name": "Bank2Lexware",
+            "url": "https://www.bank2lexware.de/",
             "applicationCategory": "BusinessApplication",
             "operatingSystem": "Any",
+            "description": "Lokales Tool zur Konvertierung von PayPal-, Revolut- und Bankauszügen in Lexware-kompatible CSV-Dateien.",
             "offers": {
                 "@type": "Offer",
                 "price": "0",
@@ -84,7 +100,7 @@
                     "name": "Welches Format benötigt Lexware?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Lexware benötigt ein spezifisches CSV-Format (DATEV-kompatibel). Dieses Tool erstellt genau dieses Format automatisch aus Ihrem PayPal-Export."
+                        "text": "Lexware benötigt ein spezifisches CSV-Format (DATEV-kompatibel). Dieses Tool erstellt dieses Format automatisch aus PayPal-, Revolut- und unterstützten Bankexporten."
                     }
                 }
             ]
@@ -94,6 +110,439 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <style>
+        :root {
+            color-scheme: light;
+            --canvas: #f4f6fa;
+            --canvas-strong: #eef2f8;
+            --ink: #1f2937;
+            --ink-soft: #566173;
+            --ink-muted: #8a94a6;
+            --line: rgba(148, 163, 184, 0.24);
+            --line-strong: rgba(59, 130, 246, 0.32);
+            --surface: rgba(255, 255, 255, 0.9);
+            --surface-strong: #ffffff;
+            --surface-muted: rgba(248, 250, 252, 0.95);
+            --surface-panel: rgba(255, 255, 255, 0.68);
+            --glow-a: rgba(0, 48, 135, 0.08);
+            --glow-b: rgba(196, 0, 41, 0.06);
+            --shadow-soft: 0 28px 70px rgba(15, 23, 42, 0.09);
+            --shadow-card: 0 14px 36px rgba(15, 23, 42, 0.08);
+        }
+
+        html.theme-dark {
+            color-scheme: dark;
+            --canvas: #08111f;
+            --canvas-strong: #0d1728;
+            --ink: #e5edf7;
+            --ink-soft: #b3c0d2;
+            --ink-muted: #8593a7;
+            --line: rgba(148, 163, 184, 0.18);
+            --line-strong: rgba(96, 165, 250, 0.34);
+            --surface: rgba(11, 20, 35, 0.92);
+            --surface-strong: #101a2b;
+            --surface-muted: rgba(15, 23, 42, 0.92);
+            --surface-panel: rgba(15, 23, 42, 0.72);
+            --glow-a: rgba(59, 130, 246, 0.18);
+            --glow-b: rgba(244, 63, 94, 0.12);
+            --shadow-soft: 0 30px 80px rgba(2, 6, 23, 0.55);
+            --shadow-card: 0 18px 42px rgba(2, 6, 23, 0.44);
+        }
+
+        body {
+            background:
+                radial-gradient(circle at top left, var(--glow-a), transparent 32rem),
+                radial-gradient(circle at top right, var(--glow-b), transparent 24rem),
+                linear-gradient(180deg, var(--canvas-strong), var(--canvas));
+            color: var(--ink);
+        }
+
+        .surface-card {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow-card);
+            backdrop-filter: blur(14px);
+        }
+
+        .surface-card:hover {
+            border-color: var(--line-strong);
+        }
+
+        .converter-card-grid {
+            align-items: stretch;
+        }
+
+        .converter-card {
+            display: flex;
+            height: 100%;
+            flex-direction: column;
+            gap: 0.75rem;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: left;
+            transition: transform 0.24s ease, border-color 0.24s ease, background-color 0.24s ease, box-shadow 0.24s ease;
+        }
+
+        .converter-card__header {
+            display: flex;
+            min-height: 3.75rem;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .converter-card__brand {
+            display: flex;
+            min-height: 3rem;
+            align-items: center;
+        }
+
+        .converter-card__body {
+            display: grid;
+            flex: 1;
+            grid-template-rows: minmax(3rem, auto) minmax(5.5rem, auto) minmax(4rem, auto) auto;
+            row-gap: 0;
+            align-content: start;
+        }
+
+        .converter-card__title {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .converter-card__title h2 {
+            line-height: 1.08;
+        }
+
+        .converter-card__description {
+            margin-top: 0.35rem;
+            max-width: none;
+            min-height: 5.25rem;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .converter-card__chips {
+            margin-top: 0.75rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            align-content: start;
+            align-items: flex-start;
+        }
+
+        .converter-chip {
+            display: inline-flex;
+            min-height: 2.1rem;
+            align-items: center;
+            border-radius: 9999px;
+            padding: 0 0.95rem;
+            font-size: 0.79rem;
+            font-weight: 600;
+            line-height: 1;
+        }
+
+        .converter-card__action {
+            padding-top: 0.85rem;
+        }
+
+        .converter-card__action-inner {
+            display: flex;
+            min-height: 2.75rem;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0;
+            color: #003087;
+        }
+
+        html.theme-dark .converter-card__action-inner {
+            color: #bfdbfe;
+        }
+
+        .brand-logo {
+            height: 3rem;
+            width: auto;
+            max-width: 100%;
+            transform-origin: left center;
+            transition: transform 0.24s ease, filter 0.24s ease, opacity 0.24s ease;
+        }
+
+        .brand-logo--paypal {
+            filter: drop-shadow(0 10px 18px rgba(0, 48, 135, 0.08));
+        }
+
+        .brand-logo--deutsche {
+            filter: drop-shadow(0 10px 18px rgba(0, 24, 168, 0.08));
+        }
+
+        .brand-logo--revolut {
+            filter: drop-shadow(0 10px 18px rgba(25, 28, 31, 0.08));
+        }
+
+        html.theme-dark .brand-logo--paypal {
+            filter: brightness(1.28) saturate(1.18) drop-shadow(0 0 20px rgba(96, 165, 250, 0.18));
+        }
+
+        html.theme-dark .brand-logo--deutsche {
+            filter: brightness(1.36) saturate(1.2) drop-shadow(0 0 20px rgba(96, 165, 250, 0.16));
+        }
+
+        html.theme-dark .brand-logo--revolut {
+            filter: brightness(0) saturate(100%) invert(91%) sepia(10%) saturate(470%) hue-rotate(181deg) brightness(100%) contrast(94%) drop-shadow(0 0 20px rgba(148, 163, 184, 0.12));
+        }
+
+        .surface-chip {
+            background: var(--surface-muted);
+            border: 1px solid rgba(148, 163, 184, 0.12);
+            color: var(--ink-soft);
+        }
+
+        .surface-input {
+            background: var(--surface-muted);
+            border: 1px solid var(--line);
+            color: var(--ink);
+        }
+
+        .surface-input::placeholder {
+            color: var(--ink-muted);
+        }
+
+        .surface-input:focus {
+            background: var(--surface-strong);
+            border-color: rgba(0, 48, 135, 0.42);
+            box-shadow: 0 0 0 4px rgba(0, 48, 135, 0.08);
+        }
+
+        html.theme-dark .surface-input:focus {
+            box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.14);
+        }
+
+        .request-strip {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            background:
+                linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.4)),
+                linear-gradient(140deg, rgba(0, 48, 135, 0.045), rgba(196, 0, 41, 0.03));
+            box-shadow: var(--shadow-soft);
+        }
+
+        html.theme-dark .request-strip {
+            background:
+                linear-gradient(135deg, rgba(11, 20, 35, 0.84), rgba(8, 17, 31, 0.96)),
+                linear-gradient(140deg, rgba(59, 130, 246, 0.14), rgba(244, 63, 94, 0.08));
+        }
+
+        .request-strip::before {
+            content: "";
+            position: absolute;
+            left: 24px;
+            right: 24px;
+            top: 0;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(0, 48, 135, 0.34), rgba(196, 0, 41, 0.18), rgba(0, 48, 135, 0));
+        }
+
+        .request-strip::after {
+            content: "";
+            position: absolute;
+            inset: auto -56px -72px auto;
+            width: 220px;
+            height: 220px;
+            border-radius: 9999px;
+            background: radial-gradient(circle, rgba(196, 0, 41, 0.1), transparent 68%);
+            pointer-events: none;
+        }
+
+        .request-form-shell {
+            background: var(--surface-panel);
+            border: 1px solid var(--line);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(14px);
+        }
+
+        html.theme-dark .request-form-shell {
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        }
+
+        .footer-rail {
+            border-top: 1px solid var(--line);
+        }
+
+        .status-note {
+            color: var(--ink-muted);
+        }
+
+        html.theme-dark .bg-white {
+            background-color: var(--surface) !important;
+        }
+
+        html.theme-dark .bg-gray-50 {
+            background-color: var(--surface-muted) !important;
+        }
+
+        html.theme-dark .bg-gray-100 {
+            background-color: rgba(148, 163, 184, 0.12) !important;
+        }
+
+        html.theme-dark .bg-gray-200 {
+            background-color: rgba(100, 116, 139, 0.32) !important;
+        }
+
+        html.theme-dark .bg-blue-50,
+        html.theme-dark .bg-blue-50\/20,
+        html.theme-dark .bg-blue-50\/30 {
+            background-color: rgba(59, 130, 246, 0.12) !important;
+        }
+
+        html.theme-dark .bg-green-50 {
+            background-color: rgba(34, 197, 94, 0.1) !important;
+        }
+
+        html.theme-dark .bg-red-50 {
+            background-color: rgba(239, 68, 68, 0.12) !important;
+        }
+
+        html.theme-dark .border-gray-200,
+        html.theme-dark .border-gray-100 {
+            border-color: var(--line) !important;
+        }
+
+        html.theme-dark .border-green-100 {
+            border-color: rgba(34, 197, 94, 0.18) !important;
+        }
+
+        html.theme-dark .border-green-200 {
+            border-color: rgba(34, 197, 94, 0.24) !important;
+        }
+
+        html.theme-dark .border-\[\#003087\] {
+            border-color: rgba(96, 165, 250, 0.38) !important;
+        }
+
+        html.theme-dark .border-\[\#C40029\] {
+            border-color: rgba(251, 113, 133, 0.38) !important;
+        }
+
+        html.theme-dark .text-gray-800 {
+            color: var(--ink) !important;
+        }
+
+        html.theme-dark .text-gray-700 {
+            color: #d7e0ec !important;
+        }
+
+        html.theme-dark .text-gray-600 {
+            color: var(--ink-soft) !important;
+        }
+
+        html.theme-dark .text-gray-500 {
+            color: var(--ink-muted) !important;
+        }
+
+        html.theme-dark .text-gray-400,
+        html.theme-dark .text-gray-300 {
+            color: #7f8aa0 !important;
+        }
+
+        html.theme-dark .text-green-600,
+        html.theme-dark .text-green-700,
+        html.theme-dark .text-green-800 {
+            color: #86efac !important;
+        }
+
+        html.theme-dark .text-red-600 {
+            color: #fca5a5 !important;
+        }
+
+        html.theme-dark .text-\[\#003087\] {
+            color: #9bc1ff !important;
+        }
+
+        html.theme-dark .text-\[\#002569\] {
+            color: #c7ddff !important;
+        }
+
+        html.theme-dark .text-\[\#0018A8\] {
+            color: #93c5fd !important;
+        }
+
+        html.theme-dark .text-\[\#191C1F\] {
+            color: #e5edf7 !important;
+        }
+
+        html.theme-dark .text-\[\#C40029\] {
+            color: #fb7185 !important;
+        }
+
+        html.theme-dark .bg-\[\#003087\] {
+            background-color: #1d4ed8 !important;
+        }
+
+        html.theme-dark .bg-\[\#003087\]\/10,
+        html.theme-dark .bg-\[\#0018A8\]\/10 {
+            background-color: rgba(96, 165, 250, 0.14) !important;
+        }
+
+        html.theme-dark .bg-\[\#191C1F\]\/10 {
+            background-color: rgba(148, 163, 184, 0.14) !important;
+        }
+
+        html.theme-dark .bg-\[\#C40029\]\/10 {
+            background-color: rgba(244, 63, 94, 0.14) !important;
+        }
+
+        html.theme-dark .shadow-sm,
+        html.theme-dark .shadow-md {
+            box-shadow: var(--shadow-card) !important;
+        }
+
+        html.theme-dark .hover\:bg-gray-50:hover {
+            background-color: rgba(148, 163, 184, 0.08) !important;
+        }
+
+        html.theme-dark .hover\:bg-blue-50:hover,
+        html.theme-dark .hover\:bg-blue-50\/20:hover,
+        html.theme-dark .hover\:bg-blue-50\/30:hover {
+            background-color: rgba(59, 130, 246, 0.12) !important;
+        }
+
+        html.theme-dark .hover\:bg-\[\#002569\]:hover {
+            background-color: #1e40af !important;
+        }
+
+        html.theme-dark .hover\:border-\[\#003087\]:hover,
+        html.theme-dark .hover\:border-\[\#003087\]\/20:hover,
+        html.theme-dark .hover\:border-\[\#003087\]\/30:hover,
+        html.theme-dark .hover\:border-\[\#003087\]\/40:hover {
+            border-color: rgba(147, 197, 253, 0.34) !important;
+        }
+
+        html.theme-dark .hover\:border-\[\#0018A8\]\/30:hover {
+            border-color: rgba(147, 197, 253, 0.32) !important;
+        }
+
+        html.theme-dark .hover\:border-\[\#191C1F\]\/30:hover {
+            border-color: rgba(148, 163, 184, 0.3) !important;
+        }
+
+        html.theme-dark .focus\:bg-white:focus {
+            background-color: var(--surface-strong) !important;
+        }
+    </style>
+    <script>
+        (function() {
+            var mq = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+            if (mq && mq.matches) {
+                document.documentElement.classList.add('theme-dark');
+                document.documentElement.style.colorScheme = 'dark';
+            }
+        })();
+    </script>
 </head>
 
 <!-- Google tag (gtag.js) -->
@@ -108,7 +557,8 @@
 
 <body class="bg-gray-50 text-gray-800 font-sans min-h-screen p-4">
 
-    <main class="w-full max-w-5xl mx-auto text-center py-8">
+    <main class="w-full max-w-5xl mx-auto text-center py-4 sm:py-6">
+
         <section id="home-view" class="w-full">
             <div class="max-w-4xl mx-auto">
                 <div
@@ -116,7 +566,7 @@
                     <span>🔒</span>
                     <span>Für Offline-Konten, historische Umsätze und manuelle Nachimporte</span>
                 </div>
-                <h1 class="text-6xl font-extrabold mb-4 tracking-tight">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 tracking-tight">
                     <span class="text-[#003087]">Bank</span><span class="text-gray-300 mx-2">2</span><span
                         class="text-[#C40029]">Lexware</span>
                 </h1>
@@ -126,114 +576,173 @@
                     Konvertieren Sie Bank- und Zahlungsdaten lokal in ein CSV-Format, das sich in Lexware Office
                     importieren lässt.
                 </p>
+                <p class="mt-4 max-w-3xl mx-auto text-sm leading-6 text-gray-500 md:text-base">
+                    Häufig gesucht: PayPal CSV in Lexware importieren, fehlende Umsätze nachimportieren,
+                    historische Kontoauszüge übernehmen und Offline-Konten für Lexware vorbereiten.
+                </p>
+                <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+                    <a href="paypal-csv-lexware/"
+                        class="surface-chip inline-flex items-center rounded-full px-4 py-2 text-sm font-medium transition-colors hover:border-[#003087]/30 hover:text-[#003087]">
+                        PayPal CSV in Lexware importieren
+                    </a>
+                    <a href="fehlende-umsaetze-lexware-importieren/"
+                        class="surface-chip inline-flex items-center rounded-full px-4 py-2 text-sm font-medium transition-colors hover:border-[#C40029]/30 hover:text-[#C40029]">
+                        Fehlende Umsätze importieren
+                    </a>
+                    <a href="offline-konto-lexware/"
+                        class="surface-chip inline-flex items-center rounded-full px-4 py-2 text-sm font-medium transition-colors hover:border-slate-400/40 hover:text-gray-800">
+                        Offline-Konto vorbereiten
+                    </a>
+                    <a href="deutsche-bank/"
+                        class="surface-chip inline-flex items-center rounded-full px-4 py-2 text-sm font-medium transition-colors hover:border-[#0018A8]/30 hover:text-[#0018A8]">
+                        Deutsche Bank CSV importieren
+                    </a>
+                    <a href="revolut/"
+                        class="surface-chip inline-flex items-center rounded-full px-4 py-2 text-sm font-medium transition-colors hover:border-[#191C1F]/30 hover:text-gray-800">
+                        Revolut CSV importieren
+                    </a>
+                </div>
             </div>
 
-            <section class="mt-12">
-                <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            <section class="mt-8 sm:mt-12">
+                <div class="converter-card-grid grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                     <button type="button" onclick="openTool('paypal')"
-                        class="group bg-white rounded-sm shadow-sm border border-gray-200 p-7 text-left transition-all hover:-translate-y-1 hover:border-[#003087]/40 hover:bg-blue-50/30 focus:outline-none focus:ring-2 focus:ring-[#003087]/20">
-                        <div class="flex items-start justify-between gap-4">
-                            <img src="assets/logos/paypal.svg" alt="PayPal Logo"
-                                class="h-10 w-auto transition-transform group-hover:scale-105" />
+                        class="converter-card surface-card group hover:-translate-y-1 hover:border-[#003087]/30 hover:bg-blue-50/30 focus:outline-none focus:ring-2 focus:ring-[#003087]/20">
+                        <div class="converter-card__header">
+                            <div class="converter-card__brand">
+                                <img src="assets/logos/paypal.svg" alt="PayPal Logo"
+                                    class="brand-logo brand-logo--paypal group-hover:scale-105" />
+                            </div>
                             <span
                                 class="inline-flex items-center rounded-full bg-[#003087]/10 px-3 py-1 text-xs font-semibold text-[#003087]">Live</span>
                         </div>
-                        <h2 class="mt-6 text-2xl font-bold text-gray-800">PayPal</h2>
-                        <p class="mt-1 text-sm text-gray-600">
-                            PayPal-Exporte lokal für Lexware vorbereiten, besonders bei fehlenden oder historischen
-                            Umsätzen.
-                        </p>
-                        <div class="mt-5 flex flex-wrap gap-2">
-                            <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">Historische Umsätze</span>
-                            <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">Gebühren</span>
-                            <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">Lexware-CSV</span>
-                        </div>
-                        <div class="mt-6 flex items-center justify-between text-sm font-medium text-[#003087]">
-                            <span>Konverter öffnen</span>
-                            <span>→</span>
+                        <div class="converter-card__body">
+                            <div class="converter-card__title">
+                                <h2 class="text-2xl font-bold text-gray-800">PayPal</h2>
+                            </div>
+                            <p class="converter-card__description text-sm text-gray-600">
+                                PayPal-Exporte lokal für Lexware vorbereiten, besonders bei fehlenden oder historischen
+                                Umsätzen.
+                            </p>
+                            <div class="converter-card__chips">
+                                <span class="converter-chip bg-gray-100 text-gray-600">Historische Umsätze</span>
+                                <span class="converter-chip bg-gray-100 text-gray-600">Gebühren</span>
+                                <span class="converter-chip bg-gray-100 text-gray-600">Lexware-CSV</span>
+                            </div>
+                            <div class="converter-card__action">
+                                <div class="converter-card__action-inner">
+                                    <span class="text-sm font-semibold">Konverter öffnen</span>
+                                    <span aria-hidden="true" class="text-2xl leading-none">→</span>
+                                </div>
+                            </div>
                         </div>
                     </button>
 
-                    <a href="deutsche-bank/"
-                        class="group block rounded-sm border border-gray-200 bg-white p-7 text-left shadow-sm transition-all hover:-translate-y-1 hover:border-[#0018A8]/30 hover:bg-blue-50/20 focus:outline-none focus:ring-2 focus:ring-[#0018A8]/10">
-                        <div class="flex items-start justify-between gap-4">
-                            <img src="assets/logos/deutsche-bank.svg" alt="Deutsche Bank Logo"
-                                class="h-10 w-auto transition-transform group-hover:scale-105" />
+                    <button type="button" onclick="openTool('deutsche-bank')"
+                        class="converter-card surface-card group hover:-translate-y-1 hover:border-[#0018A8]/30 hover:bg-blue-50/30 focus:outline-none focus:ring-2 focus:ring-[#0018A8]/20">
+                        <div class="converter-card__header">
+                            <div class="converter-card__brand">
+                                <img src="assets/logos/deutsche-bank.svg" alt="Deutsche Bank Logo"
+                                    class="brand-logo brand-logo--deutsche group-hover:scale-105" />
+                            </div>
                             <span
                                 class="inline-flex items-center rounded-full bg-[#0018A8]/10 px-3 py-1 text-xs font-semibold text-[#0018A8]">Live</span>
                         </div>
-                        <h2 class="mt-6 text-2xl font-bold text-gray-800">Deutsche Bank</h2>
-                        <p class="mt-1 text-sm text-gray-600">
-                            Deutsche Bank Kontoauszüge lokal in Lexware-kompatible CSVs umwandeln.
-                        </p>
-                        <div class="mt-5 flex flex-wrap gap-2">
-                            <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">Kontoauszug</span>
-                            <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">Betragsformat</span>
-                            <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">Lexware-CSV</span>
+                        <div class="converter-card__body">
+                            <div class="converter-card__title">
+                                <h2 class="text-2xl font-bold text-gray-800">Deutsche Bank</h2>
+                            </div>
+                            <p class="converter-card__description text-sm text-gray-600">
+                                Deutsche Bank Kontoauszüge lokal in Lexware-kompatible CSVs umwandeln.
+                            </p>
+                            <div class="converter-card__chips">
+                                <span class="converter-chip bg-gray-100 text-gray-600">Kontoauszug</span>
+                                <span class="converter-chip bg-gray-100 text-gray-600">Betragsformat</span>
+                                <span class="converter-chip bg-gray-100 text-gray-600">Lexware-CSV</span>
+                            </div>
+                            <div class="converter-card__action">
+                                <div class="converter-card__action-inner">
+                                    <span class="text-sm font-semibold">Konverter öffnen</span>
+                                    <span aria-hidden="true" class="text-2xl leading-none">→</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="mt-6 flex items-center justify-between text-sm font-medium text-[#0018A8]">
-                            <span>Konverter öffnen</span>
-                            <span>→</span>
-                        </div>
-                    </a>
+                    </button>
 
-                    <a href="revolut/"
-                        class="group block rounded-sm border border-gray-200 bg-white p-7 text-left shadow-sm transition-all hover:-translate-y-1 hover:border-[#191C1F]/30 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#191C1F]/10">
-                        <div class="flex items-start justify-between gap-4">
-                            <img src="assets/logos/revolut.svg" alt="Revolut Logo"
-                                class="h-10 w-auto transition-transform group-hover:scale-105" />
+                    <button type="button" onclick="openTool('revolut')"
+                        class="converter-card surface-card group hover:-translate-y-1 hover:border-[#191C1F]/30 hover:bg-gray-50/30 focus:outline-none focus:ring-2 focus:ring-[#191C1F]/20">
+                        <div class="converter-card__header">
+                            <div class="converter-card__brand">
+                                <img src="assets/logos/revolut.svg" alt="Revolut Logo"
+                                    class="brand-logo brand-logo--revolut group-hover:scale-105" />
+                            </div>
                             <span
                                 class="inline-flex items-center rounded-full bg-[#191C1F]/10 px-3 py-1 text-xs font-semibold text-[#191C1F]">Live</span>
                         </div>
-                        <h2 class="mt-6 text-2xl font-bold text-gray-800">Revolut</h2>
-                        <p class="mt-1 text-sm text-gray-600">
-                            Revolut-Exporte für Lexware aufbereiten, auch bei älteren oder mehrwährungsfähigen
-                            Umsätzen.
-                        </p>
-                        <div class="mt-5 flex flex-wrap gap-2">
-                            <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">Historische Umsätze</span>
-                            <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">Mehrwährung</span>
-                            <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">Lexware-Import</span>
-                        </div>
-                        <div class="mt-6 flex items-center justify-between text-sm font-medium text-[#191C1F]">
-                            <span>Konverter öffnen</span>
-                            <span>→</span>
-                        </div>
-                    </a>
-
-                    <div
-                        class="rounded-sm border border-gray-200 bg-white p-7 text-left shadow-sm md:col-span-2 xl:col-span-3">
-                        <div class="flex flex-col gap-6 xl:flex-row xl:items-start xl:justify-between">
-                            <div class="max-w-2xl">
-                                <div class="flex items-start justify-between gap-4 xl:block">
-                                    <span
-                                        class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#C40029]/10 text-lg text-[#C40029]">＋</span>
-                                    <span
-                                        class="inline-flex items-center rounded-full bg-[#C40029]/10 px-3 py-1 text-xs font-semibold text-[#C40029] xl:mt-4">Feedback</span>
+                        <div class="converter-card__body">
+                            <div class="converter-card__title">
+                                <h2 class="text-2xl font-bold text-gray-800">Revolut</h2>
+                            </div>
+                            <p class="converter-card__description text-sm text-gray-600">
+                                Revolut-Exporte für Lexware aufbereiten, auch bei älteren oder mehrwährungsfähigen
+                                Umsätzen.
+                            </p>
+                            <div class="converter-card__chips">
+                                <span class="converter-chip bg-gray-100 text-gray-600">Historische Umsätze</span>
+                                <span class="converter-chip bg-gray-100 text-gray-600">Mehrwährung</span>
+                                <span class="converter-chip bg-gray-100 text-gray-600">Lexware-Import</span>
+                            </div>
+                            <div class="converter-card__action">
+                                <div class="converter-card__action-inner">
+                                    <span class="text-sm font-semibold">Konverter öffnen</span>
+                                    <span aria-hidden="true" class="text-2xl leading-none">→</span>
                                 </div>
-                                <h2 class="mt-6 text-2xl font-bold text-gray-800">Weitere Bank anfragen</h2>
-                                <p class="mt-2 text-sm text-gray-600 leading-relaxed">
-                                    Fehlt Ihr Bankkonto oder Zahlungsanbieter noch, senden Sie den Wunsch direkt aus der
-                                    Übersicht. Die Anfrage öffnet nur Ihr Mailprogramm, ohne Datenbank und ohne
-                                    Serverlogik.
+                            </div>
+                        </div>
+                    </button>
+
+                    <div class="request-strip rounded-[2rem] p-6 text-left md:col-span-2 md:p-8 xl:col-span-3">
+                        <div class="grid gap-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(23rem,0.95fr)] xl:items-center">
+                            <div class="max-w-2xl">
+                                <div class="flex flex-wrap items-center gap-3">
+                                    <span
+                                        class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#C40029]/10 text-xl font-semibold text-[#C40029]">＋</span>
+                                    <span
+                                        class="inline-flex items-center rounded-full bg-[#C40029]/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#C40029]">Feedback</span>
+                                    <span
+                                        class="surface-chip inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em]">
+                                        <span class="h-2 w-2 rounded-full bg-[#003087]"></span>
+                                        Neue Quelle
+                                    </span>
+                                </div>
+                                <h2 class="mt-5 text-3xl font-bold tracking-tight text-gray-800 md:text-[2.4rem]">Weitere Bank anfragen</h2>
+                                <p class="mt-3 max-w-xl text-[15px] leading-7 text-gray-600 md:text-base">
+                                    Fehlt Ihre Bank noch, senden Sie den Wunsch direkt aus der Übersicht. Die Anfrage
+                                    bleibt lokal und öffnet nur Ihr Mailprogramm.
                                 </p>
                             </div>
 
-                            <form class="w-full xl:max-w-xl xl:min-w-[26rem]" onsubmit="sendBankRequest(event)">
-                                <div class="grid gap-3 md:grid-cols-[1.1fr_1.3fr_auto]">
-                                    <input id="requestBankName" type="text" placeholder="Bank oder Anbieter"
-                                        class="w-full rounded-sm border border-gray-200 bg-gray-50 px-3 py-3 text-sm text-gray-800 outline-none transition-colors focus:border-[#003087] focus:bg-white" />
-                                    <input id="requestBankDetails" type="text" placeholder="Exportformat oder kurzer Hinweis (optional)"
-                                        class="w-full rounded-sm border border-gray-200 bg-gray-50 px-3 py-3 text-sm text-gray-800 outline-none transition-colors focus:border-[#003087] focus:bg-white" />
-                                    <button type="submit"
-                                        class="rounded-sm bg-[#003087] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#002569]">
-                                        Anfrage senden
-                                    </button>
-                                </div>
-                                <p id="requestBankStatus" class="mt-3 text-xs text-gray-500">
-                                    Öffnet Ihr Mailprogramm. Keine Datenbank, keine Serverlogik.
-                                </p>
-                            </form>
+                            <div class="request-form-shell rounded-[1.5rem] p-4 md:p-5">
+                                <form class="w-full" onsubmit="sendBankRequest(event)">
+                                    <div class="grid gap-3">
+                                        <label class="flex flex-col gap-2 text-left">
+                                            <span class="text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-500">Bank oder Anbieter</span>
+                                            <input id="requestBankName" type="text" placeholder="z. B. N26, Wise oder AMEX"
+                                                class="surface-input w-full rounded-2xl px-4 py-3 text-sm outline-none" />
+                                        </label>
+                                    </div>
+                                    <div class="mt-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                                        <p id="requestBankStatus" class="status-note text-xs md:max-w-xs">
+                                            Öffnet Ihr Mailprogramm. Die Anfrage bleibt lokal im Browser.
+                                        </p>
+                                        <button type="submit"
+                                            class="inline-flex min-w-[13rem] flex-nowrap items-center justify-center gap-2 rounded-2xl bg-[#003087] px-6 py-3 text-sm font-semibold text-white shadow-md transition-colors hover:bg-[#002569]">
+                                            <span class="whitespace-nowrap">Anfrage senden</span>
+                                            <span aria-hidden="true">↗</span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -249,13 +758,13 @@
                 </button>
             </div>
 
-            <header>
+            <header class="text-center">
             <div
                 class="inline-flex items-center space-x-2 text-green-600 bg-green-50 px-3 py-1 rounded-full text-xs font-medium mb-4">
                 <span>🔒</span>
                 <span>100% Lokal & Privat - Dateien verlassen Ihren PC nicht</span>
             </div>
-            <h1 class="text-6xl font-extrabold mb-2 tracking-tight">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-2 tracking-tight">
                 <span class="text-[#003087]">PayPal</span><span class="text-gray-300 mx-2">2</span><span
                     class="text-[#C40029]">Lexware</span>
             </h1>
@@ -269,7 +778,7 @@
                 direkt in Lexware importieren können.
             </p>
             <div id="drop-zone"
-                class="border-2 border-dashed border-gray-300 rounded-sm p-16 text-center transition-all hover:border-[#003087] hover:bg-blue-50/30 cursor-pointer bg-white shadow-sm group">
+                class="border-2 border-dashed border-gray-300 rounded-xl p-8 sm:p-16 text-center transition-all hover:border-[#003087] hover:bg-blue-50/30 cursor-pointer bg-white shadow-sm group">
                 <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">📂</div>
                 <p class="text-xl font-medium text-gray-700 group-hover:text-[#003087] transition-colors">Paypal
                     CSV-Datei "Abgeschlossene Zahlungen" hier ablegen
@@ -280,7 +789,7 @@
 
             <!-- Date Selection Section (Collapsible) -->
             <div id="date-selection-container"
-                class="hidden mt-8 bg-white p-6 rounded-sm shadow-sm border border-gray-200 max-w-xl mx-auto text-left">
+                class="hidden mt-8 bg-white p-6 rounded-xl shadow-sm border border-gray-200 max-w-xl mx-auto text-left">
                 <button onclick="toggleDateSelection()"
                     class="flex items-center justify-between w-full text-left group focus:outline-none">
                     <div>
@@ -298,16 +807,16 @@
                         <div>
                             <label for="startDate" class="block text-sm font-medium text-gray-700 mb-1">Von</label>
                             <input type="date" id="startDate"
-                                class="w-full border-gray-300 rounded-sm shadow-sm focus:border-[#003087] focus:ring focus:ring-[#003087] focus:ring-opacity-50">
+                                class="w-full border-gray-300 rounded-lg shadow-sm focus:border-[#003087] focus:ring focus:ring-[#003087] focus:ring-opacity-50">
                         </div>
                         <div>
                             <label for="endDate" class="block text-sm font-medium text-gray-700 mb-1">Bis</label>
                             <input type="date" id="endDate"
-                                class="w-full border-gray-300 rounded-sm shadow-sm focus:border-[#003087] focus:ring focus:ring-[#003087] focus:ring-opacity-50">
+                                class="w-full border-gray-300 rounded-lg shadow-sm focus:border-[#003087] focus:ring focus:ring-[#003087] focus:ring-opacity-50">
                         </div>
                     </div>
                     <button onclick="startConversion()"
-                        class="w-full px-6 py-3 rounded-sm bg-[#003087] text-white font-bold shadow-md hover:bg-[#002569] transition-all transform hover:-translate-y-0.5">
+                        class="w-full px-6 py-3 rounded-lg bg-[#003087] text-white font-bold shadow-md hover:bg-[#002569] transition-all transform hover:-translate-y-0.5">
                         Zeitraum anwenden & Konvertieren
                     </button>
                 </div>
@@ -327,11 +836,11 @@
                 <p class="mt-2 text-xs text-gray-500 animate-pulse">Lade Wechselkurse & berechne Gebühren...</p>
             </div>
 
-            <div id="status" class="hidden mt-6 p-4 rounded-sm text-sm font-medium border-l-4"></div>
+            <div id="status" class="hidden mt-6 p-4 rounded-xl text-sm font-medium border-l-4"></div>
 
             <div id="download-area" class="hidden mt-8">
                 <a id="downloadLink"
-                    class="inline-block px-10 py-4 rounded-sm bg-[#003087] text-white font-bold shadow-md hover:bg-[#002569] transition-all transform hover:-translate-y-0.5">
+                    class="inline-block px-10 py-4 rounded-lg bg-[#003087] text-white font-bold shadow-md hover:bg-[#002569] transition-all transform hover:-translate-y-0.5">
                     Lexware CSV herunterladen
                 </a>
             </div>
@@ -340,7 +849,7 @@
         <!-- Conversion Details Table (Collapsible) -->
         <section id="details-section">
             <div id="conversion-details-container"
-                class="hidden mt-8 text-left max-w-4xl mx-auto bg-white rounded-sm shadow-sm border border-gray-200 overflow-hidden transition-all">
+                class="hidden mt-8 text-left max-w-4xl mx-auto bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-all">
                 <button onclick="toggleDetails()"
                     class="flex items-center justify-between w-full p-6 text-left group focus:outline-none hover:bg-gray-50 transition-colors">
                     <div>
@@ -378,10 +887,10 @@
 
         <!-- Feature Overview -->
         <section id="features-section" class="mt-16 text-left max-w-2xl mx-auto">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Warum dieses Tool besser ist</h2>
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Was dieses Tool leistet</h2>
             <div class="grid gap-6 md:grid-cols-2">
                 <div
-                    class="bg-white p-8 rounded-sm shadow-sm border border-gray-200 hover:border-[#003087]/30 transition-colors">
+                    class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 hover:border-[#003087]/30 transition-colors">
                     <h3 class="font-bold text-gray-800 mb-2 flex items-center"><span class="text-xl mr-2">✨</span>
                         Intelligente Bereinigung</h3>
                     <p class="text-sm text-gray-600 leading-relaxed">Reduziert die Buchungsflut drastisch, indem
@@ -389,7 +898,7 @@
                         bleibt sauber und übersichtlich.</p>
                 </div>
                 <div
-                    class="bg-white p-8 rounded-sm shadow-sm border border-gray-200 hover:border-[#003087]/30 transition-colors">
+                    class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 hover:border-[#003087]/30 transition-colors">
                     <h3 class="font-bold text-gray-800 mb-2 flex items-center"><span class="text-xl mr-2">⚖️</span>
                         Smarte Konfliktlösung</h3>
                     <p class="text-sm text-gray-600 leading-relaxed">Verarbeitet Konfliktfälle logisch: Gewonnene Fälle
@@ -397,7 +906,7 @@
                         verbucht.</p>
                 </div>
                 <div
-                    class="bg-white p-8 rounded-sm shadow-sm border border-gray-200 hover:border-[#003087]/30 transition-colors">
+                    class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 hover:border-[#003087]/30 transition-colors">
                     <h3 class="font-bold text-gray-800 mb-2 flex items-center"><span class="text-xl mr-2">🌍</span>
                         Profi-Währungsumrechnung</h3>
                     <p class="text-sm text-gray-600 leading-relaxed">Erkennt versteckte FX-Gebühren bei Fremdwährungen
@@ -405,7 +914,7 @@
                         Währungen.</p>
                 </div>
                 <div
-                    class="bg-white p-8 rounded-sm shadow-sm border border-gray-200 hover:border-[#003087]/30 transition-colors">
+                    class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 hover:border-[#003087]/30 transition-colors">
                     <h3 class="font-bold text-gray-800 mb-2 flex items-center"><span class="text-xl mr-2">📊</span>
                         Exaktes Gebühren-Splitting</h3>
                     <p class="text-sm text-gray-600 leading-relaxed">Jede Transaktion wird in Brutto-Umsatz und separate
@@ -416,8 +925,8 @@
 
         <!-- Instructions / SEO Content -->
         <section id="instructions-section"
-            class="mt-16 text-left max-w-2xl mx-auto bg-white p-8 rounded-sm shadow-sm border border-gray-200">
-            <h2 class="text-xl font-bold text-gray-800 mb-4">Anleitung: PayPal CSV für Lexware vorbereiten</h2>
+            class="mt-16 text-left max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Anleitung: PayPal CSV in Lexware importieren</h2>
             <ol class="list-decimal list-inside space-y-3 text-sm text-gray-600 leading-relaxed">
                 <li>Loggen Sie sich in Ihr <strong>PayPal-Geschäftskonto</strong> ein.</li>
                 <li>Gehen Sie zu "Aktivitäten" -> "Alle Berichte".</li>
@@ -436,22 +945,22 @@
         <section id="faq-section" class="mt-16 text-left max-w-2xl mx-auto">
             <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Häufig gestellte Fragen (FAQ)</h2>
             <div class="space-y-4">
-                <div class="bg-white p-6 rounded-sm shadow-sm border border-gray-200">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                     <h3 class="font-bold text-gray-800 mb-2">Ist das Tool wirklich kostenlos?</h3>
                     <p class="text-sm text-gray-600">Ja, das Tool ist komplett kostenlos und Open Source. Es gibt keine
                         versteckten Kosten oder Abos.</p>
                 </div>
-                <div class="bg-white p-6 rounded-sm shadow-sm border border-gray-200">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                     <h3 class="font-bold text-gray-800 mb-2">Werden meine Daten gespeichert?</h3>
                     <p class="text-sm text-gray-600">Nein. Die Verarbeitung erfolgt zu 100% lokal in Ihrem Browser. Ihre
                         Finanzdaten verlassen niemals Ihren Computer.</p>
                 </div>
-                <div class="bg-white p-6 rounded-sm shadow-sm border border-gray-200">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                     <h3 class="font-bold text-gray-800 mb-2">Wie werden Fremdwährungen umgerechnet?</h3>
                     <p class="text-sm text-gray-600">Das Tool nutzt automatisch die offiziellen EZB-Referenzkurse des
                         jeweiligen Buchungstages für eine steuerlich korrekte Umrechnung.</p>
                 </div>
-                <div class="bg-white p-6 rounded-sm shadow-sm border border-gray-200">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                     <h3 class="font-bold text-gray-800 mb-2">Welches Format benötigt Lexware?</h3>
                     <p class="text-sm text-gray-600">Lexware benötigt ein spezifisches CSV-Format (DATEV-kompatibel).
                         Dieses Tool erstellt genau dieses Format automatisch aus Ihrem PayPal-Export.</p>
@@ -459,49 +968,349 @@
             </div>
         </section>
 
-        <!-- Social Share -->
-        <section id="share-section" class="mt-16 text-center">
-            <h3 class="text-lg font-semibold text-gray-700 mb-4">Finden Sie das Tool hilfreich?</h3>
-            <div class="flex justify-center space-x-4">
-                <a href="https://twitter.com/intent/tweet?text=Geniales%20Tool%20f%C3%BCr%20PayPal%20zu%20Lexware%20Konvertierung!%20Kostenlos%20und%20Lokal.&url=https%3A%2F%2Falanozalp.github.io%2Fpaypal-to-lexware%2F"
-                    target="_blank" rel="noopener noreferrer"
-                    class="px-4 py-2 bg-black text-white rounded-full text-sm font-medium hover:bg-gray-800 transition-colors">
-                    Auf X teilen
-                </a>
-                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Falanozalp.github.io%2Fpaypal-to-lexware%2F"
-                    target="_blank" rel="noopener noreferrer"
-                    class="px-4 py-2 bg-blue-700 text-white rounded-full text-sm font-medium hover:bg-blue-800 transition-colors">
-                    Auf LinkedIn teilen
-                </a>
-                <a href="mailto:?subject=Tipp: PayPal zu Lexware Konverter&body=Hi, schau dir mal dieses Tool an: https://alanozalp.github.io/paypal-to-lexware/ - Es konvertiert PayPal CSVs perfekt für Lexware."
-                    class="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-300 transition-colors">
-                    Per E-Mail senden
-                </a>
-            </div>
-        </section>
+        </div>
 
+        <!-- Deutsche Bank View -->
+        <div id="deutsche-bank-view" class="hidden">
+            <div class="max-w-3xl mx-auto text-left mb-8">
+                <button type="button" onclick="showHub()"
+                    class="inline-flex items-center gap-2 text-sm font-medium text-[#0018A8] hover:text-[#001080] transition-colors">
+                    <span>←</span>
+                    <span>Zur Übersicht</span>
+                </button>
+            </div>
+
+            <header class="text-center">
+                <div class="inline-flex items-center space-x-2 text-green-600 bg-green-50 px-3 py-1 rounded-full text-xs font-medium mb-4">
+                    <span>🔒</span>
+                    <span>100% Lokal & Privat - Dateien verlassen Ihren PC nicht</span>
+                </div>
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-2 tracking-tight">
+                    <span class="text-[#0018A8]">DeutscheBank</span><span class="text-gray-300 mx-2">2</span><span class="text-[#C40029]">Lexware</span>
+                </h1>
+            </header>
+
+            <section class="mt-12 max-w-3xl mx-auto text-center">
+                <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+                    <span class="font-semibold text-[#0018A8] block mb-2">Konvertieren Sie Ihre Deutsche Bank Umsätze für Lexware.</span>
+                    Laden Sie hier Ihren Deutsche Bank CSV-Export hoch. Generieren Sie daraus automatisch eine CSV-Datei, die Sie direkt in Lexware importieren können.
+                </p>
+                <div id="db-drop-zone"
+                    class="border-2 border-dashed border-gray-300 rounded-xl p-8 sm:p-16 text-center transition-all hover:border-[#0018A8] hover:bg-blue-50/30 cursor-pointer bg-white shadow-sm group">
+                    <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">🏦</div>
+                    <p class="text-xl font-medium text-gray-700 group-hover:text-[#0018A8] transition-colors">Deutsche Bank CSV-Datei hier ablegen</p>
+                    <p class="text-sm text-gray-400 mt-3">oder klicken zum Auswählen</p>
+                    <input type="file" id="db-fileInput" accept=".csv" class="hidden" />
+                </div>
+
+                <div id="db-date-selection-container" class="hidden mt-8 bg-white p-6 rounded-xl shadow-sm border border-gray-200 max-w-xl mx-auto text-left">
+                    <button onclick="DB.toggleDateSelection()" class="flex items-center justify-between w-full text-left group focus:outline-none">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 group-hover:text-[#0018A8] transition-colors">Zeitraum anpassen (Optional)</h3>
+                            <p class="text-sm text-gray-500 mt-1">Standardmäßig wird der gesamte Zeitraum der Datei konvertiert.</p>
+                        </div>
+                        <span id="db-date-selection-icon" class="text-2xl text-gray-400 group-hover:text-[#0018A8] transition-transform transform">▼</span>
+                    </button>
+                    <div id="db-date-selection-content" class="hidden mt-6 transition-all duration-300 ease-in-out">
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div>
+                                <label for="db-startDate" class="block text-sm font-medium text-gray-700 mb-1">Von</label>
+                                <input type="date" id="db-startDate" class="w-full border-gray-300 rounded-lg shadow-sm focus:border-[#0018A8] focus:ring focus:ring-[#0018A8] focus:ring-opacity-50">
+                            </div>
+                            <div>
+                                <label for="db-endDate" class="block text-sm font-medium text-gray-700 mb-1">Bis</label>
+                                <input type="date" id="db-endDate" class="w-full border-gray-300 rounded-lg shadow-sm focus:border-[#0018A8] focus:ring focus:ring-[#0018A8] focus:ring-opacity-50">
+                            </div>
+                        </div>
+                        <button onclick="DB.startConversion()" class="w-full px-6 py-3 rounded-lg bg-[#0018A8] text-white font-bold shadow-md hover:bg-[#001080] transition-all transform hover:-translate-y-0.5">
+                            Zeitraum anwenden & Konvertieren
+                        </button>
+                    </div>
+                </div>
+
+                <div id="db-loading-indicator" class="hidden mt-8 max-w-md mx-auto">
+                    <div class="flex justify-between mb-1">
+                        <span class="text-sm font-medium text-[#0018A8]">Verarbeite Daten...</span>
+                        <span id="db-progress-text" class="text-sm font-medium text-[#0018A8]">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                        <div id="db-progress-bar" class="bg-[#0018A8] h-2.5 rounded-full transition-all duration-300 ease-out" style="width: 0%"></div>
+                    </div>
+                    <p class="mt-2 text-xs text-gray-500 animate-pulse">Konvertiere Buchungen...</p>
+                </div>
+
+                <div id="db-status" class="hidden mt-6 p-4 rounded-xl text-sm font-medium border-l-4"></div>
+
+                <div id="db-download-area" class="hidden mt-8">
+                    <a id="db-downloadLink" class="inline-block px-10 py-4 rounded-lg bg-[#0018A8] text-white font-bold shadow-md hover:bg-[#001080] transition-all transform hover:-translate-y-0.5">
+                        Lexware CSV herunterladen
+                    </a>
+                </div>
+            </section>
+
+            <section>
+                <div id="db-conversion-details-container" class="hidden mt-8 text-left max-w-4xl mx-auto bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-all">
+                    <button onclick="DB.toggleDetails()" class="flex items-center justify-between w-full p-6 text-left group focus:outline-none hover:bg-gray-50 transition-colors">
+                        <div>
+                            <h3 id="db-details-title" class="text-lg font-bold text-gray-800 group-hover:text-[#0018A8] transition-colors">Konvertierungsdetails</h3>
+                            <p id="db-details-subtitle" class="text-sm text-gray-500 mt-1">Hier sehen Sie eine Vorschau der konvertierten Buchungen.</p>
+                        </div>
+                        <span id="db-details-icon" class="text-2xl text-gray-400 group-hover:text-[#0018A8] transition-transform transform">▼</span>
+                    </button>
+                    <div id="db-conversion-details-content" class="hidden border-t border-gray-100">
+                        <div class="overflow-x-auto bg-white max-h-96">
+                            <table class="min-w-full text-sm text-left text-gray-500">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b sticky top-0">
+                                    <tr>
+                                        <th class="px-4 py-3">Datum</th>
+                                        <th class="px-4 py-3">Auftraggeber/Empfänger</th>
+                                        <th class="px-4 py-3">Verwendungszweck</th>
+                                        <th class="px-4 py-3 text-right">Betrag</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="db-conversion-table-body" class="divide-y divide-gray-100"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mt-16 text-left max-w-2xl mx-auto">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Was dieses Tool leistet</h2>
+                <div class="grid gap-6 md:grid-cols-2">
+                    <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 hover:border-[#0018A8]/30 transition-colors">
+                        <h3 class="font-bold text-gray-800 mb-2 flex items-center"><span class="text-xl mr-2">📅</span> Datumskonvertierung</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Automatische Umwandlung vom US-Format (M/D/YYYY) in das deutsche Format (DD.MM.YYYY), das Lexware benötigt.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 hover:border-[#0018A8]/30 transition-colors">
+                        <h3 class="font-bold text-gray-800 mb-2 flex items-center"><span class="text-xl mr-2">💶</span> Einheitlicher Betrag</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Einnahmen (positiv) und Ausgaben (negativ) werden in einer einzigen Betrag-Spalte zusammengefasst.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 hover:border-[#0018A8]/30 transition-colors">
+                        <h3 class="font-bold text-gray-800 mb-2 flex items-center"><span class="text-xl mr-2">🔢</span> Zahlenformatierung</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Konvertierung der Beträge ins deutsche Format mit Komma als Dezimaltrennzeichen.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 hover:border-[#0018A8]/30 transition-colors">
+                        <h3 class="font-bold text-gray-800 mb-2 flex items-center"><span class="text-xl mr-2">🧹</span> Header-Bereinigung</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Automatisches Überspringen von Kontoinformationen und Metadaten am Anfang der Deutsche Bank CSV.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mt-16 text-left max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Anleitung: Deutsche Bank CSV in Lexware importieren</h2>
+                <ol class="list-decimal list-inside space-y-3 text-sm text-gray-600 leading-relaxed">
+                    <li>Loggen Sie sich in Ihr <strong>Deutsche Bank Online-Banking</strong> ein.</li>
+                    <li>Gehen Sie zu "Umsätze" oder "Kontoauszüge".</li>
+                    <li>Wählen Sie den gewünschten Zeitraum aus.</li>
+                    <li>Exportieren Sie die Umsätze als <strong>CSV-Datei</strong>.</li>
+                    <li>Laden Sie die erstellte CSV-Datei herunter und ziehen Sie sie oben in das Feld.</li>
+                </ol>
+            </section>
+
+            <section class="mt-16 text-left max-w-2xl mx-auto">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Häufig gestellte Fragen (FAQ)</h2>
+                <div class="space-y-4">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                        <h3 class="font-bold text-gray-800 mb-2">Ist das Tool wirklich kostenlos?</h3>
+                        <p class="text-sm text-gray-600">Ja, das Tool ist komplett kostenlos. Es gibt keine versteckten Kosten oder Abos.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                        <h3 class="font-bold text-gray-800 mb-2">Werden meine Daten gespeichert?</h3>
+                        <p class="text-sm text-gray-600">Nein. Die Verarbeitung erfolgt zu 100% lokal in Ihrem Browser. Ihre Finanzdaten verlassen niemals Ihren Computer.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                        <h3 class="font-bold text-gray-800 mb-2">Welches Format benötigt Lexware?</h3>
+                        <p class="text-sm text-gray-600">Lexware benötigt ein CSV mit Datum (DD.MM.YYYY), Auftraggeber/Empfänger, Verwendungszweck und Betrag (positiv für Einnahmen, negativ für Ausgaben).</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                        <h3 class="font-bold text-gray-800 mb-2">Warum werden manche Zeilen übersprungen?</h3>
+                        <p class="text-sm text-gray-600">Zeilen ohne Verwendungszweck oder ohne Betrag werden übersprungen, da Lexware diese Pflichtfelder erfordert.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Revolut View -->
+        <div id="revolut-view" class="hidden">
+            <div class="max-w-3xl mx-auto text-left mb-8">
+                <button type="button" onclick="showHub()"
+                    class="inline-flex items-center gap-2 text-sm font-medium text-[#0666EB] hover:text-[#0555CC] transition-colors">
+                    <span>←</span>
+                    <span>Zur Übersicht</span>
+                </button>
+            </div>
+
+            <header class="text-center">
+                <div class="inline-flex items-center space-x-2 text-green-600 bg-green-50 px-3 py-1 rounded-full text-xs font-medium mb-4">
+                    <span>🔒</span>
+                    <span>100% Lokal & Privat - Dateien verlassen Ihren PC nicht</span>
+                </div>
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-2 tracking-tight">
+                    <span class="text-[#0666EB]">Revolut</span><span class="text-gray-300 mx-2">2</span><span class="text-[#C40029]">Lexware</span>
+                </h1>
+            </header>
+
+            <section class="mt-12 max-w-3xl mx-auto text-center">
+                <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+                    <span class="font-semibold text-[#0666EB] block mb-2">Revolut-Kontoauszüge blitzschnell für Lexware aufbereiten.</span>
+                    Laden Sie hier Ihren Revolut CSV-Kontoauszug hoch. Generieren Sie daraus automatisch eine CSV-Datei, die Sie direkt in Lexware importieren können.
+                </p>
+                <div id="rev-drop-zone"
+                    class="border-2 border-dashed border-gray-300 rounded-xl p-8 sm:p-16 text-center transition-all hover:border-[#0666EB] hover:bg-blue-50/30 cursor-pointer bg-white shadow-sm group">
+                    <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">📂</div>
+                    <p class="text-xl font-medium text-gray-700 group-hover:text-[#0666EB] transition-colors">Revolut CSV-Kontoauszug hier ablegen</p>
+                    <p class="text-sm text-gray-400 mt-3">oder klicken zum Auswählen</p>
+                    <input type="file" id="rev-fileInput" accept=".csv" class="hidden" />
+                </div>
+
+                <div id="rev-date-selection-container" class="hidden mt-8 bg-white p-6 rounded-xl shadow-sm border border-gray-200 max-w-xl mx-auto text-left">
+                    <button onclick="REV.toggleDateSelection()" class="flex items-center justify-between w-full text-left group focus:outline-none">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 group-hover:text-[#0666EB] transition-colors">Zeitraum anpassen (Optional)</h3>
+                            <p class="text-sm text-gray-500 mt-1">Standardmäßig wird der gesamte Zeitraum der Datei konvertiert.</p>
+                        </div>
+                        <span id="rev-date-selection-icon" class="text-2xl text-gray-400 group-hover:text-[#0666EB] transition-transform transform">▼</span>
+                    </button>
+                    <div id="rev-date-selection-content" class="hidden mt-6 transition-all duration-300 ease-in-out">
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div>
+                                <label for="rev-startDate" class="block text-sm font-medium text-gray-700 mb-1">Von</label>
+                                <input type="date" id="rev-startDate" class="w-full border-gray-300 rounded-lg shadow-sm focus:border-[#0666EB] focus:ring focus:ring-[#0666EB] focus:ring-opacity-50">
+                            </div>
+                            <div>
+                                <label for="rev-endDate" class="block text-sm font-medium text-gray-700 mb-1">Bis</label>
+                                <input type="date" id="rev-endDate" class="w-full border-gray-300 rounded-lg shadow-sm focus:border-[#0666EB] focus:ring focus:ring-[#0666EB] focus:ring-opacity-50">
+                            </div>
+                        </div>
+                        <button onclick="REV.startConversion()" class="w-full px-6 py-3 rounded-lg bg-[#0666EB] text-white font-bold shadow-md hover:bg-[#0555CC] transition-all transform hover:-translate-y-0.5">
+                            Zeitraum anwenden & Konvertieren
+                        </button>
+                    </div>
+                </div>
+
+                <div id="rev-loading-indicator" class="hidden mt-8 max-w-md mx-auto">
+                    <div class="flex justify-between mb-1">
+                        <span class="text-sm font-medium text-[#0666EB]">Verarbeite Daten...</span>
+                        <span id="rev-progress-text" class="text-sm font-medium text-[#0666EB]">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                        <div id="rev-progress-bar" class="bg-[#0666EB] h-2.5 rounded-full transition-all duration-300 ease-out" style="width: 0%"></div>
+                    </div>
+                    <p class="mt-2 text-xs text-gray-500 animate-pulse">Lade Wechselkurse & verarbeite Transaktionen...</p>
+                </div>
+
+                <div id="rev-status" class="hidden mt-6 p-4 rounded-xl text-sm font-medium border-l-4"></div>
+
+                <div id="rev-download-area" class="hidden mt-8">
+                    <a id="rev-downloadLink" class="inline-block px-10 py-4 rounded-lg bg-[#0666EB] text-white font-bold shadow-md hover:bg-[#0555CC] transition-all transform hover:-translate-y-0.5">
+                        Lexware CSV herunterladen
+                    </a>
+                </div>
+            </section>
+
+            <section>
+                <div id="rev-conversion-details-container" class="hidden mt-8 text-left max-w-4xl mx-auto bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-all">
+                    <button onclick="REV.toggleDetails()" class="flex items-center justify-between w-full p-6 text-left group focus:outline-none hover:bg-gray-50 transition-colors">
+                        <div>
+                            <h3 id="rev-details-title" class="text-lg font-bold text-gray-800 group-hover:text-[#0666EB] transition-colors">Umrechnungsdetails</h3>
+                            <p id="rev-details-subtitle" class="text-sm text-gray-500 mt-1">Hier sehen Sie alle durchgeführten Währungsumrechnungen und Gebühren.</p>
+                        </div>
+                        <span id="rev-details-icon" class="text-2xl text-gray-400 group-hover:text-[#0666EB] transition-transform transform">▼</span>
+                    </button>
+                    <div id="rev-conversion-details-content" class="hidden border-t border-gray-100">
+                        <div class="overflow-x-auto bg-white">
+                            <table class="min-w-full text-sm text-left text-gray-500">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b">
+                                    <tr>
+                                        <th class="px-4 py-3">Datum</th>
+                                        <th class="px-4 py-3">Beschreibung</th>
+                                        <th class="px-4 py-3">Währung</th>
+                                        <th class="px-4 py-3">Kurs</th>
+                                        <th class="px-4 py-3">Gebühr (EUR)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="rev-conversion-table-body" class="divide-y divide-gray-100"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mt-16 text-left max-w-2xl mx-auto">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Was dieses Tool leistet</h2>
+                <div class="grid gap-6 md:grid-cols-2">
+                    <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 hover:border-[#0666EB]/30 transition-colors">
+                        <h3 class="font-bold text-gray-800 mb-2 flex items-center"><span class="text-xl mr-2">🧹</span> Automatische Filterung</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Fehlgeschlagene und rückgängig gemachte Transaktionen (REVERTED) werden automatisch entfernt. Nur abgeschlossene Buchungen landen in Lexware.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 hover:border-[#0666EB]/30 transition-colors">
+                        <h3 class="font-bold text-gray-800 mb-2 flex items-center"><span class="text-xl mr-2">📊</span> Gebühren-Splitting</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Revolut-Gebühren werden als separate Buchungszeilen ausgewiesen. Essenziell für die korrekte steuerliche Erfassung in Lexware.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 hover:border-[#0666EB]/30 transition-colors">
+                        <h3 class="font-bold text-gray-800 mb-2 flex items-center"><span class="text-xl mr-2">🌍</span> Währungsumrechnung</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Fremdwährungstransaktionen werden automatisch mit dem offiziellen EZB-Kurs des Buchungstages in EUR umgerechnet. Steuerlich korrekt.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 hover:border-[#0666EB]/30 transition-colors">
+                        <h3 class="font-bold text-gray-800 mb-2 flex items-center"><span class="text-xl mr-2">🔒</span> 100% Lokal & Privat</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Ihre Finanzdaten verlassen niemals Ihren Computer. Die gesamte Verarbeitung findet lokal in Ihrem Browser statt. Kein Upload, kein Server.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mt-16 text-left max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Anleitung: Revolut CSV in Lexware importieren</h2>
+                <ol class="list-decimal list-inside space-y-3 text-sm text-gray-600 leading-relaxed">
+                    <li>Loggen Sie sich in Ihr <strong>Revolut-Konto</strong> ein (App oder Web).</li>
+                    <li>Gehen Sie zu <strong>Konten</strong> und wählen Sie das gewünschte Konto.</li>
+                    <li>Klicken Sie auf <strong>Kontoauszug</strong> (Statement).</li>
+                    <li>Wählen Sie den gewünschten Zeitraum und das Format <strong>CSV</strong>.</li>
+                    <li>Laden Sie die CSV-Datei herunter und ziehen Sie sie oben in das Feld.</li>
+                    <li>Laden Sie die konvertierte Datei herunter und importieren Sie sie in Lexware.</li>
+                </ol>
+            </section>
+
+            <section class="mt-16 text-left max-w-2xl mx-auto">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Häufig gestellte Fragen (FAQ)</h2>
+                <div class="space-y-4">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                        <h3 class="font-bold text-gray-800 mb-2">Ist das Tool wirklich kostenlos?</h3>
+                        <p class="text-sm text-gray-600">Ja, das Tool ist komplett kostenlos und Open Source. Es gibt keine versteckten Kosten oder Abos.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                        <h3 class="font-bold text-gray-800 mb-2">Werden meine Daten gespeichert?</h3>
+                        <p class="text-sm text-gray-600">Nein. Die Verarbeitung erfolgt zu 100% lokal in Ihrem Browser. Ihre Finanzdaten verlassen niemals Ihren Computer.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                        <h3 class="font-bold text-gray-800 mb-2">Wie werden Fremdwährungen umgerechnet?</h3>
+                        <p class="text-sm text-gray-600">Das Tool nutzt automatisch die offiziellen EZB-Referenzkurse des jeweiligen Buchungstages für eine steuerlich korrekte Umrechnung.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                        <h3 class="font-bold text-gray-800 mb-2">Was passiert mit fehlgeschlagenen Transaktionen?</h3>
+                        <p class="text-sm text-gray-600">Transaktionen mit dem Status REVERTED oder FAILED werden automatisch herausgefiltert und nicht in die Lexware-Datei übernommen. Nur COMPLETED Transaktionen werden verarbeitet.</p>
+                    </div>
+                </div>
+            </section>
         </div>
 
         <!-- Footer -->
-        <footer class="mt-20 text-gray-500 text-sm">
-            <div class="max-w-4xl mx-auto rounded-sm border border-gray-200 bg-white shadow-sm">
-                <div class="px-6 py-6 md:px-8">
+        <footer class="footer-rail mt-20 text-gray-500 text-sm">
+            <div class="max-w-4xl mx-auto px-2 pt-8">
                     <div class="flex flex-col items-center gap-4 text-center">
                         <p class="text-sm text-gray-500">Entwickelt von <span class="font-semibold text-gray-700">Alan Özalp</span></p>
                         <div class="flex flex-col items-center gap-3 md:flex-row md:gap-4">
                             <button onclick="copyEmail()"
                                 class="group relative inline-flex items-center space-x-2 rounded-full border border-gray-200 bg-gray-50 px-4 py-2 hover:border-[#003087]/20 hover:bg-blue-50 hover:text-[#003087] transition-all duration-300 focus:outline-none">
-                                <span id="contact-icon" class="text-lg group-hover:scale-110 transition-transform">✉️</span>
-                                <span id="contact-text" class="font-medium">Kontakt: al.oezalp@gmail.com</span>
+                            <span id="contact-icon" class="text-lg group-hover:scale-110 transition-transform">✉️</span>
+                            <span id="contact-text" class="font-medium">Kontakt: al.oezalp@gmail.com</span>
 
-                                <!-- Tooltip -->
+                            <!-- Tooltip -->
                                 <span id="copy-tooltip"
                                     class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-300 pointer-events-none">
                                     In Zwischenablage kopieren
                                 </span>
                             </button>
-                            <span class="hidden text-gray-300 md:inline">•</span>
-                            <span class="text-sm text-gray-500">Offen für Vorschläge</span>
                         </div>
                         <div
                             class="inline-flex items-center space-x-2 rounded-full border border-green-100 bg-green-50 px-4 py-2 text-xs font-medium text-green-700">
@@ -509,7 +1318,6 @@
                             <span>100% Lokal & Privat - Dateien verlassen Ihren PC nicht</span>
                         </div>
                         <p class="text-xs uppercase tracking-[0.18em] text-gray-400">Kostenlos zur Verfügung gestellt.</p>
-                    </div>
                 </div>
             </div>
         </footer>
@@ -517,19 +1325,28 @@
     </main>
 
     <script>
-        function setActiveView(view, updateHash = true) {
-            const homeView = document.getElementById('home-view');
-            const paypalView = document.getElementById('paypal-view');
-            const showPayPal = view === 'paypal';
+        (function() {
+            var mq = window.matchMedia('(prefers-color-scheme: dark)');
+            mq.addEventListener('change', function(e) {
+                document.documentElement.classList.toggle('theme-dark', e.matches);
+                document.documentElement.style.colorScheme = e.matches ? 'dark' : 'light';
+            });
+        })();
 
-            homeView.classList.toggle('hidden', showPayPal);
-            paypalView.classList.toggle('hidden', !showPayPal);
+        var ALL_VIEWS = ['home', 'paypal', 'deutsche-bank', 'revolut'];
+
+        function setActiveView(view, updateHash = true) {
+            ALL_VIEWS.forEach(function(v) {
+                var id = v === 'home' ? 'home-view' : v + '-view';
+                var el = document.getElementById(id);
+                if (el) el.classList.toggle('hidden', v !== view);
+            });
 
             if (updateHash) {
-                if (showPayPal) {
-                    window.location.hash = 'paypal';
+                if (view !== 'home') {
+                    window.location.hash = view;
                 } else {
-                    history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+                    history.replaceState(null, '', window.location.pathname + window.location.search);
                 }
             }
         }
@@ -545,8 +1362,9 @@
         }
 
         function syncViewFromHash() {
-            if (window.location.hash === '#paypal') {
-                setActiveView('paypal', false);
+            var hash = window.location.hash.replace('#', '');
+            if (ALL_VIEWS.indexOf(hash) !== -1 && hash !== 'home') {
+                setActiveView(hash, false);
             } else {
                 setActiveView('home', false);
             }
@@ -556,12 +1374,11 @@
             event.preventDefault();
 
             const bankName = document.getElementById('requestBankName').value.trim();
-            const details = document.getElementById('requestBankDetails').value.trim();
             const status = document.getElementById('requestBankStatus');
 
             if (!bankName) {
                 status.textContent = "Bitte geben Sie mindestens eine Bank oder einen Anbieter an.";
-                status.className = "mt-3 text-xs text-[#C40029]";
+                status.className = "text-xs font-medium text-[#C40029]";
                 return;
             }
 
@@ -572,7 +1389,6 @@
                 "ich wünsche mir einen weiteren Importpfad für Bank2Lexware.",
                 "",
                 `Bank / Anbieter: ${bankName}`,
-                `Hinweis zum Export: ${details || "Keine zusätzlichen Angaben"}`,
                 "",
                 "Wenn hilfreich, kann ich auch eine Beispiel-CSV bereitstellen."
             ];
@@ -580,7 +1396,7 @@
             const mailtoUrl = `mailto:al.oezalp@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
 
             status.textContent = "Mail wird vorbereitet.";
-            status.className = "mt-3 text-xs text-gray-500";
+            status.className = "status-note text-xs";
             window.location.href = mailtoUrl;
         }
 
@@ -595,7 +1411,7 @@
                 const subtitle = document.getElementById('details-subtitle');
 
                 container.classList.remove('hidden');
-                container.className = "mt-8 text-left max-w-4xl mx-auto bg-green-50 rounded-sm shadow-sm border border-green-200 overflow-hidden transition-all";
+                container.className = "mt-8 text-left max-w-4xl mx-auto bg-green-50 rounded-xl shadow-sm border border-green-200 overflow-hidden transition-all";
 
                 title.innerHTML = `✅ ${message}`;
                 title.className = "text-lg font-bold text-green-800 flex items-center";
@@ -605,7 +1421,7 @@
 
             } else {
                 statusEl.textContent = message;
-                statusEl.className = 'mt-6 p-4 rounded-sm text-sm font-medium bg-blue-50 text-[#003087] border-l-4 border-[#003087]';
+                statusEl.className = 'mt-6 p-4 rounded-xl text-sm font-medium bg-blue-50 text-[#003087] border-l-4 border-[#003087]';
                 statusEl.classList.remove('hidden');
 
                 // Hide details if showing info (loading)
@@ -618,7 +1434,7 @@
         function showError(message) {
             const statusEl = document.getElementById('status');
             statusEl.textContent = "⚠️ " + message;
-            statusEl.className = 'mt-6 p-4 rounded-sm text-sm font-medium bg-red-50 text-[#C40029] border-l-4 border-[#C40029]';
+            statusEl.className = 'mt-6 p-4 rounded-xl text-sm font-medium bg-red-50 text-[#C40029] border-l-4 border-[#C40029]';
             statusEl.classList.remove('hidden');
             document.getElementById('loading-indicator').classList.add('hidden');
             document.getElementById('conversion-details-container').classList.add('hidden');
@@ -1519,6 +2335,703 @@
 
         window.addEventListener('hashchange', syncViewFromHash);
         syncViewFromHash();
+
+        // ═══════════════════════════════════════════════
+        // DEUTSCHE BANK CONVERTER (namespaced)
+        // ═══════════════════════════════════════════════
+        window.DB = (function() {
+            function el(id) { return document.getElementById('db-' + id); }
+
+            var rawCSVData = [];
+            var progressInterval;
+
+            function showStatus(message, type) {
+                type = type || 'info';
+                var statusEl = el('status');
+                if (type === 'success') {
+                    statusEl.classList.add('hidden');
+                    var container = el('conversion-details-container');
+                    var title = el('details-title');
+                    var subtitle = el('details-subtitle');
+                    container.classList.remove('hidden');
+                    container.className = "mt-8 text-left max-w-4xl mx-auto bg-green-50 rounded-xl shadow-sm border border-green-200 overflow-hidden transition-all";
+                    title.innerHTML = '✅ ' + message;
+                    title.className = "text-lg font-bold text-green-800 flex items-center";
+                    subtitle.textContent = "Hier klicken für Buchungsvorschau";
+                    subtitle.className = "text-sm text-green-600 mt-1";
+                } else {
+                    statusEl.textContent = message;
+                    statusEl.className = 'mt-6 p-4 rounded-xl text-sm font-medium bg-blue-50 text-[#0018A8] border-l-4 border-[#0018A8]';
+                    statusEl.classList.remove('hidden');
+                    if (type === 'info') el('conversion-details-container').classList.add('hidden');
+                }
+            }
+
+            function showError(message) {
+                var statusEl = el('status');
+                statusEl.textContent = "⚠️ " + message;
+                statusEl.className = 'mt-6 p-4 rounded-xl text-sm font-medium bg-red-50 text-[#C40029] border-l-4 border-[#C40029]';
+                statusEl.classList.remove('hidden');
+                el('loading-indicator').classList.add('hidden');
+                el('conversion-details-container').classList.add('hidden');
+            }
+
+            function resetUI() {
+                el('status').classList.add('hidden');
+                el('download-area').classList.add('hidden');
+                el('date-selection-container').classList.add('hidden');
+                el('date-selection-content').classList.add('hidden');
+                el('date-selection-icon').style.transform = 'rotate(0deg)';
+                el('loading-indicator').classList.add('hidden');
+                stopProgress();
+                el('conversion-details-container').classList.add('hidden');
+                el('conversion-details-content').classList.add('hidden');
+                el('details-icon').style.transform = 'rotate(0deg)';
+                el('conversion-table-body').innerHTML = '';
+            }
+
+            function toggleDetails() {
+                var content = el('conversion-details-content');
+                var icon = el('details-icon');
+                if (content.classList.contains('hidden')) {
+                    content.classList.remove('hidden');
+                    icon.style.transform = 'rotate(180deg)';
+                } else {
+                    content.classList.add('hidden');
+                    icon.style.transform = 'rotate(0deg)';
+                }
+            }
+
+            function toggleDateSelection() {
+                var content = el('date-selection-content');
+                var icon = el('date-selection-icon');
+                if (content.classList.contains('hidden')) {
+                    content.classList.remove('hidden');
+                    icon.style.transform = 'rotate(180deg)';
+                } else {
+                    content.classList.add('hidden');
+                    icon.style.transform = 'rotate(0deg)';
+                }
+            }
+
+            function renderConversionDetails(rows) {
+                var tbody = el('conversion-table-body');
+                tbody.innerHTML = '';
+                if (rows.length === 0) {
+                    var tr = document.createElement('tr');
+                    tr.innerHTML = '<td colspan="4" class="px-4 py-3 text-center text-gray-500">Keine Buchungen gefunden.</td>';
+                    tbody.appendChild(tr);
+                } else {
+                    var previewRows = rows.slice(0, 50);
+                    previewRows.forEach(function(row) {
+                        var tr = document.createElement('tr');
+                        tr.className = "bg-white hover:bg-gray-50 transition-colors";
+                        var betrag = row['Betrag'] || '';
+                        var isNeg = betrag.startsWith('-');
+                        var betragClass = isNeg ? 'text-red-600 font-medium' : 'text-green-600 font-medium';
+                        tr.innerHTML =
+                            '<td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">' + (row['Datum'] || '-') + '</td>' +
+                            '<td class="px-4 py-3 text-gray-600 max-w-xs truncate">' + (row['Auftraggeber/Empfänger'] || '-') + '</td>' +
+                            '<td class="px-4 py-3 text-gray-600 max-w-sm truncate">' + (row['Verwendungszweck'] || '-') + '</td>' +
+                            '<td class="px-4 py-3 text-right ' + betragClass + '">' + (betrag || '-') + '</td>';
+                        tbody.appendChild(tr);
+                    });
+                    if (rows.length > 50) {
+                        var tr2 = document.createElement('tr');
+                        tr2.innerHTML = '<td colspan="4" class="px-4 py-3 text-center text-gray-500 italic">... und ' + (rows.length - 50) + ' weitere Buchungen</td>';
+                        tbody.appendChild(tr2);
+                    }
+                }
+            }
+
+            function startProgress() {
+                var bar = el('progress-bar');
+                var text = el('progress-text');
+                var width = 0;
+                bar.style.width = '0%';
+                text.textContent = '0%';
+                clearInterval(progressInterval);
+                progressInterval = setInterval(function() {
+                    if (width >= 90) { clearInterval(progressInterval); return; }
+                    width += Math.random() * 15;
+                    if (width > 90) width = 90;
+                    bar.style.width = width + '%';
+                    text.textContent = Math.round(width) + '%';
+                }, 100);
+            }
+
+            function stopProgress() { clearInterval(progressInterval); }
+
+            function completeProgress() {
+                clearInterval(progressInterval);
+                el('progress-bar').style.width = '100%';
+                el('progress-text').textContent = '100%';
+            }
+
+            function getVal(row) {
+                var keys = Array.prototype.slice.call(arguments, 1);
+                var rowKeys = Object.keys(row);
+                for (var i = 0; i < keys.length; i++) {
+                    var ek = rowKeys.find(function(k) { return k.trim().toLowerCase() === keys[i].toLowerCase(); });
+                    if (ek && row[ek]) return row[ek];
+                }
+                for (var i = 0; i < keys.length; i++) {
+                    var fk = rowKeys.find(function(k) { return k.trim().toLowerCase().includes(keys[i].toLowerCase()); });
+                    if (fk && row[fk]) return row[fk];
+                }
+                return "";
+            }
+
+            function convertDate(dateStr) {
+                if (!dateStr) return null;
+                var parts;
+                if (dateStr.includes('/')) {
+                    parts = dateStr.split('/');
+                    if (parts.length === 3) return parts[1].padStart(2,'0') + '.' + parts[0].padStart(2,'0') + '.' + parts[2];
+                } else if (dateStr.includes('.')) {
+                    return dateStr;
+                } else if (dateStr.includes('-')) {
+                    parts = dateStr.split('-');
+                    if (parts.length === 3) return parts[2] + '.' + parts[1] + '.' + parts[0];
+                }
+                return dateStr;
+            }
+
+            function toISODate(dateStr) {
+                if (!dateStr) return null;
+                if (dateStr.includes('/')) {
+                    var parts = dateStr.split('/');
+                    if (parts.length === 3) return parts[2] + '-' + parts[0].padStart(2,'0') + '-' + parts[1].padStart(2,'0');
+                } else if (dateStr.includes('.')) {
+                    var parts = dateStr.split('.');
+                    if (parts.length === 3) return parts[2] + '-' + parts[1] + '-' + parts[0];
+                }
+                return dateStr;
+            }
+
+            function cleanAmountWithSign(amountStr) {
+                if (!amountStr || amountStr.trim() === '') return '';
+                var amount = amountStr.trim();
+                var isNeg = amount.startsWith('-');
+                amount = amount.replace('-', '').replace(/,/g, '');
+                var num = parseFloat(amount);
+                if (isNaN(num)) return '';
+                var formatted = num.toFixed(2).replace('.', ',');
+                return isNeg ? '-' + formatted : formatted;
+            }
+
+            function cleanAmount(amountStr) {
+                if (!amountStr || amountStr.trim() === '') return '';
+                var amount = amountStr.trim().replace('-', '').replace(/,/g, '');
+                var num = parseFloat(amount);
+                if (isNaN(num)) return '';
+                return num.toFixed(2).replace('.', ',');
+            }
+
+            function sanitizeCSVField(field) {
+                if (!field) return '';
+                return String(field).replace(/;/g, ',').replace(/"/g, '').replace(/[\r\n]+/g, ' ').trim();
+            }
+
+            function showDateSelection(data) {
+                var minDate = null, maxDate = null;
+                data.forEach(function(row) {
+                    var dateStr = getVal(row, "Booking date", "Buchungsdatum");
+                    if (dateStr) {
+                        var isoDate = toISODate(dateStr);
+                        if (isoDate) {
+                            if (!minDate || isoDate < minDate) minDate = isoDate;
+                            if (!maxDate || isoDate > maxDate) maxDate = isoDate;
+                        }
+                    }
+                });
+                if (minDate && maxDate) {
+                    el('startDate').value = minDate;
+                    el('endDate').value = maxDate;
+                    el('startDate').min = minDate;
+                    el('startDate').max = maxDate;
+                    el('endDate').min = minDate;
+                    el('endDate').max = maxDate;
+                }
+                el('date-selection-container').classList.remove('hidden');
+                startConversion();
+            }
+
+            function parseCSV(file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var text = e.target.result;
+                    var lines = text.split('\n');
+                    var headerIndex = -1;
+                    for (var i = 0; i < lines.length; i++) {
+                        if (lines[i].includes('Booking date') || lines[i].includes('Buchungsdatum')) {
+                            headerIndex = i;
+                            break;
+                        }
+                    }
+                    if (headerIndex === -1) {
+                        showError("Keine gültige Deutsche Bank CSV-Datei erkannt. Header-Zeile mit 'Booking date' nicht gefunden.");
+                        return;
+                    }
+                    var csvContent = lines.slice(headerIndex).join('\n');
+                    Papa.parse(csvContent, {
+                        header: true, skipEmptyLines: true, delimiter: ';',
+                        complete: function(results) {
+                            if (results.errors.length > 0 && results.data.length === 0) {
+                                showError("Fehler beim Lesen der CSV-Datei: " + results.errors[0].message);
+                                return;
+                            }
+                            rawCSVData = results.data;
+                            showDateSelection(rawCSVData);
+                        },
+                        error: function(err) { showError("Parsing Fehler: " + err.message); }
+                    });
+                };
+                reader.readAsText(file, 'UTF-8');
+            }
+
+            function startConversion() {
+                var startDate = el('startDate').value;
+                var endDate = el('endDate').value;
+                el('status').classList.add('hidden');
+                el('loading-indicator').classList.remove('hidden');
+                startProgress();
+                var filteredData;
+                if (startDate && endDate) {
+                    filteredData = rawCSVData.filter(function(row) {
+                        var dateStr = getVal(row, "Booking date", "Buchungsdatum");
+                        if (!dateStr) return false;
+                        var isoDate = toISODate(dateStr);
+                        return isoDate && isoDate >= startDate && isoDate <= endDate;
+                    });
+                } else {
+                    filteredData = rawCSVData;
+                }
+                if (filteredData.length === 0) { showError("Keine Transaktionen gefunden."); return; }
+                setTimeout(function() { processData(filteredData); }, 100);
+            }
+
+            function processData(data) {
+                var outputRows = [];
+                var skipped = 0;
+                data.forEach(function(row) {
+                    var bookingDate = getVal(row, "Booking date", "Buchungsdatum");
+                    var beneficiary = getVal(row, "Beneficiary", "Originator", "Auftraggeber", "Empfänger");
+                    var paymentDetails = getVal(row, "Payment Details", "Verwendungszweck");
+                    var transactionType = getVal(row, "Transaction Type", "Transaktionsart");
+                    var originalAmount = getVal(row, "Original Amount");
+                    var debit = getVal(row, "Debit", "Soll");
+                    var credit = getVal(row, "Credit", "Haben");
+                    if (!bookingDate) { skipped++; return; }
+                    if (bookingDate.toLowerCase().includes('account balance') || bookingDate.toLowerCase().includes('kontostand')) { skipped++; return; }
+                    var datum = convertDate(bookingDate);
+                    var auftraggeber = beneficiary.trim() || transactionType.trim();
+                    var verwendungszweck = paymentDetails.trim();
+                    if (!verwendungszweck) verwendungszweck = transactionType ? transactionType + ' - ' + auftraggeber : auftraggeber;
+                    if (!verwendungszweck) verwendungszweck = "Keine Angabe";
+                    var betrag = '';
+                    if (originalAmount && originalAmount.trim()) betrag = cleanAmountWithSign(originalAmount);
+                    else if (credit && credit.trim()) betrag = cleanAmount(credit);
+                    else if (debit && debit.trim()) betrag = cleanAmountWithSign(debit);
+                    if (betrag) {
+                        outputRows.push({ 'Datum': datum, 'Auftraggeber/Empfänger': auftraggeber, 'Verwendungszweck': verwendungszweck, 'Betrag': betrag });
+                    } else { skipped++; }
+                });
+                if (outputRows.length === 0) { showError("Keine gültigen Transaktionen gefunden."); stopProgress(); return; }
+                var header = 'Datum;Auftraggeber/Empfänger;Verwendungszweck;Betrag';
+                var lines = outputRows.map(function(row) {
+                    return row['Datum'] + ';' + sanitizeCSVField(row['Auftraggeber/Empfänger']) + ';' + sanitizeCSVField(row['Verwendungszweck']) + ';' + row['Betrag'];
+                });
+                var csvContent = header + '\n' + lines.join('\n');
+                var utf8Bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+                var blob = new Blob([utf8Bom, csvContent], { type: 'text/csv;charset=utf-8;' });
+                var url = URL.createObjectURL(blob);
+                var downloadLink = el('downloadLink');
+                downloadLink.href = url;
+                var filenameDatePart = "export";
+                if (outputRows.length > 0) {
+                    var fp = outputRows[0]['Datum'].split('.');
+                    var lp = outputRows[outputRows.length - 1]['Datum'].split('.');
+                    var firstDate = fp[2] + '-' + fp[1] + '-' + fp[0];
+                    var lastDate = lp[2] + '-' + lp[1] + '-' + lp[0];
+                    filenameDatePart = firstDate === lastDate ? firstDate : firstDate + '_bis_' + lastDate;
+                }
+                downloadLink.download = 'DeutscheBank_' + filenameDatePart + '_lexware_import.csv';
+                completeProgress();
+                setTimeout(function() {
+                    el('download-area').classList.remove('hidden');
+                    el('loading-indicator').classList.add('hidden');
+                    var statusMsg = outputRows.length + ' Buchungen erfolgreich konvertiert.';
+                    if (skipped > 0) statusMsg += ' (' + skipped + ' Zeilen ohne Betrag/Datum übersprungen)';
+                    showStatus(statusMsg, "success");
+                    renderConversionDetails(outputRows);
+                }, 400);
+            }
+
+            // Init drag/drop
+            var dropZone = el('drop-zone');
+            var fileInput = el('fileInput');
+            dropZone.addEventListener('click', function() { fileInput.click(); });
+            dropZone.addEventListener('dragover', function(e) { e.preventDefault(); dropZone.classList.add('border-[#0018A8]', 'bg-blue-50/30'); });
+            dropZone.addEventListener('dragleave', function() { dropZone.classList.remove('border-[#0018A8]', 'bg-blue-50/30'); });
+            dropZone.addEventListener('drop', function(e) {
+                e.preventDefault();
+                dropZone.classList.remove('border-[#0018A8]', 'bg-blue-50/30');
+                if (e.dataTransfer.files.length) { resetUI(); parseCSV(e.dataTransfer.files[0]); }
+            });
+            fileInput.addEventListener('change', function(e) {
+                if (e.target.files.length) { resetUI(); parseCSV(e.target.files[0]); }
+            });
+
+            return { toggleDetails: toggleDetails, toggleDateSelection: toggleDateSelection, startConversion: startConversion };
+        })();
+
+        // ═══════════════════════════════════════════════
+        // REVOLUT CONVERTER (namespaced)
+        // ═══════════════════════════════════════════════
+        window.REV = (function() {
+            function el(id) { return document.getElementById('rev-' + id); }
+
+            var rawCSVData = [];
+            var progressInterval;
+
+            function showStatus(message, type) {
+                type = type || 'info';
+                var statusEl = el('status');
+                if (type === 'success') {
+                    statusEl.classList.add('hidden');
+                    var container = el('conversion-details-container');
+                    var title = el('details-title');
+                    var subtitle = el('details-subtitle');
+                    container.classList.remove('hidden');
+                    container.className = "mt-8 text-left max-w-4xl mx-auto bg-green-50 rounded-xl shadow-sm border border-green-200 overflow-hidden transition-all";
+                    title.innerHTML = '✅ ' + message;
+                    title.className = "text-lg font-bold text-green-800 flex items-center";
+                    subtitle.textContent = "Hier klicken für Umrechnungsdetails & Gebühren";
+                    subtitle.className = "text-sm text-green-600 mt-1";
+                } else {
+                    statusEl.textContent = message;
+                    statusEl.className = 'mt-6 p-4 rounded-xl text-sm font-medium bg-blue-50 text-[#0666EB] border-l-4 border-[#0666EB]';
+                    statusEl.classList.remove('hidden');
+                    if (type === 'info') el('conversion-details-container').classList.add('hidden');
+                }
+            }
+
+            function showError(message) {
+                var statusEl = el('status');
+                statusEl.textContent = "⚠️ " + message;
+                statusEl.className = 'mt-6 p-4 rounded-xl text-sm font-medium bg-red-50 text-[#C40029] border-l-4 border-[#C40029]';
+                statusEl.classList.remove('hidden');
+                el('loading-indicator').classList.add('hidden');
+                el('conversion-details-container').classList.add('hidden');
+            }
+
+            function resetUI() {
+                el('status').classList.add('hidden');
+                el('download-area').classList.add('hidden');
+                el('date-selection-container').classList.add('hidden');
+                el('date-selection-content').classList.add('hidden');
+                el('date-selection-icon').style.transform = 'rotate(0deg)';
+                el('loading-indicator').classList.add('hidden');
+                stopProgress();
+                el('conversion-details-container').classList.add('hidden');
+                el('conversion-details-content').classList.add('hidden');
+                el('details-icon').style.transform = 'rotate(0deg)';
+                el('conversion-table-body').innerHTML = '';
+            }
+
+            function toggleDetails() {
+                var content = el('conversion-details-content');
+                var icon = el('details-icon');
+                if (content.classList.contains('hidden')) {
+                    content.classList.remove('hidden');
+                    icon.style.transform = 'rotate(180deg)';
+                } else {
+                    content.classList.add('hidden');
+                    icon.style.transform = 'rotate(0deg)';
+                }
+            }
+
+            function toggleDateSelection() {
+                var content = el('date-selection-content');
+                var icon = el('date-selection-icon');
+                if (content.classList.contains('hidden')) {
+                    content.classList.remove('hidden');
+                    icon.style.transform = 'rotate(180deg)';
+                } else {
+                    content.classList.add('hidden');
+                    icon.style.transform = 'rotate(0deg)';
+                }
+            }
+
+            function renderConversionDetails(logs) {
+                var tbody = el('conversion-table-body');
+                tbody.innerHTML = '';
+                if (logs.length === 0) {
+                    var tr = document.createElement('tr');
+                    tr.innerHTML = '<td colspan="5" class="px-4 py-3 text-center text-gray-500">Keine Währungsumrechnungen oder Gebührenanpassungen erforderlich.</td>';
+                    tbody.appendChild(tr);
+                } else {
+                    logs.forEach(function(log) {
+                        var tr = document.createElement('tr');
+                        tr.className = "bg-white hover:bg-gray-50 transition-colors";
+                        tr.innerHTML =
+                            '<td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">' + log.date + '</td>' +
+                            '<td class="px-4 py-3 text-gray-600">' + (log.description || '-') + '</td>' +
+                            '<td class="px-4 py-3 text-gray-600">' + log.currency + '</td>' +
+                            '<td class="px-4 py-3 text-gray-600">' + log.rate + '</td>' +
+                            '<td class="px-4 py-3 font-medium ' + (log.fee > 0 ? 'text-red-600' : 'text-gray-400') + '">' +
+                                (log.fee > 0 ? '-' + log.fee.toFixed(2).replace('.', ',') + ' €' : '-') + '</td>';
+                        tbody.appendChild(tr);
+                    });
+                }
+            }
+
+            function startProgress() {
+                var bar = el('progress-bar');
+                var text = el('progress-text');
+                var width = 0;
+                bar.style.width = '0%';
+                text.textContent = '0%';
+                clearInterval(progressInterval);
+                progressInterval = setInterval(function() {
+                    if (width >= 90) { clearInterval(progressInterval); return; }
+                    width += Math.random() * 10;
+                    if (width > 90) width = 90;
+                    bar.style.width = width + '%';
+                    text.textContent = Math.round(width) + '%';
+                }, 200);
+            }
+
+            function stopProgress() { clearInterval(progressInterval); }
+
+            function completeProgress() {
+                clearInterval(progressInterval);
+                el('progress-bar').style.width = '100%';
+                el('progress-text').textContent = '100%';
+            }
+
+            function getVal(row, key) {
+                var foundKey = Object.keys(row).find(function(k) { return k.trim().toLowerCase() === key.toLowerCase(); });
+                return foundKey ? (row[foundKey] || '').trim() : '';
+            }
+
+            function extractISODate(row) {
+                var completedDate = getVal(row, 'Completed Date');
+                var startedDate = getVal(row, 'Started Date');
+                var dateStr = completedDate || startedDate;
+                if (!dateStr) return null;
+                return dateStr.split(' ')[0];
+            }
+
+            function isoToGermanDate(isoDate) {
+                var parts = isoDate.split('-');
+                return parts[2] + '.' + parts[1] + '.' + parts[0];
+            }
+
+            function toGerman(num) { return num.toFixed(2).replace('.', ','); }
+
+            var typeTranslations = {
+                'Card Payment': 'Kartenzahlung', 'Exchange': 'Umtausch', 'Transfer': 'Überweisung',
+                'Topup': 'Aufladung', 'ATM': 'Geldautomat', 'Reward': 'Belohnung', 'Fee': 'Gebühr',
+                'Card Refund': 'Kartenrückerstattung', 'Correction': 'Korrektur'
+            };
+            function translateType(type) { return typeTranslations[type] || type; }
+
+            async function fetchExchangeRate(date, currency) {
+                var url = 'https://api.frankfurter.app/' + date + '?from=EUR&to=' + currency;
+                var response = await fetch(url);
+                if (!response.ok) throw new Error('API Error: ' + response.status);
+                var data = await response.json();
+                return data.rates[currency];
+            }
+
+            async function fetchNeededRates(data) {
+                var needed = new Set();
+                data.forEach(function(row) {
+                    var currency = getVal(row, 'Currency');
+                    if (currency && currency !== 'EUR') {
+                        var isoDate = extractISODate(row);
+                        if (isoDate) needed.add(isoDate + '_' + currency);
+                    }
+                });
+                var rates = {};
+                var promises = Array.from(needed).map(async function(key) {
+                    var parts = key.split('_');
+                    try { rates[key] = await fetchExchangeRate(parts[0], parts[1]); }
+                    catch(e) { console.warn('Could not fetch rate for ' + key, e); }
+                });
+                await Promise.all(promises);
+                return rates;
+            }
+
+            function showDateSelection(data) {
+                var minDate = null, maxDate = null;
+                data.forEach(function(row) {
+                    var isoDate = extractISODate(row);
+                    if (isoDate) {
+                        if (!minDate || isoDate < minDate) minDate = isoDate;
+                        if (!maxDate || isoDate > maxDate) maxDate = isoDate;
+                    }
+                });
+                if (minDate && maxDate) {
+                    el('startDate').value = minDate;
+                    el('endDate').value = maxDate;
+                    el('startDate').min = minDate;
+                    el('startDate').max = maxDate;
+                    el('endDate').min = minDate;
+                    el('endDate').max = maxDate;
+                }
+                el('date-selection-container').classList.remove('hidden');
+                startConversion();
+            }
+
+            function parseCSV(file) {
+                Papa.parse(file, {
+                    header: true, skipEmptyLines: true, encoding: "UTF-8",
+                    complete: async function(results) {
+                        if (results.errors.length > 0 && results.data.length === 0) {
+                            showError("Fehler beim Lesen der CSV-Datei: " + results.errors[0].message);
+                            return;
+                        }
+                        if (results.data.length > 0) {
+                            var firstRow = results.data[0];
+                            if (!getVal(firstRow, 'Type') || !getVal(firstRow, 'Amount') || !getVal(firstRow, 'State')) {
+                                showError("Diese Datei scheint kein Revolut CSV-Kontoauszug zu sein.");
+                                return;
+                            }
+                        }
+                        rawCSVData = results.data;
+                        showDateSelection(rawCSVData);
+                    },
+                    error: function(err) { showError("Parsing Fehler: " + err.message); }
+                });
+            }
+
+            async function startConversion() {
+                var startDate = el('startDate').value;
+                var endDate = el('endDate').value;
+                if (!startDate || !endDate) { showError("Bitte Start- und Enddatum wählen."); return; }
+                el('status').classList.add('hidden');
+                el('loading-indicator').classList.remove('hidden');
+                startProgress();
+                var filteredData = rawCSVData.filter(function(row) {
+                    var state = getVal(row, 'State');
+                    if (state !== 'COMPLETED') return false;
+                    var isoDate = extractISODate(row);
+                    if (!isoDate) return false;
+                    return isoDate >= startDate && isoDate <= endDate;
+                });
+                if (filteredData.length === 0) { showError("Keine abgeschlossenen Transaktionen im gewählten Zeitraum gefunden."); return; }
+                try {
+                    var rates = await fetchNeededRates(filteredData);
+                    processData(filteredData, rates);
+                } catch(err) {
+                    console.error(err);
+                    showError("Fehler bei der Verarbeitung: " + err.message);
+                    stopProgress();
+                }
+            }
+
+            function processData(data, rates) {
+                var outputRows = [];
+                var conversionLogs = [];
+                for (var i = 0; i < data.length; i++) {
+                    var row = data[i];
+                    var type = getVal(row, 'Type');
+                    var description = getVal(row, 'Description');
+                    var amountStr = getVal(row, 'Amount');
+                    var feeStr = getVal(row, 'Fee');
+                    var currency = getVal(row, 'Currency');
+                    var isoDate = extractISODate(row);
+                    if (!isoDate) continue;
+                    var amount = parseFloat(amountStr);
+                    var fee = parseFloat(feeStr);
+                    if (isNaN(amount)) continue;
+                    var germanDate = isoToGermanDate(isoDate);
+                    var translatedType = translateType(type);
+                    var finalAmount = amount;
+                    var verwendungszweck = translatedType + ': ' + description;
+                    if (currency && currency !== 'EUR') {
+                        var rateKey = isoDate + '_' + currency;
+                        var ezbRate = rates[rateKey];
+                        if (ezbRate) {
+                            finalAmount = amount / ezbRate;
+                            verwendungszweck += ' (EZB-Kurs: ' + ezbRate + ')';
+                            conversionLogs.push({ date: germanDate, currency: currency, rate: ezbRate, fee: 0, description: description });
+                        }
+                    }
+                    outputRows.push({
+                        "Buchungsdatum": germanDate, "Auftraggeber/Empfänger": description,
+                        "Verwendungszweck": verwendungszweck, "Betrag": toGerman(finalAmount), "Zusatzinfo": translatedType
+                    });
+                    if (!isNaN(fee) && Math.abs(fee) > 0.001) {
+                        var finalFee = -Math.abs(fee);
+                        if (currency && currency !== 'EUR') {
+                            var rk = isoDate + '_' + currency;
+                            if (rates[rk]) finalFee = finalFee / rates[rk];
+                        }
+                        outputRows.push({
+                            "Buchungsdatum": germanDate, "Auftraggeber/Empfänger": "Revolut",
+                            "Verwendungszweck": 'Revolut-Gebühr zu "' + description + '"',
+                            "Betrag": toGerman(finalFee), "Zusatzinfo": "Zinsen/Gebühren"
+                        });
+                        conversionLogs.push({ date: germanDate, currency: currency || 'EUR', rate: '-', fee: Math.abs(finalFee), description: 'Gebühr: ' + description });
+                    }
+                }
+                outputRows.sort(function(a, b) {
+                    var dateA = a["Buchungsdatum"].split('.').reverse().join('-');
+                    var dateB = b["Buchungsdatum"].split('.').reverse().join('-');
+                    return dateA.localeCompare(dateB);
+                });
+                if (outputRows.length === 0) { showError("Keine gültigen Transaktionen gefunden."); stopProgress(); return; }
+                var sanitized = outputRows.map(function(row) {
+                    var clean = {};
+                    for (var key in row) clean[key] = String(row[key]).replace(/;/g, ',').replace(/"/g, '');
+                    return clean;
+                });
+                var csvContent = Papa.unparse(sanitized, { delimiter: ";", quotes: false });
+                var bytes = new Uint8Array(csvContent.length);
+                for (var i = 0; i < csvContent.length; i++) bytes[i] = csvContent.charCodeAt(i) & 0xFF;
+                var blob = new Blob([bytes], { type: 'text/csv;charset=iso-8859-1;' });
+                var url = URL.createObjectURL(blob);
+                var downloadLink = el('downloadLink');
+                downloadLink.href = url;
+                var filenameDatePart = "export";
+                if (outputRows.length > 0) {
+                    var fp = outputRows[0]["Buchungsdatum"].split('.');
+                    var lp = outputRows[outputRows.length - 1]["Buchungsdatum"].split('.');
+                    var firstDate = fp[2] + '-' + fp[1] + '-' + fp[0];
+                    var lastDate = lp[2] + '-' + lp[1] + '-' + lp[0];
+                    filenameDatePart = firstDate === lastDate ? firstDate : firstDate + '_bis_' + lastDate;
+                }
+                downloadLink.download = filenameDatePart + '_revolut_lexware_import.csv';
+                completeProgress();
+                setTimeout(function() {
+                    el('download-area').classList.remove('hidden');
+                    el('loading-indicator').classList.add('hidden');
+                    showStatus(outputRows.length + ' Zeilen erfolgreich generiert.', "success");
+                    renderConversionDetails(conversionLogs);
+                }, 600);
+            }
+
+            // Init drag/drop
+            var dropZone = el('drop-zone');
+            var fileInput = el('fileInput');
+            dropZone.addEventListener('click', function() { fileInput.click(); });
+            dropZone.addEventListener('dragover', function(e) { e.preventDefault(); dropZone.classList.add('border-[#0666EB]', 'bg-blue-50/30'); });
+            dropZone.addEventListener('dragleave', function() { dropZone.classList.remove('border-[#0666EB]', 'bg-blue-50/30'); });
+            dropZone.addEventListener('drop', function(e) {
+                e.preventDefault();
+                dropZone.classList.remove('border-[#0666EB]', 'bg-blue-50/30');
+                if (e.dataTransfer.files.length) { resetUI(); parseCSV(e.dataTransfer.files[0]); }
+            });
+            fileInput.addEventListener('change', function(e) {
+                if (e.target.files.length) { resetUI(); parseCSV(e.target.files[0]); }
+            });
+
+            return { toggleDetails: toggleDetails, toggleDateSelection: toggleDateSelection, startConversion: startConversion };
+        })();
     </script>
 </body>
 

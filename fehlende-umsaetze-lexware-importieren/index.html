@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fehlende Umsätze in Lexware importieren | Bank2Lexware</title>
+    <meta name="description"
+        content="Fehlende Umsätze in Lexware per CSV nachimportieren. Leitfaden für historische Zeiträume, manuelle Korrekturen und Bank- oder PayPal-Exporte mit Bank2Lexware.">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Alan Özalp">
+    <meta name="theme-color" content="#f4f6fa">
+    <link rel="canonical" href="https://www.bank2lexware.de/fehlende-umsaetze-lexware-importieren/">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💶</text></svg>">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Fehlende Umsätze in Lexware importieren | Bank2Lexware">
+    <meta property="og:description"
+        content="Praxisleitfaden für das Nachimportieren fehlender Umsätze in Lexware per CSV aus PayPal-, Revolut- oder Bankexporten.">
+    <meta property="og:locale" content="de_DE">
+    <meta property="og:site_name" content="Bank2Lexware">
+    <meta property="og:url" content="https://www.bank2lexware.de/fehlende-umsaetze-lexware-importieren/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Fehlende Umsätze in Lexware importieren | Bank2Lexware">
+    <meta name="twitter:description"
+        content="Praxisleitfaden für das Nachimportieren fehlender Umsätze in Lexware per CSV aus PayPal-, Revolut- oder Bankexporten.">
+
+    <script type="application/ld+json">
+    [
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Fehlende Umsätze in Lexware importieren",
+            "url": "https://www.bank2lexware.de/fehlende-umsaetze-lexware-importieren/",
+            "description": "Landingpage für manuelle Nachimporte fehlender Umsätze in Lexware.",
+            "isPartOf": {
+                "@type": "WebSite",
+                "name": "Bank2Lexware",
+                "url": "https://www.bank2lexware.de/"
+            }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "Wann fehlen Umsätze typischerweise in Lexware?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Oft bei historischen Zeiträumen, unvollständigen Bankanbindungen, nachträglichen Korrekturen oder bei Zahlungsanbietern wie PayPal mit speziellen Exportformaten."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Wie hilft Bank2Lexware beim Nachimport?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Bank2Lexware bereitet CSV-Dateien lokal für den Import in Lexware auf, sodass gezielt fehlende Zeiträume oder einzelne Exportquellen nachgezogen werden können."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Kann ich nur einen Teilzeitraum importieren?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Ja. Gerade bei fehlenden Umsätzen ist es sinnvoll, nur den betroffenen Zeitraum oder die betroffene Quelle zu exportieren und gezielt zu importieren."
+                    }
+                }
+            ]
+        }
+    ]
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-slate-50 text-slate-900">
+    <main class="mx-auto flex w-full max-w-5xl flex-col gap-10 px-4 py-6 sm:py-8 md:px-6">
+        <div class="flex items-center justify-between">
+            <a href="../"
+                class="inline-flex items-center gap-2 text-sm font-medium text-[#003087] transition-colors hover:text-[#002569]">
+                <span>←</span>
+                <span>Zur Übersicht</span>
+            </a>
+            <span class="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
+                Gezielter Nachimport per CSV
+            </span>
+        </div>
+
+        <section class="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm md:p-12">
+            <div class="max-w-3xl">
+                <p class="text-sm font-semibold uppercase tracking-[0.22em] text-[#C40029]">Problemseite</p>
+                <h1 class="mt-4 text-4xl font-black tracking-tight text-slate-900 md:text-6xl">
+                    Fehlende Umsätze in Lexware importieren
+                </h1>
+                <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+                    Wenn einzelne Buchungen oder ganze Zeiträume in Lexware fehlen, ist ein gezielter CSV-Nachimport
+                    oft der schnellste Weg. Bank2Lexware bereitet dafür PayPal-, Revolut- und Bankexporte lokal auf.
+                </p>
+                <div class="mt-8 flex flex-wrap gap-3">
+                    <a href="../paypal-csv-lexware/"
+                        class="inline-flex items-center rounded-2xl bg-[#C40029] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#a30022]">
+                        PayPal-Nachimport vorbereiten
+                    </a>
+                    <a href="../offline-konto-lexware/"
+                        class="inline-flex items-center rounded-2xl border border-slate-200 bg-slate-50 px-5 py-3 text-sm font-semibold text-slate-700 transition-colors hover:border-slate-300 hover:bg-white">
+                        Offline-Konto verstehen
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid gap-4 md:grid-cols-2">
+            <article class="rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-sm">
+                <h2 class="text-lg font-bold text-slate-900">Wann das passiert</h2>
+                <p class="mt-3 text-sm leading-7 text-slate-600">
+                    Fehlende Umsätze treten häufig bei historischen Daten, unvollständigen Synchronisationen,
+                    späteren Korrekturen oder Spezialfällen wie PayPal-Gebühren und Fremdwährungen auf.
+                </p>
+            </article>
+            <article class="rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-sm">
+                <h2 class="text-lg font-bold text-slate-900">Was du vermeiden willst</h2>
+                <p class="mt-3 text-sm leading-7 text-slate-600">
+                    Nicht blind denselben Export erneut importieren, sondern den fehlenden Zeitraum sauber eingrenzen
+                    und nur die betroffenen Daten gezielt nachziehen.
+                </p>
+            </article>
+        </section>
+
+        <section class="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+            <h2 class="text-2xl font-bold tracking-tight text-slate-900">Typische Ursachen für fehlende Umsätze</h2>
+            <div class="mt-6 grid gap-4 md:grid-cols-2">
+                <article class="rounded-[1.25rem] bg-slate-50 p-5">
+                    <h3 class="text-base font-bold text-slate-900">Historischer Zeitraum fehlt</h3>
+                    <p class="mt-2 text-sm leading-7 text-slate-600">
+                        Die Anbindung startet oft nicht weit genug in die Vergangenheit. Dann muss der alte Zeitraum
+                        manuell per CSV ergänzt werden.
+                    </p>
+                </article>
+                <article class="rounded-[1.25rem] bg-slate-50 p-5">
+                    <h3 class="text-base font-bold text-slate-900">Einzelne Transaktionen fehlen</h3>
+                    <p class="mt-2 text-sm leading-7 text-slate-600">
+                        Vor allem bei Sonderfällen, Gebühren, Rückabwicklungen oder Währungswechseln entstehen schnell
+                        Lücken, die separat geprüft werden sollten.
+                    </p>
+                </article>
+                <article class="rounded-[1.25rem] bg-slate-50 p-5">
+                    <h3 class="text-base font-bold text-slate-900">Quelle wurde später ergänzt</h3>
+                    <p class="mt-2 text-sm leading-7 text-slate-600">
+                        Ein neues Konto, ein zusätzlicher Zahlungsanbieter oder eine neu entdeckte Exportdatei muss
+                        nachträglich sauber eingespielt werden.
+                    </p>
+                </article>
+                <article class="rounded-[1.25rem] bg-slate-50 p-5">
+                    <h3 class="text-base font-bold text-slate-900">Offline-Konto statt Live-Banking</h3>
+                    <p class="mt-2 text-sm leading-7 text-slate-600">
+                        Wenn bewusst ohne Live-Anbindung gearbeitet wird, ist der manuelle CSV-Import der normale Weg.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,22rem)]">
+            <article class="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+                <h2 class="text-2xl font-bold tracking-tight text-slate-900">Sauberer Nachimport in 4 Schritten</h2>
+                <ol class="mt-6 space-y-4 text-sm leading-7 text-slate-600">
+                    <li><strong>1.</strong> Den fehlenden Zeitraum oder die betroffene Quelle genau eingrenzen.</li>
+                    <li><strong>2.</strong> Den passenden CSV-Export aus Bank, PayPal oder Revolut herunterladen.</li>
+                    <li><strong>3.</strong> Die Datei mit Bank2Lexware in eine Lexware-kompatible CSV umwandeln.</li>
+                    <li><strong>4.</strong> Nur den fehlenden Bereich importieren und anschließend auf Dubletten prüfen.</li>
+                </ol>
+                <p class="mt-6 text-sm leading-7 text-slate-600">
+                    Der Vorteil eines gezielten Nachimports: weniger Duplikate, weniger manuelle Bereinigung und mehr
+                    Kontrolle über den importierten Zeitraum.
+                </p>
+            </article>
+
+            <aside class="rounded-[2rem] border border-slate-200 bg-[#003087] p-8 text-white shadow-sm">
+                <p class="text-sm font-semibold uppercase tracking-[0.22em] text-blue-100">Passende Quellen</p>
+                <div class="mt-5 flex flex-col gap-3 text-sm">
+                    <a href="../paypal-csv-lexware/" class="rounded-2xl bg-white/10 px-4 py-3 font-semibold text-white transition-colors hover:bg-white/20">PayPal</a>
+                    <a href="../revolut/" class="rounded-2xl bg-white/10 px-4 py-3 font-semibold text-white transition-colors hover:bg-white/20">Revolut</a>
+                    <a href="../deutsche-bank/" class="rounded-2xl bg-white/10 px-4 py-3 font-semibold text-white transition-colors hover:bg-white/20">Deutsche Bank</a>
+                </div>
+                <p class="mt-5 text-sm leading-7 text-blue-50">
+                    Wenn deine Quelle noch fehlt, kannst du auf der Hauptseite eine weitere Bank oder einen Anbieter
+                    anfragen.
+                </p>
+            </aside>
+        </section>
+
+        <section class="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+            <h2 class="text-2xl font-bold tracking-tight text-slate-900">Häufige Fragen</h2>
+            <div class="mt-6 space-y-4">
+                <article class="rounded-[1.25rem] bg-slate-50 p-5">
+                    <h3 class="text-base font-bold text-slate-900">Kann ich nur fehlende Monate importieren?</h3>
+                    <p class="mt-2 text-sm leading-7 text-slate-600">
+                        Ja, genau das ist der sinnvolle Weg. Statt alles neu zu importieren, sollte nur der fehlende
+                        Zeitraum exportiert und nachgezogen werden.
+                    </p>
+                </article>
+                <article class="rounded-[1.25rem] bg-slate-50 p-5">
+                    <h3 class="text-base font-bold text-slate-900">Hilft das auch bei PayPal-Gebühren?</h3>
+                    <p class="mt-2 text-sm leading-7 text-slate-600">
+                        Ja. Gerade bei PayPal ist die saubere Trennung von Umsatz, Gebühren und Sonderfällen häufig ein
+                        Grund für den manuellen Importpfad.
+                    </p>
+                </article>
+                <article class="rounded-[1.25rem] bg-slate-50 p-5">
+                    <h3 class="text-base font-bold text-slate-900">Werden Daten an einen Server gesendet?</h3>
+                    <p class="mt-2 text-sm leading-7 text-slate-600">
+                        Nein. Die Verarbeitung läuft lokal im Browser. Deine Datei bleibt auf deinem Rechner.
+                    </p>
+                </article>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>
