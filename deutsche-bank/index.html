@@ -33,7 +33,7 @@
         {
             "@context": "https://schema.org",
             "@type": "WebApplication",
-            "name": "Deutsche Bank zu Lexware Konverter",
+            "name": "DeutscheBank2Lexware Konverter",
             "url": "https://www.bank2lexware.de/deutsche-bank/",
             "applicationCategory": "BusinessApplication",
             "operatingSystem": "Any",
@@ -89,6 +89,16 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <link rel="stylesheet" href="../shared/dark-mode.css">
+    <script>
+        window.B2L = {
+            brandColor: '#0018A8',
+            detailsLabel: 'Hier klicken für Buchungsvorschau',
+            progressStep: 15,
+            progressMs: 100
+        };
+    </script>
+    <script src="../shared/common.js"></script>
 </head>
 
 <body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col items-center p-4 pt-8 sm:pt-12">
@@ -339,85 +349,6 @@
     </main>
 
     <script>
-        function showStatus(message, type = 'info') {
-            const statusEl = document.getElementById('status');
-
-            if (type === 'success') {
-                statusEl.classList.add('hidden');
-
-                const container = document.getElementById('conversion-details-container');
-                const title = document.getElementById('details-title');
-                const subtitle = document.getElementById('details-subtitle');
-
-                container.classList.remove('hidden');
-                container.className = "mt-8 text-left max-w-4xl mx-auto bg-green-50 rounded-xl shadow-sm border border-green-200 overflow-hidden transition-all";
-
-                title.innerHTML = `✅ ${message}`;
-                title.className = "text-lg font-bold text-green-800 flex items-center";
-
-                subtitle.textContent = "Hier klicken für Buchungsvorschau";
-                subtitle.className = "text-sm text-green-600 mt-1";
-
-            } else {
-                statusEl.textContent = message;
-                statusEl.className = 'mt-6 p-4 rounded-xl text-sm font-medium bg-blue-50 text-[#0018A8] border-l-4 border-[#0018A8]';
-                statusEl.classList.remove('hidden');
-
-                if (type === 'info') {
-                    document.getElementById('conversion-details-container').classList.add('hidden');
-                }
-            }
-        }
-
-        function showError(message) {
-            const statusEl = document.getElementById('status');
-            statusEl.textContent = "⚠️ " + message;
-            statusEl.className = 'mt-6 p-4 rounded-xl text-sm font-medium bg-red-50 text-[#C40029] border-l-4 border-[#C40029]';
-            statusEl.classList.remove('hidden');
-            document.getElementById('loading-indicator').classList.add('hidden');
-            document.getElementById('conversion-details-container').classList.add('hidden');
-        }
-
-        function resetUI() {
-            document.getElementById('status').classList.add('hidden');
-            document.getElementById('download-area').classList.add('hidden');
-            document.getElementById('date-selection-container').classList.add('hidden');
-            document.getElementById('date-selection-content').classList.add('hidden');
-            document.getElementById('date-selection-icon').style.transform = 'rotate(0deg)';
-            document.getElementById('loading-indicator').classList.add('hidden');
-            stopProgress();
-            document.getElementById('conversion-details-container').classList.add('hidden');
-            document.getElementById('conversion-details-content').classList.add('hidden');
-            document.getElementById('details-icon').style.transform = 'rotate(0deg)';
-            document.getElementById('conversion-table-body').innerHTML = '';
-        }
-
-        function toggleDetails() {
-            const content = document.getElementById('conversion-details-content');
-            const icon = document.getElementById('details-icon');
-
-            if (content.classList.contains('hidden')) {
-                content.classList.remove('hidden');
-                icon.style.transform = 'rotate(180deg)';
-            } else {
-                content.classList.add('hidden');
-                icon.style.transform = 'rotate(0deg)';
-            }
-        }
-
-        function toggleDateSelection() {
-            const content = document.getElementById('date-selection-content');
-            const icon = document.getElementById('date-selection-icon');
-
-            if (content.classList.contains('hidden')) {
-                content.classList.remove('hidden');
-                icon.style.transform = 'rotate(180deg)';
-            } else {
-                content.classList.add('hidden');
-                icon.style.transform = 'rotate(0deg)';
-            }
-        }
-
         function renderConversionDetails(rows) {
             const tbody = document.getElementById('conversion-table-body');
             tbody.innerHTML = '';
@@ -457,7 +388,6 @@
         const dropZone = document.getElementById('drop-zone');
         const fileInput = document.getElementById('fileInput');
         let rawCSVData = [];
-        let progressInterval;
 
         dropZone.addEventListener('click', () => fileInput.click());
 
@@ -668,38 +598,6 @@
             }, 100);
         }
 
-        function startProgress() {
-            const bar = document.getElementById('progress-bar');
-            const text = document.getElementById('progress-text');
-            let width = 0;
-            bar.style.width = '0%';
-            text.textContent = '0%';
-
-            clearInterval(progressInterval);
-            progressInterval = setInterval(() => {
-                if (width >= 90) {
-                    clearInterval(progressInterval);
-                } else {
-                    width += Math.random() * 15;
-                    if (width > 90) width = 90;
-                    bar.style.width = width + '%';
-                    text.textContent = Math.round(width) + '%';
-                }
-            }, 100);
-        }
-
-        function stopProgress() {
-            clearInterval(progressInterval);
-        }
-
-        function completeProgress() {
-            clearInterval(progressInterval);
-            const bar = document.getElementById('progress-bar');
-            const text = document.getElementById('progress-text');
-            bar.style.width = '100%';
-            text.textContent = '100%';
-        }
-
         function cleanAmount(amountStr) {
             // Convert -123.45 or 123.45 to German format (positive only)
             if (!amountStr || amountStr.trim() === '') return '';
@@ -874,32 +772,6 @@
             }, 400);
         }
 
-        function copyEmail() {
-            const email = "al.oezalp@gmail.com";
-            navigator.clipboard.writeText(email).then(() => {
-                const textEl = document.getElementById('contact-text');
-                const iconEl = document.getElementById('contact-icon');
-                const tooltip = document.getElementById('copy-tooltip');
-
-                const originalText = textEl.textContent;
-                textEl.textContent = "Kopiert! ✅";
-                textEl.classList.add('text-green-600');
-                iconEl.textContent = "📋";
-
-                tooltip.textContent = "Kopiert!";
-                tooltip.classList.remove('opacity-0');
-
-                setTimeout(() => {
-                    textEl.textContent = originalText;
-                    textEl.classList.remove('text-green-600');
-                    iconEl.textContent = "✉️";
-                    tooltip.classList.add('opacity-0');
-                    tooltip.textContent = "In Zwischenablage kopieren";
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-            });
-        }
     </script>
 </body>
 

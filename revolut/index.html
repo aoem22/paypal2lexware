@@ -98,6 +98,16 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <link rel="stylesheet" href="../shared/dark-mode.css">
+    <script>
+        window.B2L = {
+            brandColor: '#0666EB',
+            detailsLabel: 'Hier klicken für Umrechnungsdetails & Gebühren',
+            progressStep: 10,
+            progressMs: 200
+        };
+    </script>
+    <script src="../shared/common.js"></script>
 </head>
 
 <body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col items-center p-4 pt-8 sm:pt-12">
@@ -311,27 +321,6 @@
             </div>
         </section>
 
-        <!-- Social Share -->
-        <section id="share-section" class="mt-16 text-center">
-            <h3 class="text-lg font-semibold text-gray-700 mb-4">Finden Sie das Tool hilfreich?</h3>
-            <div class="flex justify-center space-x-4">
-                <a href="https://twitter.com/intent/tweet?text=Geniales%20Tool%20f%C3%BCr%20Revolut%20zu%20Lexware%20Konvertierung!%20Kostenlos%20und%20Lokal."
-                    target="_blank" rel="noopener noreferrer"
-                    class="px-4 py-2 bg-black text-white rounded-full text-sm font-medium hover:bg-gray-800 transition-colors">
-                    Auf X teilen
-                </a>
-                <a href="https://www.linkedin.com/sharing/share-offsite/"
-                    target="_blank" rel="noopener noreferrer"
-                    class="px-4 py-2 bg-blue-700 text-white rounded-full text-sm font-medium hover:bg-blue-800 transition-colors">
-                    Auf LinkedIn teilen
-                </a>
-                <a href="mailto:?subject=Tipp: Revolut zu Lexware Konverter&body=Hi, schau dir mal dieses Tool an - Es konvertiert Revolut CSVs perfekt für Lexware."
-                    class="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-300 transition-colors">
-                    Per E-Mail senden
-                </a>
-            </div>
-        </section>
-
         <!-- Footer -->
         <footer class="mt-20 pt-8 border-t border-gray-200 text-gray-500 text-sm">
             <div class="flex flex-col items-center space-y-4">
@@ -364,89 +353,6 @@
     </main>
 
     <script>
-        // ═══════════════════════════════════════════════
-        // UI HELPERS
-        // ═══════════════════════════════════════════════
-
-        function showStatus(message, type = 'info') {
-            const statusEl = document.getElementById('status');
-
-            if (type === 'success') {
-                statusEl.classList.add('hidden');
-
-                const container = document.getElementById('conversion-details-container');
-                const title = document.getElementById('details-title');
-                const subtitle = document.getElementById('details-subtitle');
-
-                container.classList.remove('hidden');
-                container.className = "mt-8 text-left max-w-4xl mx-auto bg-green-50 rounded-xl shadow-sm border border-green-200 overflow-hidden transition-all";
-
-                title.innerHTML = `✅ ${message}`;
-                title.className = "text-lg font-bold text-green-800 flex items-center";
-
-                subtitle.textContent = "Hier klicken für Umrechnungsdetails & Gebühren";
-                subtitle.className = "text-sm text-green-600 mt-1";
-
-            } else {
-                statusEl.textContent = message;
-                statusEl.className = 'mt-6 p-4 rounded-xl text-sm font-medium bg-blue-50 text-[#0666EB] border-l-4 border-[#0666EB]';
-                statusEl.classList.remove('hidden');
-
-                if (type === 'info') {
-                    document.getElementById('conversion-details-container').classList.add('hidden');
-                }
-            }
-        }
-
-        function showError(message) {
-            const statusEl = document.getElementById('status');
-            statusEl.textContent = "⚠️ " + message;
-            statusEl.className = 'mt-6 p-4 rounded-xl text-sm font-medium bg-red-50 text-[#C40029] border-l-4 border-[#C40029]';
-            statusEl.classList.remove('hidden');
-            document.getElementById('loading-indicator').classList.add('hidden');
-            document.getElementById('conversion-details-container').classList.add('hidden');
-        }
-
-        function resetUI() {
-            document.getElementById('status').classList.add('hidden');
-            document.getElementById('download-area').classList.add('hidden');
-            document.getElementById('date-selection-container').classList.add('hidden');
-            document.getElementById('date-selection-content').classList.add('hidden');
-            document.getElementById('date-selection-icon').style.transform = 'rotate(0deg)';
-            document.getElementById('loading-indicator').classList.add('hidden');
-            stopProgress();
-            document.getElementById('conversion-details-container').classList.add('hidden');
-            document.getElementById('conversion-details-content').classList.add('hidden');
-            document.getElementById('details-icon').style.transform = 'rotate(0deg)';
-            document.getElementById('conversion-table-body').innerHTML = '';
-        }
-
-        function toggleDetails() {
-            const content = document.getElementById('conversion-details-content');
-            const icon = document.getElementById('details-icon');
-
-            if (content.classList.contains('hidden')) {
-                content.classList.remove('hidden');
-                icon.style.transform = 'rotate(180deg)';
-            } else {
-                content.classList.add('hidden');
-                icon.style.transform = 'rotate(0deg)';
-            }
-        }
-
-        function toggleDateSelection() {
-            const content = document.getElementById('date-selection-content');
-            const icon = document.getElementById('date-selection-icon');
-
-            if (content.classList.contains('hidden')) {
-                content.classList.remove('hidden');
-                icon.style.transform = 'rotate(180deg)';
-            } else {
-                content.classList.add('hidden');
-                icon.style.transform = 'rotate(0deg)';
-            }
-        }
-
         function renderConversionDetails(logs) {
             const tbody = document.getElementById('conversion-table-body');
             tbody.innerHTML = '';
@@ -471,44 +377,6 @@
                     tbody.appendChild(tr);
                 });
             }
-        }
-
-        // ═══════════════════════════════════════════════
-        // PROGRESS BAR
-        // ═══════════════════════════════════════════════
-
-        let progressInterval;
-
-        function startProgress() {
-            const bar = document.getElementById('progress-bar');
-            const text = document.getElementById('progress-text');
-            let width = 0;
-            bar.style.width = '0%';
-            text.textContent = '0%';
-
-            clearInterval(progressInterval);
-            progressInterval = setInterval(() => {
-                if (width >= 90) {
-                    clearInterval(progressInterval);
-                } else {
-                    width += Math.random() * 10;
-                    if (width > 90) width = 90;
-                    bar.style.width = width + '%';
-                    text.textContent = Math.round(width) + '%';
-                }
-            }, 200);
-        }
-
-        function stopProgress() {
-            clearInterval(progressInterval);
-        }
-
-        function completeProgress() {
-            clearInterval(progressInterval);
-            const bar = document.getElementById('progress-bar');
-            const text = document.getElementById('progress-text');
-            bar.style.width = '100%';
-            text.textContent = '100%';
         }
 
         // ═══════════════════════════════════════════════
@@ -895,36 +763,6 @@
             }, 600);
         }
 
-        // ═══════════════════════════════════════════════
-        // UTILITIES
-        // ═══════════════════════════════════════════════
-
-        function copyEmail() {
-            const email = "al.oezalp@gmail.com";
-            navigator.clipboard.writeText(email).then(() => {
-                const textEl = document.getElementById('contact-text');
-                const iconEl = document.getElementById('contact-icon');
-                const tooltip = document.getElementById('copy-tooltip');
-
-                const originalText = textEl.textContent;
-                textEl.textContent = "Kopiert! ✅";
-                textEl.classList.add('text-green-600');
-                iconEl.textContent = "📋";
-
-                tooltip.textContent = "Kopiert!";
-                tooltip.classList.remove('opacity-0');
-
-                setTimeout(() => {
-                    textEl.textContent = originalText;
-                    textEl.classList.remove('text-green-600');
-                    iconEl.textContent = "✉️";
-                    tooltip.classList.add('opacity-0');
-                    tooltip.textContent = "In Zwischenablage kopieren";
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-            });
-        }
     </script>
 </body>
 

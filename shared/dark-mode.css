@@ -1,0 +1,208 @@
+/* Bank2Lexware – shared dark-mode overrides
+   Include AFTER Tailwind CDN in every standalone page.
+   The hub (index.html) keeps its own copy because it also has
+   component-level dark rules (.surface-card, .surface-chip, …). */
+
+html.theme-dark {
+    color-scheme: dark;
+    --canvas: #08111f;
+    --canvas-strong: #0d1728;
+    --ink: #e5edf7;
+    --ink-soft: #b3c0d2;
+    --ink-muted: #8593a7;
+    --line: rgba(148, 163, 184, 0.18);
+    --line-strong: rgba(96, 165, 250, 0.34);
+    --surface: rgba(11, 20, 35, 0.92);
+    --surface-strong: #101a2b;
+    --surface-muted: rgba(15, 23, 42, 0.92);
+    --surface-panel: rgba(15, 23, 42, 0.72);
+    --shadow-soft: 0 30px 80px rgba(2, 6, 23, 0.55);
+    --shadow-card: 0 18px 42px rgba(2, 6, 23, 0.44);
+}
+
+/* ── Backgrounds ─────────────────────────────── */
+html.theme-dark .bg-white {
+    background-color: var(--surface) !important;
+}
+html.theme-dark .bg-gray-50 {
+    background-color: var(--surface-muted) !important;
+}
+html.theme-dark .bg-gray-100 {
+    background-color: rgba(148, 163, 184, 0.12) !important;
+}
+html.theme-dark .bg-gray-200 {
+    background-color: rgba(100, 116, 139, 0.32) !important;
+}
+html.theme-dark .bg-blue-50,
+html.theme-dark .bg-blue-50\/20,
+html.theme-dark .bg-blue-50\/30 {
+    background-color: rgba(59, 130, 246, 0.12) !important;
+}
+html.theme-dark .bg-green-50 {
+    background-color: rgba(34, 197, 94, 0.1) !important;
+}
+html.theme-dark .bg-red-50 {
+    background-color: rgba(239, 68, 68, 0.12) !important;
+}
+
+/* ── Borders ─────────────────────────────────── */
+html.theme-dark .border-gray-200,
+html.theme-dark .border-gray-100 {
+    border-color: var(--line) !important;
+}
+html.theme-dark .border-green-100 {
+    border-color: rgba(34, 197, 94, 0.18) !important;
+}
+html.theme-dark .border-green-200 {
+    border-color: rgba(34, 197, 94, 0.24) !important;
+}
+html.theme-dark .border-\[\#003087\] {
+    border-color: rgba(96, 165, 250, 0.38) !important;
+}
+html.theme-dark .border-\[\#C40029\] {
+    border-color: rgba(251, 113, 133, 0.38) !important;
+}
+
+/* ── Text ────────────────────────────────────── */
+html.theme-dark .text-gray-800 {
+    color: var(--ink) !important;
+}
+html.theme-dark .text-gray-700 {
+    color: #d7e0ec !important;
+}
+html.theme-dark .text-gray-600 {
+    color: var(--ink-soft) !important;
+}
+html.theme-dark .text-gray-500 {
+    color: var(--ink-muted) !important;
+}
+html.theme-dark .text-gray-400,
+html.theme-dark .text-gray-300 {
+    color: #7f8aa0 !important;
+}
+html.theme-dark .text-green-600,
+html.theme-dark .text-green-700,
+html.theme-dark .text-green-800 {
+    color: #86efac !important;
+}
+html.theme-dark .text-red-600 {
+    color: #fca5a5 !important;
+}
+html.theme-dark .text-\[\#003087\] {
+    color: #9bc1ff !important;
+}
+html.theme-dark .text-\[\#002569\] {
+    color: #c7ddff !important;
+}
+html.theme-dark .text-\[\#0018A8\] {
+    color: #93c5fd !important;
+}
+html.theme-dark .text-\[\#0666EB\] {
+    color: #93c5fd !important;
+}
+html.theme-dark .text-\[\#191C1F\] {
+    color: #e5edf7 !important;
+}
+html.theme-dark .text-\[\#C40029\] {
+    color: #fb7185 !important;
+}
+
+/* ── Brand backgrounds ───────────────────────── */
+html.theme-dark .bg-\[\#003087\] {
+    background-color: #1d4ed8 !important;
+}
+html.theme-dark .bg-\[\#0018A8\] {
+    background-color: #1d4ed8 !important;
+}
+html.theme-dark .bg-\[\#0666EB\] {
+    background-color: #2563eb !important;
+}
+html.theme-dark .bg-\[\#003087\]\/10,
+html.theme-dark .bg-\[\#0018A8\]\/10 {
+    background-color: rgba(96, 165, 250, 0.14) !important;
+}
+html.theme-dark .bg-\[\#0666EB\]\/10 {
+    background-color: rgba(96, 165, 250, 0.14) !important;
+}
+html.theme-dark .bg-\[\#191C1F\]\/10 {
+    background-color: rgba(148, 163, 184, 0.14) !important;
+}
+html.theme-dark .bg-\[\#C40029\]\/10 {
+    background-color: rgba(244, 63, 94, 0.14) !important;
+}
+
+/* ── Shadows ─────────────────────────────────── */
+html.theme-dark .shadow-sm,
+html.theme-dark .shadow-md {
+    box-shadow: var(--shadow-card) !important;
+}
+
+/* ── Hover backgrounds ───────────────────────── */
+html.theme-dark .hover\:bg-gray-50:hover,
+html.theme-dark .hover\:bg-gray-50\/30:hover {
+    background-color: rgba(148, 163, 184, 0.08) !important;
+}
+html.theme-dark .hover\:bg-blue-50:hover,
+html.theme-dark .hover\:bg-blue-50\/20:hover,
+html.theme-dark .hover\:bg-blue-50\/30:hover {
+    background-color: rgba(59, 130, 246, 0.12) !important;
+}
+html.theme-dark .hover\:bg-\[\#002569\]:hover {
+    background-color: #1e40af !important;
+}
+html.theme-dark .hover\:bg-\[\#001080\]:hover {
+    background-color: #1e40af !important;
+}
+html.theme-dark .hover\:bg-\[\#0555CC\]:hover {
+    background-color: #1d4ed8 !important;
+}
+
+/* ── Hover borders ───────────────────────────── */
+html.theme-dark .hover\:border-\[\#003087\]:hover,
+html.theme-dark .hover\:border-\[\#003087\]\/20:hover,
+html.theme-dark .hover\:border-\[\#003087\]\/30:hover,
+html.theme-dark .hover\:border-\[\#003087\]\/40:hover {
+    border-color: rgba(147, 197, 253, 0.34) !important;
+}
+html.theme-dark .hover\:border-\[\#0018A8\]:hover,
+html.theme-dark .hover\:border-\[\#0018A8\]\/30:hover {
+    border-color: rgba(147, 197, 253, 0.32) !important;
+}
+html.theme-dark .hover\:border-\[\#0666EB\]:hover,
+html.theme-dark .hover\:border-\[\#0666EB\]\/30:hover {
+    border-color: rgba(147, 197, 253, 0.34) !important;
+}
+html.theme-dark .hover\:border-\[\#191C1F\]\/30:hover {
+    border-color: rgba(148, 163, 184, 0.3) !important;
+}
+
+/* ── Hover text ──────────────────────────────── */
+html.theme-dark .hover\:text-gray-800:hover {
+    color: var(--ink) !important;
+}
+html.theme-dark .hover\:text-\[\#003087\]:hover,
+html.theme-dark .group:hover .group-hover\:text-\[\#003087\] {
+    color: #bfdbfe !important;
+}
+html.theme-dark .hover\:text-\[\#002569\]:hover {
+    color: #dbeafe !important;
+}
+html.theme-dark .hover\:text-\[\#0018A8\]:hover,
+html.theme-dark .group:hover .group-hover\:text-\[\#0018A8\] {
+    color: #bfdbfe !important;
+}
+html.theme-dark .hover\:text-\[\#001080\]:hover {
+    color: #dbeafe !important;
+}
+html.theme-dark .hover\:text-\[\#0666EB\]:hover,
+html.theme-dark .group:hover .group-hover\:text-\[\#0666EB\] {
+    color: #93c5fd !important;
+}
+html.theme-dark .hover\:text-\[\#0555CC\]:hover {
+    color: #bfdbfe !important;
+}
+
+/* ── Focus ───────────────────────────────────── */
+html.theme-dark .focus\:bg-white:focus {
+    background-color: var(--surface-strong) !important;
+}
