@@ -296,9 +296,81 @@
         }
 
         .surface-chip {
-            background: var(--surface-muted);
-            border: 1px solid rgba(148, 163, 184, 0.12);
-            color: var(--ink-soft);
+            --chip-border: rgba(148, 163, 184, 0.18);
+            --chip-surface: var(--surface-muted);
+            --chip-surface-hover: var(--surface-strong);
+            --chip-text: var(--ink-soft);
+            --chip-text-hover: var(--ink);
+            --chip-border-hover: rgba(71, 85, 105, 0.32);
+            background: var(--chip-surface);
+            border: 1px solid var(--chip-border);
+            color: var(--chip-text);
+            transition: background-color 0.24s ease, border-color 0.24s ease, color 0.24s ease, transform 0.24s ease;
+        }
+
+        .surface-chip:hover {
+            background: var(--chip-surface-hover);
+            border-color: var(--chip-border-hover);
+            color: var(--chip-text-hover);
+            transform: translateY(-1px);
+        }
+
+        .surface-chip--paypal {
+            --chip-border-hover: rgba(0, 48, 135, 0.24);
+            --chip-text-hover: #003087;
+        }
+
+        .surface-chip--alert {
+            --chip-border-hover: rgba(196, 0, 41, 0.24);
+            --chip-text-hover: #9f1239;
+        }
+
+        .surface-chip--neutral {
+            --chip-border-hover: rgba(100, 116, 139, 0.32);
+            --chip-text-hover: var(--ink);
+        }
+
+        .surface-chip--deutsche {
+            --chip-border-hover: rgba(0, 24, 168, 0.24);
+            --chip-text-hover: #0018A8;
+        }
+
+        .surface-chip--revolut {
+            --chip-border-hover: rgba(25, 28, 31, 0.22);
+            --chip-text-hover: #111827;
+        }
+
+        html.theme-dark .surface-chip {
+            --chip-border: rgba(148, 163, 184, 0.16);
+            --chip-surface: rgba(15, 23, 42, 0.56);
+            --chip-surface-hover: rgba(30, 41, 59, 0.82);
+            --chip-text: var(--ink-soft);
+            --chip-text-hover: var(--ink);
+        }
+
+        html.theme-dark .surface-chip--paypal {
+            --chip-border-hover: rgba(147, 197, 253, 0.34);
+            --chip-text-hover: #bfdbfe;
+        }
+
+        html.theme-dark .surface-chip--alert {
+            --chip-border-hover: rgba(251, 113, 133, 0.32);
+            --chip-text-hover: #fda4af;
+        }
+
+        html.theme-dark .surface-chip--neutral {
+            --chip-border-hover: rgba(148, 163, 184, 0.34);
+            --chip-text-hover: var(--ink);
+        }
+
+        html.theme-dark .surface-chip--deutsche {
+            --chip-border-hover: rgba(147, 197, 253, 0.34);
+            --chip-text-hover: #bfdbfe;
+        }
+
+        html.theme-dark .surface-chip--revolut {
+            --chip-border-hover: rgba(148, 163, 184, 0.34);
+            --chip-text-hover: #e2e8f0;
         }
 
         .surface-input {
@@ -522,12 +594,53 @@
             border-color: rgba(147, 197, 253, 0.34) !important;
         }
 
+        html.theme-dark .hover\:border-\[\#0018A8\]:hover,
         html.theme-dark .hover\:border-\[\#0018A8\]\/30:hover {
             border-color: rgba(147, 197, 253, 0.32) !important;
         }
 
+        html.theme-dark .hover\:border-\[\#0666EB\]:hover,
+        html.theme-dark .hover\:border-\[\#0666EB\]\/30:hover {
+            border-color: rgba(147, 197, 253, 0.34) !important;
+        }
+
         html.theme-dark .hover\:border-\[\#191C1F\]\/30:hover {
             border-color: rgba(148, 163, 184, 0.3) !important;
+        }
+
+        html.theme-dark .hover\:border-slate-400\/40:hover {
+            border-color: rgba(148, 163, 184, 0.34) !important;
+        }
+
+        html.theme-dark .hover\:text-gray-800:hover {
+            color: var(--ink) !important;
+        }
+
+        html.theme-dark .hover\:text-\[\#003087\]:hover,
+        html.theme-dark .group:hover .group-hover\:text-\[\#003087\] {
+            color: #bfdbfe !important;
+        }
+
+        html.theme-dark .hover\:text-\[\#002569\]:hover {
+            color: #dbeafe !important;
+        }
+
+        html.theme-dark .hover\:text-\[\#0018A8\]:hover,
+        html.theme-dark .group:hover .group-hover\:text-\[\#0018A8\] {
+            color: #bfdbfe !important;
+        }
+
+        html.theme-dark .hover\:text-\[\#001080\]:hover {
+            color: #dbeafe !important;
+        }
+
+        html.theme-dark .hover\:text-\[\#0666EB\]:hover,
+        html.theme-dark .group:hover .group-hover\:text-\[\#0666EB\] {
+            color: #93c5fd !important;
+        }
+
+        html.theme-dark .hover\:text-\[\#0555CC\]:hover {
+            color: #bfdbfe !important;
         }
 
         html.theme-dark .focus\:bg-white:focus {
@@ -582,23 +695,23 @@
                 </p>
                 <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
                     <a href="paypal-csv-lexware/"
-                        class="surface-chip inline-flex items-center rounded-full px-4 py-2 text-sm font-medium transition-colors hover:border-[#003087]/30 hover:text-[#003087]">
+                        class="surface-chip surface-chip--paypal inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
                         PayPal CSV in Lexware importieren
                     </a>
                     <a href="fehlende-umsaetze-lexware-importieren/"
-                        class="surface-chip inline-flex items-center rounded-full px-4 py-2 text-sm font-medium transition-colors hover:border-[#C40029]/30 hover:text-[#C40029]">
+                        class="surface-chip surface-chip--alert inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
                         Fehlende Umsätze importieren
                     </a>
                     <a href="offline-konto-lexware/"
-                        class="surface-chip inline-flex items-center rounded-full px-4 py-2 text-sm font-medium transition-colors hover:border-slate-400/40 hover:text-gray-800">
+                        class="surface-chip surface-chip--neutral inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
                         Offline-Konto vorbereiten
                     </a>
                     <a href="deutsche-bank/"
-                        class="surface-chip inline-flex items-center rounded-full px-4 py-2 text-sm font-medium transition-colors hover:border-[#0018A8]/30 hover:text-[#0018A8]">
+                        class="surface-chip surface-chip--deutsche inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
                         Deutsche Bank CSV importieren
                     </a>
                     <a href="revolut/"
-                        class="surface-chip inline-flex items-center rounded-full px-4 py-2 text-sm font-medium transition-colors hover:border-[#191C1F]/30 hover:text-gray-800">
+                        class="surface-chip surface-chip--revolut inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
                         Revolut CSV importieren
                     </a>
                 </div>
