@@ -342,8 +342,8 @@
                                 </div>
                                 <h2 class="mt-5 text-3xl font-bold tracking-tight text-gray-800 md:text-[2.4rem]">Weitere Bank anfragen</h2>
                                 <p class="mt-3 max-w-xl text-[15px] leading-7 text-gray-600 md:text-base">
-                                    Fehlt Ihre Bank noch, senden Sie den Wunsch direkt aus der Übersicht. Die Anfrage
-                                    bleibt lokal und öffnet nur Ihr Mailprogramm.
+                                    Fehlt Ihre Bank noch, senden Sie den Wunsch direkt aus der Übersicht. Die
+                                    Anfrage wird direkt gesendet – kein Mailprogramm nötig.
                                 </p>
                             </div>
 
@@ -358,7 +358,7 @@
                                     </div>
                                     <div class="mt-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                                         <p id="requestBankStatus" class="status-note text-xs md:max-w-xs">
-                                            Öffnet Ihr Mailprogramm. Die Anfrage bleibt lokal im Browser.
+                                            Wird direkt gesendet – kein Mailprogramm nötig.
                                         </p>
                                         <button type="submit"
                                             class="inline-flex min-w-[13rem] flex-nowrap items-center justify-center gap-2 rounded-2xl bg-[#003087] px-6 py-3 text-sm font-semibold text-white shadow-md transition-colors hover:bg-[#002569]">
@@ -1007,11 +1007,11 @@
             }
         }
 
-        function sendBankRequest(event) {
+        async function sendBankRequest(event) {
             event.preventDefault();
-
             const bankName = document.getElementById('requestBankName').value.trim();
             const status = document.getElementById('requestBankStatus');
+            const button = event.target.querySelector('button[type="submit"]');
 
             if (!bankName) {
                 status.textContent = "Bitte geben Sie mindestens eine Bank oder einen Anbieter an.";
@@ -1019,22 +1019,33 @@
                 return;
             }
 
-            const subject = `Bank2Lexware Anfrage: ${bankName}`;
-            const bodyLines = [
-                "Hallo Alan,",
-                "",
-                "ich wünsche mir einen weiteren Importpfad für Bank2Lexware.",
-                "",
-                `Bank / Anbieter: ${bankName}`,
-                "",
-                "Wenn hilfreich, kann ich auch eine Beispiel-CSV bereitstellen."
-            ];
-
-            const mailtoUrl = `mailto:al.oezalp@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
-
-            status.textContent = "Mail wird vorbereitet.";
+            button.disabled = true;
+            status.textContent = "Wird gesendet…";
             status.className = "status-note text-xs";
-            window.location.href = mailtoUrl;
+
+            try {
+                const res = await fetch("https://formsubmit.co/ajax/al.oezalp@gmail.com", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", "Accept": "application/json" },
+                    body: JSON.stringify({
+                        "Bank / Anbieter": bankName,
+                        _subject: "Bank2Lexware Anfrage: " + bankName,
+                        _template: "table"
+                    })
+                });
+                const data = await res.json();
+                if (data.success === "true") {
+                    status.textContent = "Anfrage gesendet – vielen Dank!";
+                    status.className = "text-xs font-medium text-emerald-600";
+                    document.getElementById('requestBankName').value = "";
+                } else {
+                    throw new Error(data.message || "Unbekannter Fehler");
+                }
+            } catch {
+                status.textContent = "Senden fehlgeschlagen – bitte später erneut versuchen.";
+                status.className = "text-xs font-medium text-[#C40029]";
+            }
+            button.disabled = false;
         }
 
         function showStatus(message, type = 'info') {
