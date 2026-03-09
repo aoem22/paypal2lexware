@@ -4,29 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bank2Lexware | PayPal, Revolut und Bankauszüge für Lexware</title>
+    <title>Bank2Lexware – Kostenlos CSV für Lexware umwandeln (2026)</title>
     <meta name="description"
-        content="PayPal-, Revolut- und Bankauszüge lokal in Lexware-kompatible CSV-Dateien umwandeln. Ideal für fehlende Umsätze, historische Kontoauszüge und Offline-Konten.">
+        content="PayPal, Revolut & Bankauszüge kostenlos in Lexware-CSV umwandeln. 100% lokal im Browser – keine Registrierung, kein Upload. Jetzt testen!">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Alan Özalp">
     <meta name="color-scheme" content="light dark">
     <meta name="theme-color" content="#f4f6fa">
     <link rel="canonical" href="https://www.bank2lexware.de/">
+    <link rel="alternate" hreflang="de" href="https://www.bank2lexware.de/">
+    <link rel="alternate" hreflang="de-AT" href="https://www.bank2lexware.de/">
+    <link rel="alternate" hreflang="de-CH" href="https://www.bank2lexware.de/">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💶</text></svg>">
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Bank2Lexware | PayPal, Revolut und Bankauszüge für Lexware">
+    <meta property="og:title" content="Bank2Lexware – Kostenlos CSV für Lexware umwandeln (2026)">
     <meta property="og:description"
-        content="Lokale CSV-Konvertierung für Lexware Office bei fehlenden Umsätzen, historischen Kontoauszügen und Offline-Konten.">
+        content="PayPal, Revolut & Bankauszüge kostenlos in Lexware-CSV umwandeln. 100% lokal, kein Upload, kein Account nötig.">
     <meta property="og:locale" content="de_DE">
     <meta property="og:site_name" content="Bank2Lexware">
     <meta property="og:url" content="https://www.bank2lexware.de/">
+    <meta property="article:modified_time" content="2026-03-09">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Bank2Lexware | PayPal, Revolut und Bankauszüge für Lexware">
+    <meta name="twitter:title" content="Bank2Lexware – Kostenlos CSV für Lexware umwandeln (2026)">
     <meta name="twitter:description"
-        content="Lokale CSV-Konvertierung für Lexware Office bei fehlenden Umsätzen, historischen Kontoauszügen und Offline-Konten.">
+        content="PayPal, Revolut & Bankauszüge kostenlos in Lexware-CSV umwandeln. 100% lokal, kein Upload, kein Account nötig.">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -102,551 +108,46 @@
                         "@type": "Answer",
                         "text": "Lexware benötigt ein spezifisches CSV-Format (DATEV-kompatibel). Dieses Tool erstellt dieses Format automatisch aus PayPal-, Revolut- und unterstützten Bankexporten."
                     }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Welche Banken und Zahlungsanbieter werden unterstützt?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Aktuell werden PayPal, Revolut und Deutsche Bank unterstützt. Weitere Banken können über das Anfrageformular auf der Startseite vorgeschlagen werden."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Funktioniert das Tool auch mit Lexware Financial Office?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Ja. Das erzeugte CSV-Format ist mit allen Lexware-Produkten kompatibel, die den Standard-CSV-Import unterstützen, einschließlich Lexware Financial Office und Lexware buchhalter."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Muss ich mich registrieren oder ein Konto erstellen?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Nein. Das Tool funktioniert ohne Registrierung, ohne Login und ohne E-Mail-Adresse. Einfach CSV hochladen und konvertieren."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Kann ich auch historische Umsätze nachimportieren?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Ja, genau dafür ist Bank2Lexware besonders nützlich. Exportieren Sie den gewünschten Zeitraum aus Ihrer Bank oder PayPal und konvertieren Sie ihn für Lexware."
+                    }
                 }
             ]
         }
     ]
     </script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="shared/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-    <style>
-        :root {
-            color-scheme: light;
-            --canvas: #f4f6fa;
-            --canvas-strong: #eef2f8;
-            --ink: #1f2937;
-            --ink-soft: #566173;
-            --ink-muted: #8a94a6;
-            --line: rgba(148, 163, 184, 0.24);
-            --line-strong: rgba(59, 130, 246, 0.32);
-            --surface: rgba(255, 255, 255, 0.9);
-            --surface-strong: #ffffff;
-            --surface-muted: rgba(248, 250, 252, 0.95);
-            --surface-panel: rgba(255, 255, 255, 0.68);
-            --glow-a: rgba(0, 48, 135, 0.08);
-            --glow-b: rgba(196, 0, 41, 0.06);
-            --shadow-soft: 0 28px 70px rgba(15, 23, 42, 0.09);
-            --shadow-card: 0 14px 36px rgba(15, 23, 42, 0.08);
-        }
-
-        html.theme-dark {
-            color-scheme: dark;
-            --canvas: #08111f;
-            --canvas-strong: #0d1728;
-            --ink: #e5edf7;
-            --ink-soft: #b3c0d2;
-            --ink-muted: #8593a7;
-            --line: rgba(148, 163, 184, 0.18);
-            --line-strong: rgba(96, 165, 250, 0.34);
-            --surface: rgba(11, 20, 35, 0.92);
-            --surface-strong: #101a2b;
-            --surface-muted: rgba(15, 23, 42, 0.92);
-            --surface-panel: rgba(15, 23, 42, 0.72);
-            --glow-a: rgba(59, 130, 246, 0.18);
-            --glow-b: rgba(244, 63, 94, 0.12);
-            --shadow-soft: 0 30px 80px rgba(2, 6, 23, 0.55);
-            --shadow-card: 0 18px 42px rgba(2, 6, 23, 0.44);
-        }
-
-        body {
-            background:
-                radial-gradient(circle at top left, var(--glow-a), transparent 32rem),
-                radial-gradient(circle at top right, var(--glow-b), transparent 24rem),
-                linear-gradient(180deg, var(--canvas-strong), var(--canvas));
-            color: var(--ink);
-        }
-
-        .surface-card {
-            background: var(--surface);
-            border: 1px solid var(--line);
-            box-shadow: var(--shadow-card);
-            backdrop-filter: blur(14px);
-        }
-
-        .surface-card:hover {
-            border-color: var(--line-strong);
-        }
-
-        .converter-card-grid {
-            align-items: stretch;
-        }
-
-        .converter-card {
-            display: flex;
-            height: 100%;
-            flex-direction: column;
-            gap: 0.75rem;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            text-align: left;
-            transition: transform 0.24s ease, border-color 0.24s ease, background-color 0.24s ease, box-shadow 0.24s ease;
-        }
-
-        .converter-card__header {
-            display: flex;
-            min-height: 3.75rem;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-        }
-
-        .converter-card__brand {
-            display: flex;
-            min-height: 3rem;
-            align-items: center;
-        }
-
-        .converter-card__body {
-            display: grid;
-            flex: 1;
-            grid-template-rows: minmax(3rem, auto) minmax(5.5rem, auto) minmax(4rem, auto) auto;
-            row-gap: 0;
-            align-content: start;
-        }
-
-        .converter-card__title {
-            display: flex;
-            align-items: flex-start;
-        }
-
-        .converter-card__title h2 {
-            line-height: 1.08;
-        }
-
-        .converter-card__description {
-            margin-top: 0.35rem;
-            max-width: none;
-            min-height: 5.25rem;
-            line-height: 1.5;
-            display: -webkit-box;
-            -webkit-line-clamp: 4;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .converter-card__chips {
-            margin-top: 0.75rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.45rem;
-            align-content: start;
-            align-items: flex-start;
-        }
-
-        .converter-chip {
-            display: inline-flex;
-            min-height: 2.1rem;
-            align-items: center;
-            border-radius: 9999px;
-            padding: 0 0.95rem;
-            font-size: 0.79rem;
-            font-weight: 600;
-            line-height: 1;
-        }
-
-        .converter-card__action {
-            padding-top: 0.85rem;
-        }
-
-        .converter-card__action-inner {
-            display: flex;
-            min-height: 2.75rem;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            padding: 0;
-            color: #003087;
-        }
-
-        html.theme-dark .converter-card__action-inner {
-            color: #bfdbfe;
-        }
-
-        .brand-logo {
-            height: 3rem;
-            width: auto;
-            max-width: 100%;
-            transform-origin: left center;
-            transition: transform 0.24s ease, filter 0.24s ease, opacity 0.24s ease;
-        }
-
-        .brand-logo--paypal {
-            filter: drop-shadow(0 10px 18px rgba(0, 48, 135, 0.08));
-        }
-
-        .brand-logo--deutsche {
-            filter: drop-shadow(0 10px 18px rgba(0, 24, 168, 0.08));
-        }
-
-        .brand-logo--revolut {
-            filter: drop-shadow(0 10px 18px rgba(25, 28, 31, 0.08));
-        }
-
-        html.theme-dark .brand-logo--paypal {
-            filter: brightness(1.28) saturate(1.18) drop-shadow(0 0 20px rgba(96, 165, 250, 0.18));
-        }
-
-        html.theme-dark .brand-logo--deutsche {
-            filter: brightness(1.36) saturate(1.2) drop-shadow(0 0 20px rgba(96, 165, 250, 0.16));
-        }
-
-        html.theme-dark .brand-logo--revolut {
-            filter: brightness(0) saturate(100%) invert(91%) sepia(10%) saturate(470%) hue-rotate(181deg) brightness(100%) contrast(94%) drop-shadow(0 0 20px rgba(148, 163, 184, 0.12));
-        }
-
-        .surface-chip {
-            --chip-border: rgba(148, 163, 184, 0.18);
-            --chip-surface: var(--surface-muted);
-            --chip-surface-hover: var(--surface-strong);
-            --chip-text: var(--ink-soft);
-            --chip-text-hover: var(--ink);
-            --chip-border-hover: rgba(71, 85, 105, 0.32);
-            background: var(--chip-surface);
-            border: 1px solid var(--chip-border);
-            color: var(--chip-text);
-            transition: background-color 0.24s ease, border-color 0.24s ease, color 0.24s ease, transform 0.24s ease;
-        }
-
-        .surface-chip:hover {
-            background: var(--chip-surface-hover);
-            border-color: var(--chip-border-hover);
-            color: var(--chip-text-hover);
-            transform: translateY(-1px);
-        }
-
-        .surface-chip--paypal {
-            --chip-border-hover: rgba(0, 48, 135, 0.24);
-            --chip-text-hover: #003087;
-        }
-
-        .surface-chip--alert {
-            --chip-border-hover: rgba(196, 0, 41, 0.24);
-            --chip-text-hover: #9f1239;
-        }
-
-        .surface-chip--neutral {
-            --chip-border-hover: rgba(100, 116, 139, 0.32);
-            --chip-text-hover: var(--ink);
-        }
-
-        .surface-chip--deutsche {
-            --chip-border-hover: rgba(0, 24, 168, 0.24);
-            --chip-text-hover: #0018A8;
-        }
-
-        .surface-chip--revolut {
-            --chip-border-hover: rgba(25, 28, 31, 0.22);
-            --chip-text-hover: #111827;
-        }
-
-        html.theme-dark .surface-chip {
-            --chip-border: rgba(148, 163, 184, 0.16);
-            --chip-surface: rgba(15, 23, 42, 0.56);
-            --chip-surface-hover: rgba(30, 41, 59, 0.82);
-            --chip-text: var(--ink-soft);
-            --chip-text-hover: var(--ink);
-        }
-
-        html.theme-dark .surface-chip--paypal {
-            --chip-border-hover: rgba(147, 197, 253, 0.34);
-            --chip-text-hover: #bfdbfe;
-        }
-
-        html.theme-dark .surface-chip--alert {
-            --chip-border-hover: rgba(251, 113, 133, 0.32);
-            --chip-text-hover: #fda4af;
-        }
-
-        html.theme-dark .surface-chip--neutral {
-            --chip-border-hover: rgba(148, 163, 184, 0.34);
-            --chip-text-hover: var(--ink);
-        }
-
-        html.theme-dark .surface-chip--deutsche {
-            --chip-border-hover: rgba(147, 197, 253, 0.34);
-            --chip-text-hover: #bfdbfe;
-        }
-
-        html.theme-dark .surface-chip--revolut {
-            --chip-border-hover: rgba(148, 163, 184, 0.34);
-            --chip-text-hover: #e2e8f0;
-        }
-
-        .surface-input {
-            background: var(--surface-muted);
-            border: 1px solid var(--line);
-            color: var(--ink);
-        }
-
-        .surface-input::placeholder {
-            color: var(--ink-muted);
-        }
-
-        .surface-input:focus {
-            background: var(--surface-strong);
-            border-color: rgba(0, 48, 135, 0.42);
-            box-shadow: 0 0 0 4px rgba(0, 48, 135, 0.08);
-        }
-
-        html.theme-dark .surface-input:focus {
-            box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.14);
-        }
-
-        .request-strip {
-            position: relative;
-            overflow: hidden;
-            border: 1px solid var(--line);
-            background:
-                linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.4)),
-                linear-gradient(140deg, rgba(0, 48, 135, 0.045), rgba(196, 0, 41, 0.03));
-            box-shadow: var(--shadow-soft);
-        }
-
-        html.theme-dark .request-strip {
-            background:
-                linear-gradient(135deg, rgba(11, 20, 35, 0.84), rgba(8, 17, 31, 0.96)),
-                linear-gradient(140deg, rgba(59, 130, 246, 0.14), rgba(244, 63, 94, 0.08));
-        }
-
-        .request-strip::before {
-            content: "";
-            position: absolute;
-            left: 24px;
-            right: 24px;
-            top: 0;
-            height: 1px;
-            background: linear-gradient(90deg, rgba(0, 48, 135, 0.34), rgba(196, 0, 41, 0.18), rgba(0, 48, 135, 0));
-        }
-
-        .request-strip::after {
-            content: "";
-            position: absolute;
-            inset: auto -56px -72px auto;
-            width: 220px;
-            height: 220px;
-            border-radius: 9999px;
-            background: radial-gradient(circle, rgba(196, 0, 41, 0.1), transparent 68%);
-            pointer-events: none;
-        }
-
-        .request-form-shell {
-            background: var(--surface-panel);
-            border: 1px solid var(--line);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
-            backdrop-filter: blur(14px);
-        }
-
-        html.theme-dark .request-form-shell {
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-        }
-
-        .footer-rail {
-            border-top: 1px solid var(--line);
-        }
-
-        .status-note {
-            color: var(--ink-muted);
-        }
-
-        html.theme-dark .bg-white {
-            background-color: var(--surface) !important;
-        }
-
-        html.theme-dark .bg-gray-50 {
-            background-color: var(--surface-muted) !important;
-        }
-
-        html.theme-dark .bg-gray-100 {
-            background-color: rgba(148, 163, 184, 0.12) !important;
-        }
-
-        html.theme-dark .bg-gray-200 {
-            background-color: rgba(100, 116, 139, 0.32) !important;
-        }
-
-        html.theme-dark .bg-blue-50,
-        html.theme-dark .bg-blue-50\/20,
-        html.theme-dark .bg-blue-50\/30 {
-            background-color: rgba(59, 130, 246, 0.12) !important;
-        }
-
-        html.theme-dark .bg-green-50 {
-            background-color: rgba(34, 197, 94, 0.1) !important;
-        }
-
-        html.theme-dark .bg-red-50 {
-            background-color: rgba(239, 68, 68, 0.12) !important;
-        }
-
-        html.theme-dark .border-gray-200,
-        html.theme-dark .border-gray-100 {
-            border-color: var(--line) !important;
-        }
-
-        html.theme-dark .border-green-100 {
-            border-color: rgba(34, 197, 94, 0.18) !important;
-        }
-
-        html.theme-dark .border-green-200 {
-            border-color: rgba(34, 197, 94, 0.24) !important;
-        }
-
-        html.theme-dark .border-\[\#003087\] {
-            border-color: rgba(96, 165, 250, 0.38) !important;
-        }
-
-        html.theme-dark .border-\[\#C40029\] {
-            border-color: rgba(251, 113, 133, 0.38) !important;
-        }
-
-        html.theme-dark .text-gray-800 {
-            color: var(--ink) !important;
-        }
-
-        html.theme-dark .text-gray-700 {
-            color: #d7e0ec !important;
-        }
-
-        html.theme-dark .text-gray-600 {
-            color: var(--ink-soft) !important;
-        }
-
-        html.theme-dark .text-gray-500 {
-            color: var(--ink-muted) !important;
-        }
-
-        html.theme-dark .text-gray-400,
-        html.theme-dark .text-gray-300 {
-            color: #7f8aa0 !important;
-        }
-
-        html.theme-dark .text-green-600,
-        html.theme-dark .text-green-700,
-        html.theme-dark .text-green-800 {
-            color: #86efac !important;
-        }
-
-        html.theme-dark .text-red-600 {
-            color: #fca5a5 !important;
-        }
-
-        html.theme-dark .text-\[\#003087\] {
-            color: #9bc1ff !important;
-        }
-
-        html.theme-dark .text-\[\#002569\] {
-            color: #c7ddff !important;
-        }
-
-        html.theme-dark .text-\[\#0018A8\] {
-            color: #93c5fd !important;
-        }
-
-        html.theme-dark .text-\[\#191C1F\] {
-            color: #e5edf7 !important;
-        }
-
-        html.theme-dark .text-\[\#C40029\] {
-            color: #fb7185 !important;
-        }
-
-        html.theme-dark .bg-\[\#003087\] {
-            background-color: #1d4ed8 !important;
-        }
-
-        html.theme-dark .bg-\[\#003087\]\/10,
-        html.theme-dark .bg-\[\#0018A8\]\/10 {
-            background-color: rgba(96, 165, 250, 0.14) !important;
-        }
-
-        html.theme-dark .bg-\[\#191C1F\]\/10 {
-            background-color: rgba(148, 163, 184, 0.14) !important;
-        }
-
-        html.theme-dark .bg-\[\#C40029\]\/10 {
-            background-color: rgba(244, 63, 94, 0.14) !important;
-        }
-
-        html.theme-dark .shadow-sm,
-        html.theme-dark .shadow-md {
-            box-shadow: var(--shadow-card) !important;
-        }
-
-        html.theme-dark .hover\:bg-gray-50\/30:hover {
-            background-color: rgba(148, 163, 184, 0.08) !important;
-        }
-
-        html.theme-dark .hover\:bg-blue-50:hover,
-        html.theme-dark .hover\:bg-blue-50\/20:hover,
-        html.theme-dark .hover\:bg-blue-50\/30:hover {
-            background-color: rgba(59, 130, 246, 0.12) !important;
-        }
-
-        html.theme-dark .hover\:bg-\[\#002569\]:hover {
-            background-color: #1e40af !important;
-        }
-
-        html.theme-dark .hover\:border-\[\#003087\]:hover,
-        html.theme-dark .hover\:border-\[\#003087\]\/20:hover,
-        html.theme-dark .hover\:border-\[\#003087\]\/30:hover,
-        html.theme-dark .hover\:border-\[\#003087\]\/40:hover {
-            border-color: rgba(147, 197, 253, 0.34) !important;
-        }
-
-        html.theme-dark .hover\:border-\[\#0018A8\]:hover,
-        html.theme-dark .hover\:border-\[\#0018A8\]\/30:hover {
-            border-color: rgba(147, 197, 253, 0.32) !important;
-        }
-
-        html.theme-dark .hover\:border-\[\#0666EB\]:hover,
-        html.theme-dark .hover\:border-\[\#0666EB\]\/30:hover {
-            border-color: rgba(147, 197, 253, 0.34) !important;
-        }
-
-        html.theme-dark .hover\:border-\[\#191C1F\]\/30:hover {
-            border-color: rgba(148, 163, 184, 0.3) !important;
-        }
-
-        html.theme-dark .hover\:border-slate-400\/40:hover {
-            border-color: rgba(148, 163, 184, 0.34) !important;
-        }
-
-        html.theme-dark .hover\:text-gray-800:hover {
-            color: var(--ink) !important;
-        }
-
-        html.theme-dark .hover\:text-\[\#003087\]:hover,
-        html.theme-dark .group:hover .group-hover\:text-\[\#003087\] {
-            color: #bfdbfe !important;
-        }
-
-        html.theme-dark .hover\:text-\[\#002569\]:hover {
-            color: #dbeafe !important;
-        }
-
-        html.theme-dark .hover\:text-\[\#0018A8\]:hover,
-        html.theme-dark .group:hover .group-hover\:text-\[\#0018A8\] {
-            color: #bfdbfe !important;
-        }
-
-        html.theme-dark .hover\:text-\[\#001080\]:hover {
-            color: #dbeafe !important;
-        }
-
-        html.theme-dark .hover\:text-\[\#0666EB\]:hover,
-        html.theme-dark .group:hover .group-hover\:text-\[\#0666EB\] {
-            color: #93c5fd !important;
-        }
-
-        html.theme-dark .hover\:text-\[\#0555CC\]:hover {
-            color: #bfdbfe !important;
-        }
-
-        html.theme-dark .focus\:bg-white:focus {
-            background-color: var(--surface-strong) !important;
-        }
-    </style>
     <script>
         (function() {
             var mq = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
@@ -668,7 +169,7 @@
     gtag('config', 'G-P6FESMHBQ1');
 </script>
 
-<body class="bg-gray-50 text-gray-800 font-sans min-h-screen p-4">
+<body class="b2l-hub bg-gray-50 text-gray-800 font-sans min-h-screen p-4">
 
     <main class="w-full max-w-5xl mx-auto text-center py-4 sm:py-6">
 
@@ -1077,6 +578,18 @@
                     <h3 class="font-bold text-gray-800 mb-2">Welches Format benötigt Lexware?</h3>
                     <p class="text-sm text-gray-600">Lexware benötigt ein spezifisches CSV-Format (DATEV-kompatibel).
                         Dieses Tool erstellt genau dieses Format automatisch aus Ihrem PayPal-Export.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <h3 class="font-bold text-gray-800 mb-2">Welche Banken und Zahlungsanbieter werden unterstützt?</h3>
+                    <p class="text-sm text-gray-600">Aktuell werden PayPal, Revolut und Deutsche Bank unterstützt. Weitere Banken können über das Anfrageformular auf der Startseite vorgeschlagen werden.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <h3 class="font-bold text-gray-800 mb-2">Muss ich mich registrieren oder ein Konto erstellen?</h3>
+                    <p class="text-sm text-gray-600">Nein. Das Tool funktioniert ohne Registrierung, ohne Login und ohne E-Mail-Adresse. Einfach CSV hochladen und konvertieren.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <h3 class="font-bold text-gray-800 mb-2">Kann ich auch historische Umsätze nachimportieren?</h3>
+                    <p class="text-sm text-gray-600">Ja, genau dafür ist Bank2Lexware besonders nützlich. Exportieren Sie den gewünschten Zeitraum aus Ihrer Bank oder PayPal und konvertieren Sie ihn für Lexware.</p>
                 </div>
             </div>
         </section>

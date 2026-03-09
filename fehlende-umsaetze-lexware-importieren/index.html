@@ -4,27 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fehlende Umsätze in Lexware importieren | Bank2Lexware</title>
+    <title>Fehlende Umsätze in Lexware nachimportieren – So geht's | Bank2Lexware</title>
     <meta name="description"
-        content="Fehlende Umsätze in Lexware per CSV nachimportieren. Leitfaden für historische Zeiträume, manuelle Korrekturen und Bank- oder PayPal-Exporte mit Bank2Lexware.">
+        content="Fehlende Umsätze in Lexware per CSV nachimportieren. Anleitung für historische Zeiträume, PayPal-Exporte & Bankauszüge. Kostenlos & lokal!">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Alan Özalp">
     <meta name="theme-color" content="#f4f6fa">
     <link rel="canonical" href="https://www.bank2lexware.de/fehlende-umsaetze-lexware-importieren/">
+    <link rel="alternate" hreflang="de" href="https://www.bank2lexware.de/fehlende-umsaetze-lexware-importieren/">
+    <link rel="alternate" hreflang="de-AT" href="https://www.bank2lexware.de/fehlende-umsaetze-lexware-importieren/">
+    <link rel="alternate" hreflang="de-CH" href="https://www.bank2lexware.de/fehlende-umsaetze-lexware-importieren/">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💶</text></svg>">
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Fehlende Umsätze in Lexware importieren | Bank2Lexware">
+    <meta property="og:title" content="Fehlende Umsätze in Lexware nachimportieren – So geht's | Bank2Lexware">
     <meta property="og:description"
-        content="Praxisleitfaden für das Nachimportieren fehlender Umsätze in Lexware per CSV aus PayPal-, Revolut- oder Bankexporten.">
+        content="Fehlende Buchungen in Lexware gezielt nachimportieren. CSV-Aufbereitung für PayPal, Revolut & Bankexporte – kostenlos und 100% lokal.">
     <meta property="og:locale" content="de_DE">
     <meta property="og:site_name" content="Bank2Lexware">
     <meta property="og:url" content="https://www.bank2lexware.de/fehlende-umsaetze-lexware-importieren/">
+    <meta property="article:modified_time" content="2026-03-09">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Fehlende Umsätze in Lexware importieren | Bank2Lexware">
+    <meta name="twitter:title" content="Fehlende Umsätze in Lexware nachimportieren – So geht's | Bank2Lexware">
     <meta name="twitter:description"
-        content="Praxisleitfaden für das Nachimportieren fehlender Umsätze in Lexware per CSV aus PayPal-, Revolut- oder Bankexporten.">
+        content="Fehlende Buchungen in Lexware gezielt nachimportieren. CSV-Aufbereitung für PayPal, Revolut & Bankexporte – kostenlos und 100% lokal.">
 
     <script type="application/ld+json">
     [
@@ -67,13 +73,53 @@
                         "@type": "Answer",
                         "text": "Ja. Gerade bei fehlenden Umsätzen ist es sinnvoll, nur den betroffenen Zeitraum oder die betroffene Quelle zu exportieren und gezielt zu importieren."
                     }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Warum fehlen Umsätze in meiner Lexware-Buchhaltung?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Häufige Gründe sind unterbrochene Bankanbindungen, nachträglich korrigierte Buchungen, Systemwechsel oder Zahlungsanbieter wie PayPal, deren Umsätze nicht automatisch abgerufen werden."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Kann ich gezielt nur einen Zeitraum nachimportieren?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Ja, exportieren Sie nur den betroffenen Zeitraum aus Ihrer Bank oder PayPal und konvertieren Sie ihn mit Bank2Lexware. So vermeiden Sie Duplikate in Lexware."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Erkennt Lexware doppelte Buchungen beim Import?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Lexware bietet eine Dublettenprüfung beim CSV-Import. Trotzdem empfiehlt es sich, nur den fehlenden Zeitraum zu exportieren und gezielt zu importieren."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Welche Quellen kann ich für den Nachimport nutzen?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Bank2Lexware unterstützt PayPal, Revolut und Deutsche Bank CSV-Exporte. Weitere Banken können über das Anfrageformular auf der Startseite vorgeschlagen werden."
+                    }
                 }
+            ]
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Bank2Lexware", "item": "https://www.bank2lexware.de/" },
+                { "@type": "ListItem", "position": 2, "name": "Fehlende Umsätze importieren", "item": "https://www.bank2lexware.de/fehlende-umsaetze-lexware-importieren/" }
             ]
         }
     ]
     </script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../shared/styles.css">
 </head>
 
 <body class="min-h-screen bg-slate-50 text-slate-900">
@@ -212,6 +258,30 @@
                     <h3 class="text-base font-bold text-slate-900">Werden Daten an einen Server gesendet?</h3>
                     <p class="mt-2 text-sm leading-7 text-slate-600">
                         Nein. Die Verarbeitung läuft lokal im Browser. Deine Datei bleibt auf deinem Rechner.
+                    </p>
+                </article>
+                <article class="rounded-[1.25rem] bg-slate-50 p-5">
+                    <h3 class="text-base font-bold text-slate-900">Warum fehlen Umsätze in meiner Lexware-Buchhaltung?</h3>
+                    <p class="mt-2 text-sm leading-7 text-slate-600">
+                        Häufige Gründe sind unterbrochene Bankanbindungen, nachträglich korrigierte Buchungen, Systemwechsel oder Zahlungsanbieter wie PayPal, deren Umsätze nicht automatisch abgerufen werden.
+                    </p>
+                </article>
+                <article class="rounded-[1.25rem] bg-slate-50 p-5">
+                    <h3 class="text-base font-bold text-slate-900">Kann ich gezielt nur einen Zeitraum nachimportieren?</h3>
+                    <p class="mt-2 text-sm leading-7 text-slate-600">
+                        Ja, exportieren Sie nur den betroffenen Zeitraum aus Ihrer Bank oder PayPal und konvertieren Sie ihn mit Bank2Lexware. So vermeiden Sie Duplikate in Lexware.
+                    </p>
+                </article>
+                <article class="rounded-[1.25rem] bg-slate-50 p-5">
+                    <h3 class="text-base font-bold text-slate-900">Erkennt Lexware doppelte Buchungen beim Import?</h3>
+                    <p class="mt-2 text-sm leading-7 text-slate-600">
+                        Lexware bietet eine Dublettenprüfung beim CSV-Import. Trotzdem empfiehlt es sich, nur den fehlenden Zeitraum zu exportieren und gezielt zu importieren.
+                    </p>
+                </article>
+                <article class="rounded-[1.25rem] bg-slate-50 p-5">
+                    <h3 class="text-base font-bold text-slate-900">Welche Quellen kann ich für den Nachimport nutzen?</h3>
+                    <p class="mt-2 text-sm leading-7 text-slate-600">
+                        Bank2Lexware unterstützt PayPal, Revolut und Deutsche Bank CSV-Exporte. Weitere Banken können über das Anfrageformular auf der Startseite vorgeschlagen werden.
                     </p>
                 </article>
             </div>

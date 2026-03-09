@@ -4,28 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Revolut CSV in Lexware importieren | Bank2Lexware</title>
+    <title>Revolut CSV in Lexware importieren – Kostenlos & Lokal | Bank2Lexware</title>
     <meta name="description"
-        content="Revolut CSV-Kontoauszüge lokal in Lexware-kompatible CSV umwandeln. Mit Währungsumrechnung, Gebühren-Splitting und Filterung fehlgeschlagener Transaktionen.">
+        content="Revolut CSV-Kontoauszüge kostenlos für Lexware umwandeln. Automatische Währungsumrechnung, Gebühren-Splitting & Filterung – 100% lokal.">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Alan Özalp">
     <meta name="theme-color" content="#f8fafc">
     <link rel="canonical" href="https://www.bank2lexware.de/revolut/">
+    <link rel="alternate" hreflang="de" href="https://www.bank2lexware.de/revolut/">
+    <link rel="alternate" hreflang="de-AT" href="https://www.bank2lexware.de/revolut/">
+    <link rel="alternate" hreflang="de-CH" href="https://www.bank2lexware.de/revolut/">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💶</text></svg>">
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Revolut CSV in Lexware importieren | Bank2Lexware">
+    <meta property="og:title" content="Revolut CSV in Lexware importieren – Kostenlos & Lokal | Bank2Lexware">
     <meta property="og:description"
-        content="Revolut CSV-Kontoauszüge lokal für Lexware vorbereiten, inklusive Mehrwährungen, Gebühren und sauberer Filterung.">
+        content="Revolut CSV kostenlos & lokal in Lexware importieren. EZB-Kurse, Gebühren-Splitting & automatische Filterung fehlgeschlagener Transaktionen.">
     <meta property="og:locale" content="de_DE">
     <meta property="og:site_name" content="Bank2Lexware">
     <meta property="og:url" content="https://www.bank2lexware.de/revolut/">
+    <meta property="article:modified_time" content="2026-03-09">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Revolut CSV in Lexware importieren | Bank2Lexware">
+    <meta name="twitter:title" content="Revolut CSV in Lexware importieren – Kostenlos & Lokal | Bank2Lexware">
     <meta name="twitter:description"
-        content="Revolut CSV-Kontoauszüge lokal für Lexware vorbereiten, inklusive Mehrwährungen, Gebühren und sauberer Filterung.">
+        content="Revolut CSV kostenlos & lokal in Lexware importieren. EZB-Kurse, Gebühren-Splitting & automatische Filterung fehlgeschlagener Transaktionen.">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -90,15 +96,57 @@
                         "@type": "Answer",
                         "text": "Transaktionen mit dem Status REVERTED oder FAILED werden automatisch herausgefiltert und nicht in die Lexware-Datei übernommen."
                     }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Wie exportiere ich einen Revolut-Kontoauszug als CSV?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Öffnen Sie die Revolut-App oder das Web-Portal, gehen Sie zu Konten, wählen Sie das Konto aus, klicken Sie auf Kontoauszug und wählen Sie CSV als Format."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Werden Revolut-Gebühren separat ausgewiesen?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Ja, Revolut-Gebühren werden automatisch als separate Buchungszeilen in der Lexware-CSV erstellt, damit sie korrekt als Betriebsausgabe verbucht werden können."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Welcher Wechselkurs wird für Fremdwährungen verwendet?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Das Tool verwendet den offiziellen EZB-Referenzkurs des jeweiligen Buchungstages für eine steuerlich korrekte Umrechnung in EUR."
+                    }
                 }
+            ]
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Bank2Lexware", "item": "https://www.bank2lexware.de/" },
+                { "@type": "ListItem", "position": 2, "name": "Revolut CSV importieren", "item": "https://www.bank2lexware.de/revolut/" }
+            ]
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            "name": "Revolut CSV in Lexware importieren",
+            "description": "So importieren Sie Revolut-Kontoauszüge in Lexware Office.",
+            "step": [
+                { "@type": "HowToStep", "name": "CSV exportieren", "text": "In der Revolut-App oder im Web unter Konten > Kontoauszug den Zeitraum wählen und als CSV exportieren." },
+                { "@type": "HowToStep", "name": "Datei konvertieren", "text": "Die CSV-Datei in den Bank2Lexware Revolut-Konverter ziehen – Währungen und Gebühren werden automatisch aufbereitet." },
+                { "@type": "HowToStep", "name": "In Lexware importieren", "text": "Die erzeugte Lexware-CSV herunterladen und über den CSV-Import in Lexware einspielen." }
             ]
         }
     ]
     </script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../shared/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-    <link rel="stylesheet" href="../shared/dark-mode.css">
     <script>
         window.B2L = {
             brandColor: '#0666EB',
@@ -317,6 +365,18 @@
                     <p class="text-sm text-gray-600">Transaktionen mit dem Status REVERTED oder FAILED werden
                         automatisch herausgefiltert und nicht in die Lexware-Datei übernommen. Nur COMPLETED
                         Transaktionen werden verarbeitet.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <h3 class="font-bold text-gray-800 mb-2">Wie exportiere ich einen Revolut-Kontoauszug als CSV?</h3>
+                    <p class="text-sm text-gray-600">Öffnen Sie die Revolut-App oder das Web-Portal, gehen Sie zu Konten, wählen Sie das Konto aus, klicken Sie auf Kontoauszug und wählen Sie CSV als Format.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <h3 class="font-bold text-gray-800 mb-2">Werden Revolut-Gebühren separat ausgewiesen?</h3>
+                    <p class="text-sm text-gray-600">Ja, Revolut-Gebühren werden automatisch als separate Buchungszeilen in der Lexware-CSV erstellt, damit sie korrekt als Betriebsausgabe verbucht werden können.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <h3 class="font-bold text-gray-800 mb-2">Welcher Wechselkurs wird für Fremdwährungen verwendet?</h3>
+                    <p class="text-sm text-gray-600">Das Tool verwendet den offiziellen EZB-Referenzkurs des jeweiligen Buchungstages für eine steuerlich korrekte Umrechnung in EUR.</p>
                 </div>
             </div>
         </section>
