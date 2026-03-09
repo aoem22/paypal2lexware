@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
     <title>Revolut CSV in Lexware importieren – Kostenlos & Lokal | Bank2Lexware</title>
     <meta name="description"
         content="Revolut CSV-Kontoauszüge kostenlos für Lexware umwandeln. Automatische Währungsumrechnung, Gebühren-Splitting & Filterung – 100% lokal.">
@@ -16,8 +17,8 @@
     <link rel="alternate" hreflang="de-CH" href="https://www.bank2lexware.de/revolut/">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💶</text></svg>">
+    <link rel="preload" href="../shared/styles.css" as="style">
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -27,11 +28,15 @@
     <meta property="og:locale" content="de_DE">
     <meta property="og:site_name" content="Bank2Lexware">
     <meta property="og:url" content="https://www.bank2lexware.de/revolut/">
+    <meta property="og:image" content="https://www.bank2lexware.de/assets/og/revolut.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="article:modified_time" content="2026-03-09">
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Revolut CSV in Lexware importieren – Kostenlos & Lokal | Bank2Lexware">
     <meta name="twitter:description"
         content="Revolut CSV kostenlos & lokal in Lexware importieren. EZB-Kurse, Gebühren-Splitting & automatische Filterung fehlgeschlagener Transaktionen.">
+    <meta name="twitter:image" content="https://www.bank2lexware.de/assets/og/revolut.jpg">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -146,7 +151,7 @@
     </script>
 
     <link rel="stylesheet" href="../shared/styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script src="../shared/papaparse.min.js"></script>
     <script>
         window.B2L = {
             brandColor: '#0666EB',
@@ -378,6 +383,46 @@
                     <h3 class="font-bold text-gray-800 mb-2">Welcher Wechselkurs wird für Fremdwährungen verwendet?</h3>
                     <p class="text-sm text-gray-600">Das Tool verwendet den offiziellen EZB-Referenzkurs des jeweiligen Buchungstages für eine steuerlich korrekte Umrechnung in EUR.</p>
                 </div>
+            </div>
+        </section>
+
+        <section class="mt-16 text-left max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Häufige Probleme beim Revolut-Import in Lexware</h2>
+            <div class="space-y-4 text-sm text-gray-600 leading-relaxed">
+                <div>
+                    <h3 class="font-bold text-gray-800 mb-1">Fehlgeschlagene Transaktionen tauchen in Lexware auf</h3>
+                    <p>Revolut-Exporte enthalten auch stornierte und fehlgeschlagene Buchungen (Status REVERTED/FAILED). Bank2Lexware filtert diese automatisch heraus – nur COMPLETED Transaktionen werden übernommen.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-800 mb-1">Fremdwährungen werden nicht umgerechnet</h3>
+                    <p>Revolut-Konten arbeiten oft mit mehreren Währungen. Bank2Lexware erkennt Nicht-EUR-Transaktionen und rechnet sie mit dem offiziellen EZB-Tageskurs um. Die Kursdifferenz wird transparent ausgewiesen.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-800 mb-1">Revolut-Gebühren fehlen in der Buchhaltung</h3>
+                    <p>Gebühren für Währungsumrechnung oder Kartennutzung werden als separate Buchungszeilen erstellt. So können sie in Lexware korrekt als Betriebsausgabe erfasst werden.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-800 mb-1">Welchen Kontoauszug soll ich exportieren?</h3>
+                    <p>Nutzen Sie den CSV-Export unter Konten > Kontoauszug in der Revolut-App oder im Web-Portal. Wählen Sie den gewünschten Zeitraum und das CSV-Format.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mt-12 text-left max-w-3xl mx-auto">
+            <h2 class="text-lg font-bold text-gray-800 mb-4">Verwandte Themen</h2>
+            <div class="grid gap-3 sm:grid-cols-2">
+                <a href="../paypal-csv-lexware/" class="flex items-center gap-3 bg-white rounded-xl border border-gray-200 p-4 text-sm font-medium text-gray-700 hover:border-[#0666EB]/30 hover:bg-blue-50/20 transition-colors">
+                    <span class="text-lg">💰</span><span>PayPal CSV importieren</span>
+                </a>
+                <a href="../deutsche-bank/" class="flex items-center gap-3 bg-white rounded-xl border border-gray-200 p-4 text-sm font-medium text-gray-700 hover:border-[#0666EB]/30 hover:bg-blue-50/20 transition-colors">
+                    <span class="text-lg">🏛️</span><span>Deutsche Bank CSV importieren</span>
+                </a>
+                <a href="../fehlende-umsaetze-lexware-importieren/" class="flex items-center gap-3 bg-white rounded-xl border border-gray-200 p-4 text-sm font-medium text-gray-700 hover:border-[#0666EB]/30 hover:bg-blue-50/20 transition-colors">
+                    <span class="text-lg">📥</span><span>Fehlende Umsätze importieren</span>
+                </a>
+                <a href="../offline-konto-lexware/" class="flex items-center gap-3 bg-white rounded-xl border border-gray-200 p-4 text-sm font-medium text-gray-700 hover:border-[#0666EB]/30 hover:bg-blue-50/20 transition-colors">
+                    <span class="text-lg">🏦</span><span>Offline-Konto vorbereiten</span>
+                </a>
             </div>
         </section>
 

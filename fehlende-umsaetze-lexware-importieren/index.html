@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
     <title>Fehlende Umsätze in Lexware nachimportieren – So geht's | Bank2Lexware</title>
     <meta name="description"
         content="Fehlende Umsätze in Lexware per CSV nachimportieren. Anleitung für historische Zeiträume, PayPal-Exporte & Bankauszüge. Kostenlos & lokal!">
@@ -16,8 +17,8 @@
     <link rel="alternate" hreflang="de-CH" href="https://www.bank2lexware.de/fehlende-umsaetze-lexware-importieren/">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💶</text></svg>">
+    <link rel="preload" href="../shared/styles.css" as="style">
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="Fehlende Umsätze in Lexware nachimportieren – So geht's | Bank2Lexware">
@@ -26,11 +27,15 @@
     <meta property="og:locale" content="de_DE">
     <meta property="og:site_name" content="Bank2Lexware">
     <meta property="og:url" content="https://www.bank2lexware.de/fehlende-umsaetze-lexware-importieren/">
+    <meta property="og:image" content="https://www.bank2lexware.de/assets/og/fehlende-umsaetze.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="article:modified_time" content="2026-03-09">
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Fehlende Umsätze in Lexware nachimportieren – So geht's | Bank2Lexware">
     <meta name="twitter:description"
         content="Fehlende Buchungen in Lexware gezielt nachimportieren. CSV-Aufbereitung für PayPal, Revolut & Bankexporte – kostenlos und 100% lokal.">
+    <meta name="twitter:image" content="https://www.bank2lexware.de/assets/og/fehlende-umsaetze.jpg">
 
     <script type="application/ld+json">
     [
@@ -284,6 +289,46 @@
                         Bank2Lexware unterstützt PayPal, Revolut und Deutsche Bank CSV-Exporte. Weitere Banken können über das Anfrageformular auf der Startseite vorgeschlagen werden.
                     </p>
                 </article>
+            </div>
+        </section>
+
+        <section class="rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-sm">
+            <h2 class="text-lg font-bold text-slate-900 mb-3">So vermeiden Sie Lücken in Ihrer Lexware-Buchhaltung</h2>
+            <div class="space-y-4 text-sm leading-7 text-slate-600">
+                <div>
+                    <h3 class="font-semibold text-slate-800">Regelmäßige Prüfung der Bankanbindung</h3>
+                    <p>Prüfen Sie monatlich, ob alle Konten in Lexware synchronisiert sind. Unterbrochene HBCI-Verbindungen sind die häufigste Ursache für fehlende Umsätze. Bei Störungen hilft oft eine erneute Einrichtung der Bankanbindung.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-slate-800">PayPal und Revolut manuell nachpflegen</h3>
+                    <p>Zahlungsanbieter wie PayPal und Revolut werden von Lexware oft nicht vollständig automatisch abgerufen. Exportieren Sie fehlende Zeiträume als CSV und importieren Sie sie über Bank2Lexware. Besonders Gebühren und Fremdwährungsbuchungen gehen bei der nativen Anbindung häufig verloren.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-slate-800">Duplikate beim Nachimport vermeiden</h3>
+                    <p>Exportieren Sie immer nur den exakten Zeitraum, der in Lexware fehlt. Lexware bietet zwar eine Dublettenprüfung, aber zur Sicherheit sollten Sie vor dem Import den vorhandenen Datenbestand prüfen. Bank2Lexware unterstützt optional die Einschränkung auf bestimmte Zeiträume.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-slate-800">Jahresabschluss: Vollständigkeit sicherstellen</h3>
+                    <p>Vor dem Jahresabschluss sollten Sie alle Konten auf Vollständigkeit prüfen. Gleichen Sie die Salden in Lexware mit den Kontoauszügen Ihrer Bank ab. Fehlende Umsätze können auch nachträglich über ein Offline-Konto importiert werden.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-sm">
+            <h2 class="text-lg font-bold text-slate-900 mb-4">Verwandte Themen</h2>
+            <div class="grid gap-3 sm:grid-cols-2">
+                <a href="../paypal-csv-lexware/" class="flex items-center gap-3 rounded-xl border border-slate-200 p-4 text-sm font-medium text-slate-700 hover:border-[#C40029]/30 hover:bg-red-50/20 transition-colors">
+                    <span class="text-lg">💰</span><span>PayPal CSV importieren</span>
+                </a>
+                <a href="../deutsche-bank/" class="flex items-center gap-3 rounded-xl border border-slate-200 p-4 text-sm font-medium text-slate-700 hover:border-[#C40029]/30 hover:bg-red-50/20 transition-colors">
+                    <span class="text-lg">🏛️</span><span>Deutsche Bank CSV importieren</span>
+                </a>
+                <a href="../revolut/" class="flex items-center gap-3 rounded-xl border border-slate-200 p-4 text-sm font-medium text-slate-700 hover:border-[#C40029]/30 hover:bg-red-50/20 transition-colors">
+                    <span class="text-lg">💳</span><span>Revolut CSV importieren</span>
+                </a>
+                <a href="../offline-konto-lexware/" class="flex items-center gap-3 rounded-xl border border-slate-200 p-4 text-sm font-medium text-slate-700 hover:border-[#C40029]/30 hover:bg-red-50/20 transition-colors">
+                    <span class="text-lg">🏦</span><span>Offline-Konto vorbereiten</span>
+                </a>
             </div>
         </section>
     </main>

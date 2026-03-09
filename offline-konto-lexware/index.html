@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
     <title>Offline-Konto für Lexware CSV vorbereiten – Kostenlos | Bank2Lexware</title>
     <meta name="description"
         content="Offline-Konto in Lexware für CSV-Import vorbereiten. Ideal für historische Umsätze, nicht angebundene Konten & manuelle Nachimporte. Kostenlose Anleitung!">
@@ -17,20 +18,24 @@
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💶</text></svg>">
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="preload" href="../shared/styles.css" as="style">
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="Offline-Konto für Lexware CSV vorbereiten – Kostenlos | Bank2Lexware">
     <meta property="og:description"
         content="Offline-Konto in Lexware einrichten und CSV-Daten importieren. Schritt-für-Schritt Anleitung für historische Umsätze und nicht angebundene Konten.">
+    <meta property="og:image" content="https://www.bank2lexware.de/assets/og/offline-konto.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:locale" content="de_DE">
     <meta property="og:site_name" content="Bank2Lexware">
     <meta property="og:url" content="https://www.bank2lexware.de/offline-konto-lexware/">
     <meta property="article:modified_time" content="2026-03-09">
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Offline-Konto für Lexware CSV vorbereiten – Kostenlos | Bank2Lexware">
     <meta name="twitter:description"
         content="Offline-Konto in Lexware einrichten und CSV-Daten importieren. Schritt-für-Schritt Anleitung für historische Umsätze und nicht angebundene Konten.">
+    <meta name="twitter:image" content="https://www.bank2lexware.de/assets/og/offline-konto.jpg">
 
     <script type="application/ld+json">
     [
@@ -284,6 +289,50 @@
                         Öffnen Sie das Offline-Konto in Lexware, wählen Sie den CSV-Import und laden Sie die mit Bank2Lexware erstellte Datei hoch. Die Umsätze werden automatisch zugeordnet.
                     </p>
                 </article>
+            </div>
+        </section>
+
+        <section class="rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-sm">
+            <h2 class="text-lg font-bold text-slate-900 mb-3">Schritt-für-Schritt: Offline-Konto in Lexware einrichten</h2>
+            <div class="space-y-4 text-sm leading-7 text-slate-600">
+                <div>
+                    <h3 class="font-semibold text-slate-800">1. Neues Konto in Lexware anlegen</h3>
+                    <p>Gehen Sie in Lexware Office zu Finanzen > Bankkonten und klicken Sie auf „Konto hinzufügen". Wählen Sie die Option „Offline-Konto" oder „Manuelles Konto" – je nach Lexware-Version.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-slate-800">2. Kontodaten eintragen</h3>
+                    <p>Geben Sie IBAN, BIC und den Kontonamen ein. Bei Zahlungsanbietern wie PayPal können Sie eine beschreibende Bezeichnung verwenden (z.B. „PayPal Geschäftskonto").</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-slate-800">3. CSV-Datei mit Bank2Lexware erstellen</h3>
+                    <p>Exportieren Sie die gewünschten Umsätze aus Ihrer Bank oder Ihrem Zahlungsanbieter als CSV. Laden Sie die Datei in den passenden Bank2Lexware-Konverter und erstellen Sie die Lexware-kompatible CSV.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-slate-800">4. CSV in Lexware importieren</h3>
+                    <p>Öffnen Sie das Offline-Konto in Lexware, wählen Sie „Umsätze importieren" > „CSV-Import" und laden Sie die erstellte Datei hoch. Lexware ordnet die Buchungen automatisch zu.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-slate-800">5. Buchungen prüfen und zuordnen</h3>
+                    <p>Nach dem Import können Sie die Buchungen in Lexware den richtigen Kategorien und Kostenstellen zuordnen. Prüfen Sie insbesondere Saldostände und Datumsangaben.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-sm">
+            <h2 class="text-lg font-bold text-slate-900 mb-4">Verwandte Themen</h2>
+            <div class="grid gap-3 sm:grid-cols-2">
+                <a href="../paypal-csv-lexware/" class="flex items-center gap-3 rounded-xl border border-slate-200 p-4 text-sm font-medium text-slate-700 hover:border-[#003087]/30 hover:bg-blue-50/20 transition-colors">
+                    <span class="text-lg">💰</span><span>PayPal CSV importieren</span>
+                </a>
+                <a href="../deutsche-bank/" class="flex items-center gap-3 rounded-xl border border-slate-200 p-4 text-sm font-medium text-slate-700 hover:border-[#003087]/30 hover:bg-blue-50/20 transition-colors">
+                    <span class="text-lg">🏛️</span><span>Deutsche Bank CSV importieren</span>
+                </a>
+                <a href="../revolut/" class="flex items-center gap-3 rounded-xl border border-slate-200 p-4 text-sm font-medium text-slate-700 hover:border-[#003087]/30 hover:bg-blue-50/20 transition-colors">
+                    <span class="text-lg">💳</span><span>Revolut CSV importieren</span>
+                </a>
+                <a href="../fehlende-umsaetze-lexware-importieren/" class="flex items-center gap-3 rounded-xl border border-slate-200 p-4 text-sm font-medium text-slate-700 hover:border-[#003087]/30 hover:bg-blue-50/20 transition-colors">
+                    <span class="text-lg">📥</span><span>Fehlende Umsätze importieren</span>
+                </a>
             </div>
         </section>
     </main>

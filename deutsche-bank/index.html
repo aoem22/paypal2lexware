@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
     <title>Deutsche Bank CSV in Lexware importieren – In 3 Schritten | Bank2Lexware</title>
     <meta name="description"
         content="Deutsche Bank CSV-Exporte kostenlos in Lexware importieren. Automatische Datumsformatierung &amp; Betragsaufteilung – 100% lokal, ohne Upload.">
@@ -17,21 +18,25 @@
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏦</text></svg>">
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Deutsche Bank CSV in Lexware importieren – In 3 Schritten | Bank2Lexware">
     <meta property="og:description"
         content="Deutsche Bank CSV in 3 Schritten für Lexware umwandeln. Datumsformat, Beträge &amp; Header werden automatisch angepasst – lokal im Browser.">
+    <meta property="og:image" content="https://www.bank2lexware.de/assets/og/deutsche-bank.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:locale" content="de_DE">
     <meta property="og:site_name" content="Bank2Lexware">
     <meta property="og:url" content="https://www.bank2lexware.de/deutsche-bank/">
     <meta property="article:modified_time" content="2026-03-09">
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Deutsche Bank CSV in Lexware importieren – In 3 Schritten | Bank2Lexware">
     <meta name="twitter:description"
         content="Deutsche Bank CSV in 3 Schritten für Lexware umwandeln. Datumsformat, Beträge &amp; Header werden automatisch angepasst – lokal im Browser.">
+    <meta name="twitter:image" content="https://www.bank2lexware.de/assets/og/deutsche-bank.jpg">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -136,8 +141,9 @@
     ]
     </script>
 
+    <link rel="preload" href="../shared/styles.css" as="style">
     <link rel="stylesheet" href="../shared/styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script src="../shared/papaparse.min.js"></script>
     <script>
         window.B2L = {
             brandColor: '#0018A8',
@@ -371,6 +377,46 @@
                     <p class="text-sm text-gray-600">Ja, das Tool erkennt das US-Format (M/D/YYYY) der Deutsche Bank
                         CSV und wandelt es automatisch ins deutsche Format (DD.MM.YYYY) für Lexware um.</p>
                 </div>
+            </div>
+        </section>
+
+        <section class="mt-16 text-left max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Häufige Probleme beim Deutsche Bank CSV-Import</h2>
+            <div class="space-y-4 text-sm text-gray-600 leading-relaxed">
+                <div>
+                    <h3 class="font-bold text-gray-800 mb-1">Datumsformat wird nicht erkannt</h3>
+                    <p>Deutsche Bank exportiert Daten im US-Format (M/D/YYYY). Lexware erwartet DD.MM.YYYY. Bank2Lexware konvertiert das Datum automatisch in das richtige Format.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-800 mb-1">Beträge haben das falsche Vorzeichen</h3>
+                    <p>Die Deutsche Bank CSV enthält separate Soll- und Haben-Spalten. Bank2Lexware fasst diese in eine einzige Betragsspalte zusammen – positiv für Einnahmen, negativ für Ausgaben.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-800 mb-1">Header-Zeilen stören den Import</h3>
+                    <p>Deutsche Bank CSVs beginnen mit Kontoinformationen und Metadaten. Diese werden automatisch erkannt und übersprungen, sodass nur die eigentlichen Buchungsdaten verarbeitet werden.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-800 mb-1">Lexware meldet ungültige Zeilen</h3>
+                    <p>Zeilen ohne Verwendungszweck oder Betrag werden von Lexware abgelehnt. Bank2Lexware filtert solche unvollständigen Einträge automatisch heraus.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mt-12 text-left max-w-3xl mx-auto">
+            <h2 class="text-lg font-bold text-gray-800 mb-4">Verwandte Themen</h2>
+            <div class="grid gap-3 sm:grid-cols-2">
+                <a href="../paypal-csv-lexware/" class="flex items-center gap-3 bg-white rounded-xl border border-gray-200 p-4 text-sm font-medium text-gray-700 hover:border-[#0018A8]/30 hover:bg-blue-50/20 transition-colors">
+                    <span class="text-lg">💰</span><span>PayPal CSV importieren</span>
+                </a>
+                <a href="../revolut/" class="flex items-center gap-3 bg-white rounded-xl border border-gray-200 p-4 text-sm font-medium text-gray-700 hover:border-[#0018A8]/30 hover:bg-blue-50/20 transition-colors">
+                    <span class="text-lg">💳</span><span>Revolut CSV importieren</span>
+                </a>
+                <a href="../fehlende-umsaetze-lexware-importieren/" class="flex items-center gap-3 bg-white rounded-xl border border-gray-200 p-4 text-sm font-medium text-gray-700 hover:border-[#0018A8]/30 hover:bg-blue-50/20 transition-colors">
+                    <span class="text-lg">📥</span><span>Fehlende Umsätze importieren</span>
+                </a>
+                <a href="../offline-konto-lexware/" class="flex items-center gap-3 bg-white rounded-xl border border-gray-200 p-4 text-sm font-medium text-gray-700 hover:border-[#0018A8]/30 hover:bg-blue-50/20 transition-colors">
+                    <span class="text-lg">🏦</span><span>Offline-Konto vorbereiten</span>
+                </a>
             </div>
         </section>
 

@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
     <title>PayPal CSV in Lexware importieren – Kostenlos & Lokal | Bank2Lexware</title>
     <meta name="description"
         content="PayPal-Umsätze kostenlos in Lexware-CSV umwandeln. 100% lokal im Browser, automatische Gebühren-Aufteilung & Währungsumrechnung. Jetzt testen!">
@@ -17,20 +18,24 @@
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💶</text></svg>">
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="PayPal CSV in Lexware importieren – Kostenlos & Lokal | Bank2Lexware">
     <meta property="og:description"
         content="PayPal CSV kostenlos & lokal in Lexware importieren. Gebühren-Splitting, Währungsumrechnung & historische Umsätze – ohne Upload.">
+    <meta property="og:image" content="https://www.bank2lexware.de/assets/og/paypal.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:locale" content="de_DE">
     <meta property="og:site_name" content="Bank2Lexware">
     <meta property="og:url" content="https://www.bank2lexware.de/paypal-csv-lexware/">
     <meta property="article:modified_time" content="2026-03-09">
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="PayPal CSV in Lexware importieren – Kostenlos & Lokal | Bank2Lexware">
     <meta name="twitter:description"
         content="PayPal CSV kostenlos & lokal in Lexware importieren. Gebühren-Splitting, Währungsumrechnung & historische Umsätze – ohne Upload.">
+    <meta name="twitter:image" content="https://www.bank2lexware.de/assets/og/paypal.jpg">
 
     <script type="application/ld+json">
     [
@@ -130,6 +135,7 @@
     ]
     </script>
 
+    <link rel="preload" href="../shared/styles.css" as="style">
     <link rel="stylesheet" href="../shared/styles.css">
 </head>
 
@@ -246,6 +252,28 @@
             </aside>
         </section>
 
+        <section class="rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-sm">
+            <h2 class="text-lg font-bold text-slate-900 mb-3">Häufige Probleme beim PayPal-Import in Lexware</h2>
+            <div class="space-y-4 text-sm leading-7 text-slate-600">
+                <div>
+                    <h3 class="font-semibold text-slate-800">Gebühren werden nicht korrekt zugeordnet</h3>
+                    <p>PayPal berechnet Gebühren pro Transaktion, zeigt diese aber in einer separaten Spalte. Bank2Lexware splittet jede Buchung automatisch in Bruttoumsatz und Gebührenzeile – so landen die Kosten in Lexware als separate Betriebsausgabe.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-slate-800">Fremdwährungsbuchungen fehlen oder sind falsch umgerechnet</h3>
+                    <p>Lexware erwartet EUR-Beträge. Bank2Lexware rechnet automatisch mit dem offiziellen EZB-Tageskurs um und weist die Kursdifferenz transparent aus. So bleiben Ihre Buchungen steuerlich korrekt.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-slate-800">Doppelte Buchungen durch Einbehaltung/Aufhebung</h3>
+                    <p>PayPal erzeugt bei Konflikten und Rückzahlungen zusätzliche Zeilen (Einbehaltung, Aufhebung). Bank2Lexware erkennt diese Paare und bereinigt sie automatisch, damit nur die tatsächlich relevanten Buchungen in Lexware ankommen.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-slate-800">Historische Umsätze lassen sich nicht abrufen</h3>
+                    <p>Die native Lexware-Anbindung reicht oft nur wenige Monate zurück. Mit Bank2Lexware können Sie beliebig alte PayPal-Exporte konvertieren und gezielt in Lexware nachimportieren – auch für abgeschlossene Geschäftsjahre.</p>
+                </div>
+            </div>
+        </section>
+
         <section class="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm md:p-10">
             <h2 class="text-2xl font-bold tracking-tight text-slate-900">Häufige Fragen</h2>
             <div class="mt-6 space-y-4">
@@ -293,6 +321,28 @@
                         Ja. Das erzeugte CSV-Format ist mit allen Lexware-Produkten kompatibel, die den Standard-CSV-Import unterstützen, einschließlich Lexware Financial Office.
                     </p>
                 </article>
+            </div>
+        </section>
+
+        <section class="mt-12 rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-sm">
+            <h2 class="text-lg font-bold text-slate-900 mb-4">Verwandte Themen</h2>
+            <div class="grid gap-3 sm:grid-cols-2">
+                <a href="../fehlende-umsaetze-lexware-importieren/" class="flex items-center gap-3 rounded-xl border border-slate-200 p-4 text-sm font-medium text-slate-700 transition-colors hover:border-[#003087]/30 hover:bg-blue-50/20">
+                    <span class="text-lg">📥</span>
+                    <span>Fehlende Umsätze in Lexware importieren</span>
+                </a>
+                <a href="../offline-konto-lexware/" class="flex items-center gap-3 rounded-xl border border-slate-200 p-4 text-sm font-medium text-slate-700 transition-colors hover:border-[#003087]/30 hover:bg-blue-50/20">
+                    <span class="text-lg">🏦</span>
+                    <span>Offline-Konto für Lexware vorbereiten</span>
+                </a>
+                <a href="../deutsche-bank/" class="flex items-center gap-3 rounded-xl border border-slate-200 p-4 text-sm font-medium text-slate-700 transition-colors hover:border-[#003087]/30 hover:bg-blue-50/20">
+                    <span class="text-lg">🏛️</span>
+                    <span>Deutsche Bank CSV importieren</span>
+                </a>
+                <a href="../revolut/" class="flex items-center gap-3 rounded-xl border border-slate-200 p-4 text-sm font-medium text-slate-700 transition-colors hover:border-[#003087]/30 hover:bg-blue-50/20">
+                    <span class="text-lg">💳</span>
+                    <span>Revolut CSV importieren</span>
+                </a>
             </div>
         </section>
     </main>

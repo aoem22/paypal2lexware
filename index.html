@@ -17,22 +17,26 @@
     <link rel="alternate" hreflang="de-CH" href="https://www.bank2lexware.de/">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💶</text></svg>">
+    <link rel="preload" href="shared/styles.css" as="style">
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Bank2Lexware – Kostenlos CSV für Lexware umwandeln (2026)">
     <meta property="og:description"
         content="PayPal, Revolut & Bankauszüge kostenlos in Lexware-CSV umwandeln. 100% lokal, kein Upload, kein Account nötig.">
+    <meta property="og:image" content="https://www.bank2lexware.de/assets/og/main.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:locale" content="de_DE">
     <meta property="og:site_name" content="Bank2Lexware">
     <meta property="og:url" content="https://www.bank2lexware.de/">
     <meta property="article:modified_time" content="2026-03-09">
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Bank2Lexware – Kostenlos CSV für Lexware umwandeln (2026)">
     <meta name="twitter:description"
         content="PayPal, Revolut & Bankauszüge kostenlos in Lexware-CSV umwandeln. 100% lokal, kein Upload, kein Account nötig.">
+    <meta name="twitter:image" content="https://www.bank2lexware.de/assets/og/main.jpg">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -142,12 +146,19 @@
                     }
                 }
             ]
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Bank2Lexware", "item": "https://www.bank2lexware.de/" }
+            ]
         }
     ]
     </script>
 
     <link rel="stylesheet" href="shared/styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script src="shared/papaparse.min.js"></script>
     <script>
         (function() {
             var mq = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
