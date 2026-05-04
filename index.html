@@ -348,7 +348,15 @@
                             </div>
 
                             <div class="request-form-shell rounded-[1.5rem] p-4 md:p-5">
-                                <form class="w-full" enctype="multipart/form-data" novalidate onsubmit="sendBankRequest(event)">
+                                <form id="requestBankForm" class="w-full"
+                                    action="https://formsubmit.co/f4fb92703617e8f65e0062748953b549" method="POST"
+                                    enctype="multipart/form-data" target="requestBankFrame" novalidate
+                                    onsubmit="sendBankRequest(event)">
+                                    <input type="hidden" id="requestSubject" name="_subject" value="Bank2Lexware Anfrage">
+                                    <input type="hidden" name="_template" value="table">
+                                    <input type="hidden" name="_captcha" value="false">
+                                    <input type="hidden" name="Hinweis" value="Anfrage enthält eine anonymisierte Beispieldatei zur Prüfung eines neuen Importpfads.">
+                                    <input type="text" name="_honey" class="request-honey" tabindex="-1" autocomplete="off" aria-hidden="true">
                                     <div class="grid gap-3">
                                         <label class="flex flex-col gap-2 text-left">
                                             <span class="text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-500">Bank oder Anbieter</span>
@@ -395,6 +403,8 @@
                                         </button>
                                     </div>
                                 </form>
+                                <iframe name="requestBankFrame" title="Bankanfrage Übermittlung"
+                                    class="request-bank-frame"></iframe>
                             </div>
                         </div>
                     </div>
@@ -1063,23 +1073,44 @@
             }
         }
 
-        async function sendBankRequest(event) {
+        let requestBankSubmitPending = false;
+
+        function handleBankRequestFrameLoad() {
+            if (!requestBankSubmitPending) return;
+
+            requestBankSubmitPending = false;
+            const form = document.getElementById('requestBankForm');
+            const status = document.getElementById('requestBankStatus');
+            const button = form.querySelector('button[type="submit"]');
+
+            status.textContent = "Anfrage mit Beispieldatei gesendet – vielen Dank!";
+            status.className = "text-xs font-medium text-emerald-600";
+            form.reset();
+            updateSampleFileName(document.getElementById('requestSampleFile'));
+            button.disabled = false;
+        }
+
+        function sendBankRequest(event) {
             event.preventDefault();
             const form = event.target;
-            const bankName = document.getElementById('requestBankName').value.trim();
-            const sampleFile = document.getElementById('requestSampleFile').files[0];
+            const bankInput = document.getElementById('requestBankName');
+            const fileInput = document.getElementById('requestSampleFile');
+            const bankName = bankInput.value.trim();
+            const sampleFile = fileInput.files[0];
             const status = document.getElementById('requestBankStatus');
             const button = form.querySelector('button[type="submit"]');
 
             if (!bankName) {
                 status.textContent = "Bitte geben Sie mindestens eine Bank oder einen Anbieter an.";
                 status.className = "text-xs font-medium text-[#C40029]";
+                bankInput.focus();
                 return;
             }
 
             if (!sampleFile) {
                 status.textContent = "Bitte laden Sie eine anonymisierte Beispieldatei hoch.";
                 status.className = "text-xs font-medium text-[#C40029]";
+                fileInput.focus();
                 return;
             }
 
@@ -1092,32 +1123,14 @@
             button.disabled = true;
             status.textContent = "Wird gesendet…";
             status.className = "status-note text-xs";
+            document.getElementById('requestSubject').value = "Bank2Lexware Anfrage: " + bankName;
+            requestBankSubmitPending = true;
+            HTMLFormElement.prototype.submit.call(form);
+        }
 
-            try {
-                const formData = new FormData(form);
-                formData.append("_subject", "Bank2Lexware Anfrage: " + bankName);
-                formData.append("_template", "table");
-                formData.append("Hinweis", "Anfrage enthält eine anonymisierte Beispieldatei zur Prüfung eines neuen Importpfads.");
-
-                const res = await fetch("https://formsubmit.co/ajax/f4fb92703617e8f65e0062748953b549", {
-                    method: "POST",
-                    headers: { "Accept": "application/json" },
-                    body: formData
-                });
-                const data = await res.json();
-                if (data.success === true || data.success === "true") {
-                    status.textContent = "Anfrage mit Beispieldatei gesendet – vielen Dank!";
-                    status.className = "text-xs font-medium text-emerald-600";
-                    form.reset();
-                    updateSampleFileName(document.getElementById('requestSampleFile'));
-                } else {
-                    throw new Error(data.message || "Unbekannter Fehler");
-                }
-            } catch {
-                status.textContent = "Senden fehlgeschlagen – bitte später erneut versuchen.";
-                status.className = "text-xs font-medium text-[#C40029]";
-            }
-            button.disabled = false;
+        const requestBankFrame = document.querySelector('iframe[name="requestBankFrame"]');
+        if (requestBankFrame) {
+            requestBankFrame.addEventListener('load', handleBankRequestFrameLoad);
         }
 
         function showStatus(message, type = 'info') {
