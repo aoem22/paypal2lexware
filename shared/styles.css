@@ -100,6 +100,141 @@ html.theme-dark .surface-chip--revolut { --chip-border-hover: rgba(148, 163, 184
 .surface-input:focus { background: var(--surface-strong); border-color: rgba(0, 48, 135, 0.42); box-shadow: 0 0 0 4px rgba(0, 48, 135, 0.08); }
 html.theme-dark .surface-input:focus { box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.14); }
 
+.sample-upload-field {
+    position: relative;
+}
+.sample-upload-native {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    opacity: 0;
+}
+.sample-upload-control {
+    display: grid;
+    min-height: 4.8rem;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.85rem;
+    border: 1px dashed rgba(0, 48, 135, 0.28);
+    border-radius: 1rem;
+    background: linear-gradient(135deg, rgba(248, 250, 252, 0.96), rgba(255, 255, 255, 0.72));
+    color: var(--ink);
+    padding: 0.85rem 0.95rem;
+    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+.sample-upload-field:hover .sample-upload-control {
+    border-color: rgba(0, 48, 135, 0.46);
+    background: linear-gradient(135deg, rgba(239, 246, 255, 0.92), rgba(255, 255, 255, 0.82));
+}
+.sample-upload-field:focus-within .sample-upload-control {
+    border-color: rgba(0, 48, 135, 0.62);
+    box-shadow: 0 0 0 4px rgba(0, 48, 135, 0.1);
+}
+.sample-upload-icon {
+    display: inline-flex;
+    width: 2.55rem;
+    height: 2.55rem;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.85rem;
+    background: rgba(0, 48, 135, 0.1);
+    color: #003087;
+}
+.sample-upload-icon svg {
+    width: 1.35rem;
+    height: 1.35rem;
+}
+.sample-upload-copy {
+    min-width: 0;
+}
+.sample-upload-title {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--ink);
+}
+.sample-upload-filename {
+    display: block;
+    margin-top: 0.22rem;
+    overflow: hidden;
+    color: var(--ink-muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.25;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.sample-upload-action {
+    display: inline-flex;
+    min-height: 2.25rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background: #003087;
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 800;
+    line-height: 1;
+    padding: 0 0.88rem;
+    white-space: nowrap;
+    box-shadow: 0 10px 22px rgba(0, 48, 135, 0.16);
+}
+.sample-upload-field.is-selected .sample-upload-control {
+    border-style: solid;
+    border-color: rgba(4, 120, 87, 0.38);
+    background: linear-gradient(135deg, rgba(236, 253, 245, 0.95), rgba(255, 255, 255, 0.72));
+}
+.sample-upload-field.is-selected .sample-upload-icon {
+    background: rgba(4, 120, 87, 0.12);
+    color: #047857;
+}
+.sample-upload-field.is-selected .sample-upload-action {
+    background: #047857;
+    box-shadow: 0 10px 22px rgba(4, 120, 87, 0.16);
+}
+html.theme-dark .sample-upload-control {
+    border-color: rgba(147, 197, 253, 0.24);
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.88), rgba(30, 41, 59, 0.5));
+}
+html.theme-dark .sample-upload-field:hover .sample-upload-control {
+    border-color: rgba(147, 197, 253, 0.4);
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.72));
+}
+html.theme-dark .sample-upload-field:focus-within .sample-upload-control {
+    border-color: rgba(147, 197, 253, 0.56);
+    box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.14);
+}
+html.theme-dark .sample-upload-icon {
+    background: rgba(96, 165, 250, 0.14);
+    color: #bfdbfe;
+}
+html.theme-dark .sample-upload-field.is-selected .sample-upload-control {
+    border-color: rgba(134, 239, 172, 0.34);
+    background: linear-gradient(135deg, rgba(6, 78, 59, 0.34), rgba(15, 23, 42, 0.76));
+}
+html.theme-dark .sample-upload-field.is-selected .sample-upload-icon {
+    background: rgba(34, 197, 94, 0.14);
+    color: #86efac;
+}
+html.theme-dark .sample-upload-field.is-selected .sample-upload-action {
+    background: #047857;
+}
+
+@media (max-width: 520px) {
+    .sample-upload-control {
+        grid-template-columns: auto minmax(0, 1fr);
+    }
+    .sample-upload-action {
+        grid-column: 1 / -1;
+        justify-self: start;
+    }
+}
+
 .request-strip {
     position: relative; overflow: hidden; border: 1px solid var(--line);
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.4)), linear-gradient(140deg, rgba(0, 48, 135, 0.045), rgba(196, 0, 41, 0.03));

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bank2Lexware – Kostenlos CSV für Lexware umwandeln (2026)</title>
     <meta name="description"
-        content="PayPal, Revolut & Bankauszüge kostenlos in Lexware-CSV umwandeln. 100% lokal im Browser – keine Registrierung, kein Upload. Jetzt testen!">
+        content="PayPal, Revolut & Bankauszüge kostenlos in Lexware-CSV umwandeln. Konverter laufen lokal im Browser; neue Banken per anonymisierter Beispieldatei anfragen.">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Alan Özalp">
     <meta name="color-scheme" content="light dark">
@@ -24,7 +24,7 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="Bank2Lexware – Kostenlos CSV für Lexware umwandeln (2026)">
     <meta property="og:description"
-        content="PayPal, Revolut & Bankauszüge kostenlos in Lexware-CSV umwandeln. 100% lokal, kein Upload, kein Account nötig.">
+        content="PayPal, Revolut & Bankauszüge kostenlos in Lexware-CSV umwandeln. Konverter laufen lokal im Browser; neue Banken per anonymisierter Beispieldatei anfragen.">
     <meta property="og:image" content="https://www.bank2lexware.de/assets/og/main.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -35,7 +35,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Bank2Lexware – Kostenlos CSV für Lexware umwandeln (2026)">
     <meta name="twitter:description"
-        content="PayPal, Revolut & Bankauszüge kostenlos in Lexware-CSV umwandeln. 100% lokal, kein Upload, kein Account nötig.">
+        content="PayPal, Revolut & Bankauszüge kostenlos in Lexware-CSV umwandeln. Konverter laufen lokal im Browser; neue Banken per anonymisierter Beispieldatei anfragen.">
     <meta name="twitter:image" content="https://www.bank2lexware.de/assets/og/main.jpg">
 
     <!-- Structured Data -->
@@ -94,7 +94,7 @@
                     "name": "Werden meine Daten gespeichert?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Nein. Die Verarbeitung erfolgt zu 100% lokal in Ihrem Browser. Ihre Finanzdaten verlassen niemals Ihren Computer."
+                        "text": "Die Konvertierung erfolgt lokal in Ihrem Browser. Nur wenn Sie eine neue Bank anfragen, wird die von Ihnen anonymisierte Beispieldatei zur Prüfung gesendet."
                     }
                 },
                 {
@@ -118,7 +118,7 @@
                     "name": "Welche Banken und Zahlungsanbieter werden unterstützt?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Aktuell werden PayPal, Revolut und Deutsche Bank unterstützt. Weitere Banken können über das Anfrageformular auf der Startseite vorgeschlagen werden."
+                        "text": "Aktuell werden PayPal, Revolut und Deutsche Bank unterstützt. Weitere Banken können über das Anfrageformular auf der Startseite mit anonymisierter Beispieldatei vorgeschlagen werden."
                     }
                 },
                 {
@@ -342,23 +342,51 @@
                                 </div>
                                 <h2 class="mt-5 text-3xl font-bold tracking-tight text-gray-800 md:text-[2.4rem]">Weitere Bank anfragen</h2>
                                 <p class="mt-3 max-w-xl text-[15px] leading-7 text-gray-600 md:text-base">
-                                    Fehlt Ihre Bank noch, senden Sie den Wunsch direkt aus der Übersicht. Die
-                                    Anfrage wird direkt gesendet – kein Mailprogramm nötig.
+                                    Fehlt Ihre Bank noch, senden Sie den Wunsch mit einer anonymisierten Beispieldatei
+                                    direkt aus der Übersicht. Ohne Beispieldatei kann kein neuer Importpfad geprüft werden.
                                 </p>
                             </div>
 
                             <div class="request-form-shell rounded-[1.5rem] p-4 md:p-5">
-                                <form class="w-full" onsubmit="sendBankRequest(event)">
+                                <form class="w-full" enctype="multipart/form-data" novalidate onsubmit="sendBankRequest(event)">
                                     <div class="grid gap-3">
                                         <label class="flex flex-col gap-2 text-left">
                                             <span class="text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-500">Bank oder Anbieter</span>
-                                            <input id="requestBankName" type="text" placeholder="z. B. N26, Wise oder AMEX"
+                                            <input id="requestBankName" name="Bank / Anbieter" type="text" required aria-required="true" placeholder="z. B. N26, Wise oder AMEX"
                                                 class="surface-input w-full rounded-2xl px-4 py-3 text-sm outline-none" />
+                                        </label>
+                                        <label class="flex flex-col gap-2 text-left">
+                                            <span class="text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-500">Anonymisierte Beispieldatei</span>
+                                            <div class="sample-upload-field">
+                                                <input id="requestSampleFile" name="attachment" type="file" required
+                                                    aria-required="true"
+                                                    aria-label="Anonymisierte Beispieldatei hochladen"
+                                                    aria-describedby="requestSampleHelp"
+                                                    accept=".csv,.txt,.xls,.xlsx,.pdf,text/csv,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                                                    class="sample-upload-native"
+                                                    onchange="updateSampleFileName(this)" />
+                                                <div class="sample-upload-control" aria-hidden="true">
+                                                    <span class="sample-upload-icon">
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                            <path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7z"></path>
+                                                            <path d="M14 2v5h5"></path>
+                                                            <path d="M12 17V10"></path>
+                                                            <path d="m9 13 3-3 3 3"></path>
+                                                        </svg>
+                                                    </span>
+                                                    <span class="sample-upload-copy">
+                                                        <span class="sample-upload-title">Beispiel-Export hochladen</span>
+                                                        <span id="requestSampleFileName" class="sample-upload-filename">CSV, XLSX oder PDF auswählen</span>
+                                                    </span>
+                                                    <span id="requestSampleFileAction" class="sample-upload-action">Datei wählen</span>
+                                                </div>
+                                            </div>
+                                            <span id="requestSampleHelp" class="text-xs leading-6 text-gray-500">Bitte Namen, IBANs, E-Mails und Referenzen anonymisieren. Die Datei wird zur Prüfung gesendet; Format, Spalten, Beträge und Datumsmuster unverändert lassen.</span>
                                         </label>
                                     </div>
                                     <div class="mt-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-                                        <p id="requestBankStatus" class="status-note text-xs md:max-w-xs">
-                                            Wird direkt gesendet – kein Mailprogramm nötig.
+                                        <p id="requestBankStatus" class="status-note text-xs md:max-w-xs" aria-live="polite">
+                                            Anonymisierte Beispieldatei wird gesendet. Max. 10 MB.
                                         </p>
                                         <button type="submit"
                                             class="inline-flex min-w-[13rem] flex-nowrap items-center justify-center gap-2 rounded-2xl bg-[#003087] px-6 py-3 text-sm font-semibold text-white shadow-md transition-colors hover:bg-[#002569]">
@@ -387,7 +415,7 @@
             <div
                 class="inline-flex items-center space-x-2 text-green-600 bg-green-50 px-3 py-1 rounded-full text-xs font-medium mb-4">
                 <span>🔒</span>
-                <span>100% Lokal & Privat - Dateien verlassen Ihren PC nicht</span>
+                <span>Konverter lokal & privat - Importdateien bleiben im Browser</span>
             </div>
             <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-2 tracking-tight">
                 <span class="text-[#003087]">PayPal</span><span class="text-gray-300 mx-2">2</span><span
@@ -577,8 +605,8 @@
                 </div>
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                     <h3 class="font-bold text-gray-800 mb-2">Werden meine Daten gespeichert?</h3>
-                    <p class="text-sm text-gray-600">Nein. Die Verarbeitung erfolgt zu 100% lokal in Ihrem Browser. Ihre
-                        Finanzdaten verlassen niemals Ihren Computer.</p>
+                    <p class="text-sm text-gray-600">Die Konvertierung erfolgt lokal in Ihrem Browser. Nur wenn Sie eine
+                        neue Bank anfragen, wird die von Ihnen anonymisierte Beispieldatei zur Prüfung gesendet.</p>
                 </div>
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                     <h3 class="font-bold text-gray-800 mb-2">Wie werden Fremdwährungen umgerechnet?</h3>
@@ -592,7 +620,7 @@
                 </div>
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                     <h3 class="font-bold text-gray-800 mb-2">Welche Banken und Zahlungsanbieter werden unterstützt?</h3>
-                    <p class="text-sm text-gray-600">Aktuell werden PayPal, Revolut und Deutsche Bank unterstützt. Weitere Banken können über das Anfrageformular auf der Startseite vorgeschlagen werden.</p>
+                    <p class="text-sm text-gray-600">Aktuell werden PayPal, Revolut und Deutsche Bank unterstützt. Weitere Banken können über das Anfrageformular auf der Startseite mit anonymisierter Beispieldatei vorgeschlagen werden.</p>
                 </div>
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                     <h3 class="font-bold text-gray-800 mb-2">Muss ich mich registrieren oder ein Konto erstellen?</h3>
@@ -620,7 +648,7 @@
             <header class="text-center">
                 <div class="inline-flex items-center space-x-2 text-green-600 bg-green-50 px-3 py-1 rounded-full text-xs font-medium mb-4">
                     <span>🔒</span>
-                    <span>100% Lokal & Privat - Dateien verlassen Ihren PC nicht</span>
+                    <span>Konverter lokal & privat - Importdateien bleiben im Browser</span>
                 </div>
                 <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-2 tracking-tight">
                     <span class="text-[#0018A8]">DeutscheBank</span><span class="text-gray-300 mx-2">2</span><span class="text-[#C40029]">Lexware</span>
@@ -781,7 +809,7 @@
             <header class="text-center">
                 <div class="inline-flex items-center space-x-2 text-green-600 bg-green-50 px-3 py-1 rounded-full text-xs font-medium mb-4">
                     <span>🔒</span>
-                    <span>100% Lokal & Privat - Dateien verlassen Ihren PC nicht</span>
+                    <span>Konverter lokal & privat - Importdateien bleiben im Browser</span>
                 </div>
                 <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-2 tracking-tight">
                     <span class="text-[#0666EB]">Revolut</span><span class="text-gray-300 mx-2">2</span><span class="text-[#C40029]">Lexware</span>
@@ -952,7 +980,7 @@
                         <div
                             class="inline-flex items-center space-x-2 rounded-full border border-green-100 bg-green-50 px-4 py-2 text-xs font-medium text-green-700">
                             <span>🔒</span>
-                            <span>100% Lokal & Privat - Dateien verlassen Ihren PC nicht</span>
+                            <span>Konverter lokal & privat - Importdateien bleiben im Browser</span>
                         </div>
                         <p class="text-xs uppercase tracking-[0.18em] text-gray-400">Kostenlos zur Verfügung gestellt.</p>
                 </div>
@@ -1007,14 +1035,56 @@
             }
         }
 
+        function formatSampleFileSize(bytes) {
+            if (!bytes) return "0 KB";
+            if (bytes >= 1024 * 1024) {
+                const mb = bytes / (1024 * 1024);
+                return mb.toFixed(mb >= 10 ? 0 : 1).replace('.', ',') + " MB";
+            }
+            return Math.max(1, Math.round(bytes / 1024)) + " KB";
+        }
+
+        function updateSampleFileName(input) {
+            const field = input.closest('.sample-upload-field');
+            const fileName = document.getElementById('requestSampleFileName');
+            const action = document.getElementById('requestSampleFileAction');
+            const file = input.files && input.files[0];
+
+            if (!field || !fileName || !action) return;
+
+            if (file) {
+                field.classList.add('is-selected');
+                fileName.textContent = file.name + " · " + formatSampleFileSize(file.size);
+                action.textContent = "Datei ändern";
+            } else {
+                field.classList.remove('is-selected');
+                fileName.textContent = "CSV, XLSX oder PDF auswählen";
+                action.textContent = "Datei wählen";
+            }
+        }
+
         async function sendBankRequest(event) {
             event.preventDefault();
+            const form = event.target;
             const bankName = document.getElementById('requestBankName').value.trim();
+            const sampleFile = document.getElementById('requestSampleFile').files[0];
             const status = document.getElementById('requestBankStatus');
-            const button = event.target.querySelector('button[type="submit"]');
+            const button = form.querySelector('button[type="submit"]');
 
             if (!bankName) {
                 status.textContent = "Bitte geben Sie mindestens eine Bank oder einen Anbieter an.";
+                status.className = "text-xs font-medium text-[#C40029]";
+                return;
+            }
+
+            if (!sampleFile) {
+                status.textContent = "Bitte laden Sie eine anonymisierte Beispieldatei hoch.";
+                status.className = "text-xs font-medium text-[#C40029]";
+                return;
+            }
+
+            if (sampleFile.size > 10 * 1024 * 1024) {
+                status.textContent = "Die Beispieldatei darf maximal 10 MB groß sein.";
                 status.className = "text-xs font-medium text-[#C40029]";
                 return;
             }
@@ -1024,20 +1094,22 @@
             status.className = "status-note text-xs";
 
             try {
+                const formData = new FormData(form);
+                formData.append("_subject", "Bank2Lexware Anfrage: " + bankName);
+                formData.append("_template", "table");
+                formData.append("Hinweis", "Anfrage enthält eine anonymisierte Beispieldatei zur Prüfung eines neuen Importpfads.");
+
                 const res = await fetch("https://formsubmit.co/ajax/f4fb92703617e8f65e0062748953b549", {
                     method: "POST",
-                    headers: { "Content-Type": "application/json", "Accept": "application/json" },
-                    body: JSON.stringify({
-                        "Bank / Anbieter": bankName,
-                        _subject: "Bank2Lexware Anfrage: " + bankName,
-                        _template: "table"
-                    })
+                    headers: { "Accept": "application/json" },
+                    body: formData
                 });
                 const data = await res.json();
-                if (data.success === "true") {
-                    status.textContent = "Anfrage gesendet – vielen Dank!";
+                if (data.success === true || data.success === "true") {
+                    status.textContent = "Anfrage mit Beispieldatei gesendet – vielen Dank!";
                     status.className = "text-xs font-medium text-emerald-600";
-                    document.getElementById('requestBankName').value = "";
+                    form.reset();
+                    updateSampleFileName(document.getElementById('requestSampleFile'));
                 } else {
                     throw new Error(data.message || "Unbekannter Fehler");
                 }
