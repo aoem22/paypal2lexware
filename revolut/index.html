@@ -538,9 +538,9 @@
                     // Validate that this looks like a Revolut CSV
                     if (results.data.length > 0) {
                         const firstRow = results.data[0];
-                        const hasType = getVal(firstRow, 'Type') !== '';
-                        const hasAmount = getVal(firstRow, 'Amount') !== '';
-                        const hasState = getVal(firstRow, 'State') !== '';
+                        const hasType = getVal(firstRow, 'Type', 'Art') !== '';
+                        const hasAmount = getVal(firstRow, 'Amount', 'Betrag') !== '';
+                        const hasState = getVal(firstRow, 'State', 'Status') !== '';
 
                         if (!hasType || !hasAmount || !hasState) {
                             showError("Diese Datei scheint kein Revolut CSV-Kontoauszug zu sein. Bitte laden Sie eine gültige Revolut CSV-Datei hoch.");
@@ -568,13 +568,20 @@
 
         function extractISODate(row) {
             // Use Completed Date if available, otherwise Started Date
-            const completedDate = getVal(row, 'Completed Date');
-            const startedDate = getVal(row, 'Started Date');
+            const completedDate = getVal(row, 'Completed Date', 'Datum des Abschlusses');
+            const startedDate = getVal(row, 'Started Date', 'Datum des Beginns');
             const dateStr = completedDate || startedDate;
             if (!dateStr) return null;
 
-            // Format: "2026-02-03 17:31:54" → "2026-02-03"
-            return dateStr.split(' ')[0];
+            const isoMatch = dateStr.match(/^(\d{4})-(\d{2})-(\d{2})/);
+            if (isoMatch) return `${isoMatch[1]}-${isoMatch[2]}-${isoMatch[3]}`;
+
+            const germanMatch = dateStr.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})/);
+            if (germanMatch) {
+                return `${germanMatch[3]}-${germanMatch[2].padStart(2, '0')}-${germanMatch[1].padStart(2, '0')}`;
+            }
+
+            return null;
         }
 
         function showDateSelection(data) {
@@ -620,7 +627,7 @@
             const needed = new Set();
 
             data.forEach(row => {
-                const currency = getVal(row, 'Currency');
+                const currency = getVal(row, 'Currency', 'Währung');
 
                 if (currency && currency !== 'EUR') {
                     const isoDate = extractISODate(row);
@@ -662,10 +669,10 @@
             document.getElementById('loading-indicator').classList.remove('hidden');
             startProgress();
 
-            // Filter data by date range and only COMPLETED transactions
+            // Filter data by date range and only completed transactions
             const filteredData = rawCSVData.filter(row => {
-                const state = getVal(row, 'State');
-                if (state !== 'COMPLETED') return false;
+                const state = getVal(row, 'State', 'Status');
+                if (!isCompletedState(state)) return false;
 
                 const isoDate = extractISODate(row);
                 if (!isoDate) return false;
@@ -714,9 +721,52 @@
             return `${parts[2]}.${parts[1]}.${parts[0]}`;
         }
 
-        function getVal(row, key) {
-            const foundKey = Object.keys(row).find(k => k.trim().toLowerCase() === key.toLowerCase());
+        function normalizeKey(value) {
+            return String(value || '').replace(/^\uFEFF/, '').trim().toLowerCase();
+        }
+
+        function getVal(row, ...keys) {
+            const normalizedKeys = keys.map(normalizeKey);
+            const foundKey = Object.keys(row).find(k => normalizedKeys.includes(normalizeKey(k)));
             return foundKey ? (row[foundKey] || '').trim() : '';
+        }
+
+        function isCompletedState(state) {
+            const normalized = normalizeKey(state);
+            return normalized === 'completed' || normalized === 'abgeschlossen';
+        }
+
+        function parseRevolutAmount(value) {
+            let raw = String(value || '').trim();
+            if (!raw) return NaN;
+
+            raw = raw.replace(/\s/g, '');
+            const lastComma = raw.lastIndexOf(',');
+            const lastDot = raw.lastIndexOf('.');
+
+            if (lastComma !== -1 && lastDot !== -1) {
+                raw = lastComma > lastDot
+                    ? raw.replace(/\./g, '').replace(',', '.')
+                    : raw.replace(/,/g, '');
+            } else if (lastComma !== -1) {
+                raw = raw.replace(/\./g, '').replace(',', '.');
+            }
+
+            return parseFloat(raw);
+        }
+
+        function sanitizeLexwareField(value) {
+            return String(value || '')
+                .replace(/€/g, 'EUR')
+                .replace(/[„“”]/g, "'")
+                .replace(/[‘’]/g, "'")
+                .replace(/[–—]/g, '-')
+                .replace(/…/g, '...')
+                .replace(/;/g, ',')
+                .replace(/"/g, '')
+                .replace(/[\r\n]+/g, ' ')
+                .replace(/[^\u0000-\u00FF]/g, '')
+                .trim();
         }
 
         function processData(data, rates) {
@@ -726,17 +776,17 @@
             for (let i = 0; i < data.length; i++) {
                 const row = data[i];
 
-                const type = getVal(row, 'Type');
-                const description = getVal(row, 'Description');
-                const amountStr = getVal(row, 'Amount');
-                const feeStr = getVal(row, 'Fee');
-                const currency = getVal(row, 'Currency');
+                const type = getVal(row, 'Type', 'Art');
+                const description = getVal(row, 'Description', 'Beschreibung');
+                const amountStr = getVal(row, 'Amount', 'Betrag');
+                const feeStr = getVal(row, 'Fee', 'Gebühr');
+                const currency = getVal(row, 'Currency', 'Währung');
 
                 const isoDate = extractISODate(row);
                 if (!isoDate) continue;
 
-                const amount = parseFloat(amountStr);
-                const fee = parseFloat(feeStr);
+                const amount = parseRevolutAmount(amountStr);
+                const fee = parseRevolutAmount(feeStr);
                 if (isNaN(amount)) continue;
 
                 const germanDate = isoToGermanDate(isoDate);
@@ -824,7 +874,7 @@
             const sanitized = outputRows.map(row => {
                 const clean = {};
                 for (const key in row) {
-                    clean[key] = String(row[key]).replace(/;/g, ',').replace(/"/g, '');
+                    clean[key] = sanitizeLexwareField(row[key]);
                 }
                 return clean;
             });

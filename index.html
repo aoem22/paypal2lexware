@@ -2544,17 +2544,73 @@
                 el('progress-text').textContent = '100%';
             }
 
-            function getVal(row, key) {
-                var foundKey = Object.keys(row).find(function(k) { return k.trim().toLowerCase() === key.toLowerCase(); });
+            function normalizeKey(value) {
+                return String(value || '').replace(/^\uFEFF/, '').trim().toLowerCase();
+            }
+
+            function getVal(row) {
+                var keys = Array.prototype.slice.call(arguments, 1);
+                var normalizedKeys = keys.map(normalizeKey);
+                var foundKey = Object.keys(row).find(function(k) {
+                    return normalizedKeys.indexOf(normalizeKey(k)) !== -1;
+                });
                 return foundKey ? (row[foundKey] || '').trim() : '';
             }
 
+            function isCompletedState(state) {
+                var normalized = normalizeKey(state);
+                return normalized === 'completed' || normalized === 'abgeschlossen';
+            }
+
+            function parseRevolutAmount(value) {
+                var raw = String(value || '').trim();
+                if (!raw) return NaN;
+                raw = raw.replace(/\s/g, '');
+
+                var lastComma = raw.lastIndexOf(',');
+                var lastDot = raw.lastIndexOf('.');
+                if (lastComma !== -1 && lastDot !== -1) {
+                    raw = lastComma > lastDot
+                        ? raw.replace(/\./g, '').replace(',', '.')
+                        : raw.replace(/,/g, '');
+                } else if (lastComma !== -1) {
+                    raw = raw.replace(/\./g, '').replace(',', '.');
+                }
+
+                return parseFloat(raw);
+            }
+
+            function sanitizeLexwareField(value) {
+                return String(value || '')
+                    .replace(/€/g, 'EUR')
+                    .replace(/[„“”]/g, "'")
+                    .replace(/[‘’]/g, "'")
+                    .replace(/[–—]/g, '-')
+                    .replace(/…/g, '...')
+                    .replace(/;/g, ',')
+                    .replace(/"/g, '')
+                    .replace(/[\r\n]+/g, ' ')
+                    .replace(/[^\u0000-\u00FF]/g, '')
+                    .trim();
+            }
+
             function extractISODate(row) {
-                var completedDate = getVal(row, 'Completed Date');
-                var startedDate = getVal(row, 'Started Date');
+                var completedDate = getVal(row, 'Completed Date', 'Datum des Abschlusses');
+                var startedDate = getVal(row, 'Started Date', 'Datum des Beginns');
                 var dateStr = completedDate || startedDate;
                 if (!dateStr) return null;
-                return dateStr.split(' ')[0];
+
+                var isoMatch = dateStr.match(/^(\d{4})-(\d{2})-(\d{2})/);
+                if (isoMatch) return isoMatch[1] + '-' + isoMatch[2] + '-' + isoMatch[3];
+
+                var germanMatch = dateStr.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})/);
+                if (germanMatch) {
+                    var month = ('0' + germanMatch[2]).slice(-2);
+                    var day = ('0' + germanMatch[1]).slice(-2);
+                    return germanMatch[3] + '-' + month + '-' + day;
+                }
+
+                return null;
             }
 
             function isoToGermanDate(isoDate) {
@@ -2582,7 +2638,7 @@
             async function fetchNeededRates(data) {
                 var needed = new Set();
                 data.forEach(function(row) {
-                    var currency = getVal(row, 'Currency');
+                    var currency = getVal(row, 'Currency', 'Währung');
                     if (currency && currency !== 'EUR') {
                         var isoDate = extractISODate(row);
                         if (isoDate) needed.add(isoDate + '_' + currency);
@@ -2629,7 +2685,7 @@
                         }
                         if (results.data.length > 0) {
                             var firstRow = results.data[0];
-                            if (!getVal(firstRow, 'Type') || !getVal(firstRow, 'Amount') || !getVal(firstRow, 'State')) {
+                            if (!getVal(firstRow, 'Type', 'Art') || !getVal(firstRow, 'Amount', 'Betrag') || !getVal(firstRow, 'State', 'Status')) {
                                 showError("Diese Datei scheint kein Revolut CSV-Kontoauszug zu sein.");
                                 return;
                             }
@@ -2649,8 +2705,8 @@
                 el('loading-indicator').classList.remove('hidden');
                 startProgress();
                 var filteredData = rawCSVData.filter(function(row) {
-                    var state = getVal(row, 'State');
-                    if (state !== 'COMPLETED') return false;
+                    var state = getVal(row, 'State', 'Status');
+                    if (!isCompletedState(state)) return false;
                     var isoDate = extractISODate(row);
                     if (!isoDate) return false;
                     return isoDate >= startDate && isoDate <= endDate;
@@ -2671,15 +2727,15 @@
                 var conversionLogs = [];
                 for (var i = 0; i < data.length; i++) {
                     var row = data[i];
-                    var type = getVal(row, 'Type');
-                    var description = getVal(row, 'Description');
-                    var amountStr = getVal(row, 'Amount');
-                    var feeStr = getVal(row, 'Fee');
-                    var currency = getVal(row, 'Currency');
+                    var type = getVal(row, 'Type', 'Art');
+                    var description = getVal(row, 'Description', 'Beschreibung');
+                    var amountStr = getVal(row, 'Amount', 'Betrag');
+                    var feeStr = getVal(row, 'Fee', 'Gebühr');
+                    var currency = getVal(row, 'Currency', 'Währung');
                     var isoDate = extractISODate(row);
                     if (!isoDate) continue;
-                    var amount = parseFloat(amountStr);
-                    var fee = parseFloat(feeStr);
+                    var amount = parseRevolutAmount(amountStr);
+                    var fee = parseRevolutAmount(feeStr);
                     if (isNaN(amount)) continue;
                     var germanDate = isoToGermanDate(isoDate);
                     var translatedType = translateType(type);
@@ -2720,7 +2776,7 @@
                 if (outputRows.length === 0) { showError("Keine gültigen Transaktionen gefunden."); stopProgress(); return; }
                 var sanitized = outputRows.map(function(row) {
                     var clean = {};
-                    for (var key in row) clean[key] = String(row[key]).replace(/;/g, ',').replace(/"/g, '');
+                    for (var key in row) clean[key] = sanitizeLexwareField(row[key]);
                     return clean;
                 });
                 var csvContent = Papa.unparse(sanitized, { delimiter: ";", quotes: false });
