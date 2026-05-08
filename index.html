@@ -364,6 +364,11 @@
                                                 class="surface-input w-full rounded-2xl px-4 py-3 text-sm outline-none" />
                                         </label>
                                         <label class="flex flex-col gap-2 text-left">
+                                            <span class="text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-500">E-Mail optional</span>
+                                            <input id="requestEmail" name="E-Mail" type="email" autocomplete="email" placeholder="name@example.com"
+                                                class="surface-input w-full rounded-2xl px-4 py-3 text-sm outline-none" />
+                                        </label>
+                                        <label class="flex flex-col gap-2 text-left">
                                             <span class="text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-500">Anonymisierte Beispieldatei</span>
                                             <div class="sample-upload-field">
                                                 <input id="requestSampleFile" name="attachment" type="file" required
@@ -1094,8 +1099,10 @@
             event.preventDefault();
             const form = event.target;
             const bankInput = document.getElementById('requestBankName');
+            const emailInput = document.getElementById('requestEmail');
             const fileInput = document.getElementById('requestSampleFile');
             const bankName = bankInput.value.trim();
+            const email = emailInput.value.trim();
             const sampleFile = fileInput.files[0];
             const status = document.getElementById('requestBankStatus');
             const button = form.querySelector('button[type="submit"]');
@@ -1104,6 +1111,13 @@
                 status.textContent = "Bitte geben Sie mindestens eine Bank oder einen Anbieter an.";
                 status.className = "text-xs font-medium text-[#C40029]";
                 bankInput.focus();
+                return;
+            }
+
+            if (email && !emailInput.checkValidity()) {
+                status.textContent = "Bitte geben Sie eine gültige E-Mail-Adresse ein oder lassen Sie das Feld leer.";
+                status.className = "text-xs font-medium text-[#C40029]";
+                emailInput.focus();
                 return;
             }
 
