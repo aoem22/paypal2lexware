@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bank2Lexware – Kostenlos CSV für Lexware umwandeln (2026)</title>
+    <title>Bank2Lexware – CSV & Sammelbelege für Lexware vorbereiten (2026)</title>
     <meta name="description"
-        content="PayPal, Revolut & Bankauszüge kostenlos in Lexware-CSV umwandeln. Konverter laufen lokal im Browser; neue Banken per anonymisierter Beispieldatei anfragen.">
+        content="PayPal, Wise, Stripe, Revolut, Shopify & Bankauszüge kostenlos für Lexware vorbereiten. Konverter laufen lokal im Browser; neue Banken per anonymisierter Beispieldatei anfragen.">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Alan Özalp">
     <meta name="color-scheme" content="light dark">
@@ -22,20 +22,20 @@
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Bank2Lexware – Kostenlos CSV für Lexware umwandeln (2026)">
+    <meta property="og:title" content="Bank2Lexware – CSV & Sammelbelege für Lexware vorbereiten (2026)">
     <meta property="og:description"
-        content="PayPal, Revolut & Bankauszüge kostenlos in Lexware-CSV umwandeln. Konverter laufen lokal im Browser; neue Banken per anonymisierter Beispieldatei anfragen.">
+        content="PayPal, Wise, Stripe, Revolut, Shopify & Bankauszüge kostenlos für Lexware vorbereiten. Konverter laufen lokal im Browser; neue Banken per anonymisierter Beispieldatei anfragen.">
     <meta property="og:image" content="https://www.bank2lexware.de/assets/og/main.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="de_DE">
     <meta property="og:site_name" content="Bank2Lexware">
     <meta property="og:url" content="https://www.bank2lexware.de/">
-    <meta property="article:modified_time" content="2026-03-09">
+    <meta property="article:modified_time" content="2026-05-04">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Bank2Lexware – Kostenlos CSV für Lexware umwandeln (2026)">
+    <meta name="twitter:title" content="Bank2Lexware – CSV & Sammelbelege für Lexware vorbereiten (2026)">
     <meta name="twitter:description"
-        content="PayPal, Revolut & Bankauszüge kostenlos in Lexware-CSV umwandeln. Konverter laufen lokal im Browser; neue Banken per anonymisierter Beispieldatei anfragen.">
+        content="PayPal, Wise, Stripe, Revolut, Shopify & Bankauszüge kostenlos für Lexware vorbereiten. Konverter laufen lokal im Browser; neue Banken per anonymisierter Beispieldatei anfragen.">
     <meta name="twitter:image" content="https://www.bank2lexware.de/assets/og/main.jpg">
 
     <!-- Structured Data -->
@@ -55,7 +55,7 @@
             "url": "https://www.bank2lexware.de/",
             "applicationCategory": "BusinessApplication",
             "operatingSystem": "Any",
-            "description": "Lokales Tool zur Konvertierung von PayPal-, Revolut- und Bankauszügen in Lexware-kompatible CSV-Dateien.",
+            "description": "Lokales Tool zur Konvertierung von PayPal-, Wise-, Stripe-, Revolut- und Bankauszügen sowie zur Erstellung von Shopify-Sammelbelegen für Lexware.",
             "offers": {
                 "@type": "Offer",
                 "price": "0",
@@ -67,6 +67,9 @@
                 "Historische Umsätze importieren",
                 "Offline-Konten vorbereiten",
                 "PayPal zu Lexware Konverter",
+                "Wise zu Lexware Konverter",
+                "Stripe zu Lexware Konverter",
+                "Shopify Sammelbeleg Generator",
                 "Automatische Währungsumrechnung",
                 "Gebühren-Splitting",
                 "Konfliktlösung",
@@ -118,7 +121,7 @@
                     "name": "Welche Banken und Zahlungsanbieter werden unterstützt?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Aktuell werden PayPal, Revolut und Deutsche Bank unterstützt. Weitere Banken können über das Anfrageformular auf der Startseite mit anonymisierter Beispieldatei vorgeschlagen werden."
+                        "text": "Aktuell werden PayPal, Wise, Stripe, Revolut und Deutsche Bank unterstützt. Weitere Banken können über das Anfrageformular auf der Startseite mit anonymisierter Beispieldatei vorgeschlagen werden."
                     }
                 },
                 {
@@ -198,8 +201,8 @@
                 <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
                     <span class="font-semibold text-gray-800">Wenn Lexware nicht automatisch abruft, übernimmt
                         Bank2Lexware.</span>
-                    Konvertieren Sie Bank- und Zahlungsdaten lokal in ein CSV-Format, das sich in Lexware Office
-                    importieren lässt.
+                    Konvertieren Sie Bank- und Zahlungsdaten lokal in ein CSV-Format oder bereiten Sie manuelle
+                    Sammelbelege für Lexware Office vor.
                 </p>
                 <p class="mt-4 max-w-3xl mx-auto text-sm leading-6 text-gray-500 md:text-base">
                     Häufig gesucht: PayPal CSV in Lexware importieren, fehlende Umsätze nachimportieren,
@@ -226,6 +229,18 @@
                         class="surface-chip surface-chip--revolut inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
                         Revolut CSV importieren
                     </a>
+                    <a href="wise/"
+                        class="surface-chip surface-chip--wise inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
+                        Wise CSV importieren
+                    </a>
+                    <a href="stripe/"
+                        class="surface-chip surface-chip--stripe inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
+                        Stripe CSV importieren
+                    </a>
+                    <button type="button" onclick="openTool('shopify')"
+                        class="surface-chip surface-chip--shopify inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
+                        Shopify Sammelbelege
+                    </button>
                 </div>
             </div>
 
@@ -326,6 +341,101 @@
                         </div>
                     </button>
 
+                    <a href="wise/"
+                        class="converter-card surface-card group hover:-translate-y-1 hover:border-[#003087]/30 hover:bg-blue-50/30 focus:outline-none focus:ring-2 focus:ring-[#003087]/20">
+                        <div class="converter-card__header">
+                            <div class="converter-card__brand">
+                                <img src="assets/logos/wise.svg" alt="Wise Logo"
+                                    class="brand-logo brand-logo--wise group-hover:scale-105" />
+                            </div>
+                            <span
+                                class="inline-flex items-center rounded-full bg-green-50 px-3 py-1 text-xs font-semibold text-green-700">Live</span>
+                        </div>
+                        <div class="converter-card__body">
+                            <div class="converter-card__title">
+                                <h2 class="text-2xl font-bold text-gray-800">Wise</h2>
+                            </div>
+                            <p class="converter-card__description text-sm text-gray-600">
+                                Wise Balance Statements lokal in Lexware-Importzeilen umwandeln, inklusive separater
+                                Gebührenzeilen.
+                            </p>
+                            <div class="converter-card__chips">
+                                <span class="converter-chip bg-gray-100 text-gray-600">Balance Statement</span>
+                                <span class="converter-chip bg-gray-100 text-gray-600">Gebühren</span>
+                                <span class="converter-chip bg-gray-100 text-gray-600">Lexware-CSV</span>
+                            </div>
+                            <div class="converter-card__action">
+                                <div class="converter-card__action-inner">
+                                    <span class="text-sm font-semibold">Konverter öffnen</span>
+                                    <span aria-hidden="true" class="text-2xl leading-none">→</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="stripe/"
+                        class="converter-card surface-card group hover:-translate-y-1 hover:border-[#003087]/30 hover:bg-blue-50/30 focus:outline-none focus:ring-2 focus:ring-[#003087]/20">
+                        <div class="converter-card__header">
+                            <div class="converter-card__brand">
+                                <img src="assets/logos/stripe.svg" alt="Stripe Logo"
+                                    class="brand-logo brand-logo--stripe group-hover:scale-105" />
+                            </div>
+                            <span
+                                class="inline-flex items-center rounded-full bg-[#003087]/10 px-3 py-1 text-xs font-semibold text-[#003087]">Live</span>
+                        </div>
+                        <div class="converter-card__body">
+                            <div class="converter-card__title">
+                                <h2 class="text-2xl font-bold text-gray-800">Stripe</h2>
+                            </div>
+                            <p class="converter-card__description text-sm text-gray-600">
+                                Stripe Balance Reports für Lexware vorbereiten: Bruttobeträge, Gebühren und
+                                Rückerstattungen sauber trennen.
+                            </p>
+                            <div class="converter-card__chips">
+                                <span class="converter-chip bg-gray-100 text-gray-600">Balance Report</span>
+                                <span class="converter-chip bg-gray-100 text-gray-600">Fee-Splitting</span>
+                                <span class="converter-chip bg-gray-100 text-gray-600">Lexware-CSV</span>
+                            </div>
+                            <div class="converter-card__action">
+                                <div class="converter-card__action-inner">
+                                    <span class="text-sm font-semibold">Konverter öffnen</span>
+                                    <span aria-hidden="true" class="text-2xl leading-none">→</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <button type="button" onclick="openTool('shopify')"
+                        class="converter-card surface-card shopify-converter-card group focus:outline-none">
+                        <div class="converter-card__header">
+                            <div class="converter-card__brand">
+                                <img src="assets/logos/shopify.svg" alt="Shopify Logo"
+                                    class="brand-logo brand-logo--shopify group-hover:scale-105" />
+                            </div>
+                            <span class="shopify-live-pill">Live</span>
+                        </div>
+                        <div class="converter-card__body">
+                            <div class="converter-card__title">
+                                <h2 class="text-2xl font-bold text-gray-800">Shopify</h2>
+                            </div>
+                            <p class="converter-card__description text-sm text-gray-600">
+                                Shopify-Umsätze nach Deutschland, Europe und Rest der Welt bündeln und monatliche Lexware-Sammelbelege mit
+                                optionalen Stripe-Gebühren vorbereiten.
+                            </p>
+                            <div class="converter-card__chips">
+                                <span class="converter-chip bg-gray-100 text-gray-600">Sammelbelege</span>
+                                <span class="converter-chip bg-gray-100 text-gray-600">Tax regions</span>
+                                <span class="converter-chip bg-gray-100 text-gray-600">Copy-Felder</span>
+                            </div>
+                            <div class="converter-card__action">
+                                <div class="converter-card__action-inner shopify-action-inner">
+                                    <span class="text-sm font-semibold">Generator öffnen</span>
+                                    <span aria-hidden="true" class="text-2xl leading-none">→</span>
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+
                     <div class="request-strip rounded-[2rem] p-6 text-left md:col-span-2 md:p-8 xl:col-span-3">
                         <div class="grid gap-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(23rem,0.95fr)] xl:items-center">
                             <div class="max-w-2xl">
@@ -417,6 +527,187 @@
                 </div>
             </section>
         </section>
+
+        <div id="shopify-view" class="hidden">
+            <div class="shopify-shell">
+                <div class="shopify-topbar">
+                    <button type="button" onclick="showHub()" class="shopify-back-button">
+                        <span aria-hidden="true">←</span>
+                        <span>Zur Übersicht</span>
+                    </button>
+                    <span class="shopify-privacy-pill">100% lokal im Browser</span>
+                </div>
+
+                <header class="shopify-hero">
+                    <div class="shopify-hero__copy">
+                        <p class="shopify-kicker">Shopify zu Lexware</p>
+                        <h1>Shopify-Umsätze einfach vorbereiten</h1>
+                        <p>
+                            Verwandeln Sie Ihre Shopify-Umsätze in einfache Lexware-Daten für den Monatsabschluss.
+                            Ohne teure oder verwirrende Zusatztools, lokal im Browser und direkt zum Kopieren.
+                        </p>
+                    </div>
+                    <div class="shopify-hero__panel" aria-label="Sammelbeleg Konten">
+                        <div>
+                            <span>8400</span>
+                            <strong>Deutschland + Europe</strong>
+                            <small>Erlöse 19% USt</small>
+                        </div>
+                        <div>
+                            <span>8338</span>
+                            <strong>Rest der Welt</strong>
+                            <small>steuerfreie Ausfuhr</small>
+                        </div>
+                        <div>
+                            <span>4970</span>
+                            <strong>Stripe Gebühren</strong>
+                            <small>Geldverkehr</small>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="shopify-report-guide" aria-label="Reportquellen">
+                    <div class="shopify-report-guide__intro">
+                        <p class="shopify-kicker">Dateien vorbereiten</p>
+                        <h2>Welche Exporte werden benötigt?</h2>
+                        <p>
+                            Der Shopify Report ist die Umsatzbasis. Stripe ist nur für Gebühren-Belege nötig und kann
+                            leer bleiben, wenn Sie diese Gebühren direkt in Lexware verbuchen.
+                        </p>
+                    </div>
+                    <div class="shopify-report-guide__steps">
+                        <article>
+                            <span>1</span>
+                            <strong>Shopify Sales Report</strong>
+                            <p>Shopify Admin > Statistiken > Berichte > Benutzerdefinierten Bericht erstellen. Diese Query einfügen, Zeitraum wählen und als CSV exportieren.</p>
+                            <div class="shopify-query-copy">
+                                <button type="button" data-shopify-copy-query>Query kopieren</button>
+                                <textarea class="shopify-query-source" data-shopify-query-source readonly>FROM sales
+  SHOW orders, gross_sales, discounts, returns, net_sales, shipping_charges,
+    duties, additional_fees, taxes, total_sales, customers
+  GROUP BY billing_country, month WITH GROUP_TOTALS, TOTALS, CURRENCY 'EUR'
+  TIMESERIES month
+  DURING last_month
+  ORDER BY customers__billing_country_totals DESC, month ASC, customers DESC,
+    billing_country ASC
+  LIMIT 1000
+VISUALIZE customers TYPE line</textarea>
+                                <div class="shopify-query-editor" aria-label="Shopify Query">
+                                    <div class="shopify-query-line" data-line="1"><span class="q-keyword">FROM</span> <span class="q-source">sales</span></div>
+                                    <div class="shopify-query-line" data-line="2">  <span class="q-keyword">SHOW</span> <span class="q-field">orders</span>, <span class="q-field">gross_sales</span>, <span class="q-field">discounts</span>, <span class="q-field">returns</span>, <span class="q-field">net_sales</span>, <span class="q-field">shipping_charges</span>,</div>
+                                    <div class="shopify-query-line" data-line="3">    <span class="q-field">duties</span>, <span class="q-field">additional_fees</span>, <span class="q-field">taxes</span>, <span class="q-field">total_sales</span>, <span class="q-field">customers</span></div>
+                                    <div class="shopify-query-line" data-line="4">  <span class="q-keyword">GROUP BY</span> <span class="q-field">billing_country</span>, <span class="q-field">month</span> <span class="q-keyword">WITH</span> <span class="q-keyword">GROUP_TOTALS</span>, <span class="q-keyword">TOTALS</span>, <span class="q-keyword">CURRENCY</span> <span class="q-string">'EUR'</span></div>
+                                    <div class="shopify-query-line" data-line="5">  <span class="q-keyword">TIMESERIES</span> <span class="q-value">month</span></div>
+                                    <div class="shopify-query-line" data-line="6">  <span class="q-keyword">DURING</span> <span class="q-value">last_month</span></div>
+                                    <div class="shopify-query-line" data-line="7">  <span class="q-keyword">ORDER BY</span> <span class="q-field">customers__billing_country_totals</span> <span class="q-keyword">DESC</span>, <span class="q-field">month</span> <span class="q-keyword">ASC</span>, <span class="q-field">customers</span> <span class="q-keyword">DESC</span>,</div>
+                                    <div class="shopify-query-line" data-line="8">    <span class="q-field">billing_country</span> <span class="q-keyword">ASC</span></div>
+                                    <div class="shopify-query-line" data-line="9">  <span class="q-keyword">LIMIT</span> <span class="q-value">1000</span></div>
+                                    <div class="shopify-query-line" data-line="10"><span class="q-keyword">VISUALIZE</span> <span class="q-field">customers</span> <span class="q-keyword">TYPE</span> <span class="q-chart">line</span></div>
+                                </div>
+                            </div>
+                        </article>
+                        <article>
+                            <span>2</span>
+                            <strong>Stripe Payouts</strong>
+                            <p>Stripe Dashboard > Balances > Payouts > Export. Benötigt werden Payout Date, Charges, Fees und Currency.</p>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="shopify-import-grid" aria-label="Shopify Dateien hochladen">
+                    <label id="shopify-sales-drop" class="shopify-dropzone shopify-dropzone--required">
+                        <input id="shopify-sales-input" type="file" accept=".csv,text/csv" multiple>
+                        <span class="shopify-dropzone__badge">Pflichtdatei</span>
+                        <span class="shopify-dropzone__source">Shopify Admin Export</span>
+                        <strong>Sales Report CSV hochladen</strong>
+                        <span class="shopify-dropzone__hint">Erwartet: Land der Rechnungsadresse, Monat oder Tag, Bestellungen, Gesamtumsatz.</span>
+                        <span id="shopify-sales-files" class="shopify-dropzone__file">Noch keine Shopify CSV ausgewählt</span>
+                        <span class="shopify-dropzone__action">Dateien auswählen</span>
+                    </label>
+
+                    <label id="shopify-stripe-drop" class="shopify-dropzone">
+                        <input id="shopify-stripe-input" type="file" accept=".csv,text/csv" multiple>
+                        <span class="shopify-dropzone__badge">Optional</span>
+                        <span class="shopify-dropzone__source">Stripe Dashboard Export</span>
+                        <strong>Payouts CSV für Gebühren</strong>
+                        <span class="shopify-dropzone__hint">Erstellt Ausgabe-Belege für Stripe/Shopify Payments Gebühren.</span>
+                        <span id="shopify-stripe-files" class="shopify-dropzone__file">Keine Stripe CSV ausgewählt</span>
+                        <span class="shopify-dropzone__action">Dateien auswählen</span>
+                    </label>
+
+                </section>
+
+                <div class="shopify-actions">
+                    <button id="shopify-generate" type="button" class="shopify-primary-button" disabled>
+                        Belege erstellen
+                    </button>
+                    <button id="shopify-reset" type="button" class="shopify-secondary-button">
+                        Dateien zurücksetzen
+                    </button>
+                    <p id="shopify-status" class="shopify-status" aria-live="polite">
+                        Shopify Sales Report oder Stripe Payouts hochladen. Beides kann auch getrennt verarbeitet werden.
+                    </p>
+                </div>
+
+                <section id="shopify-results" class="shopify-results hidden" aria-live="polite">
+                    <div class="shopify-results__header">
+                        <div>
+                            <p class="shopify-kicker">Monatsakten</p>
+                            <h2>Lexware-Felder zum Kopieren</h2>
+                        </div>
+                        <div id="shopify-year-filters" class="shopify-year-filters"></div>
+                    </div>
+
+                    <section class="shopify-lexware-guide" aria-label="Lexware Eingabeanleitung">
+                        <div>
+                            <p class="shopify-kicker">In Lexware eintragen</p>
+                            <h3>So legen Sie die Monatsakten an</h3>
+                            <p>
+                                Die Karten unten sind keine Importdatei. Legen Sie jeden Sammelbeleg manuell in Lexware an
+                                und kopieren Sie die Felder direkt aus der jeweiligen Karte.
+                            </p>
+                        </div>
+                        <ol>
+                            <li>
+                                <span>1</span>
+                                <p><strong>Belege > Neuer Beleg</strong> öffnen und Einnahme oder Ausgabe passend zur Karte wählen.</p>
+                            </li>
+                            <li>
+                                <span>2</span>
+                                <p>Belegnummer, Datum, Beschreibung, Kategorie, Steuer, Betrag und Zahlart aus der Karte kopieren.</p>
+                            </li>
+                            <li>
+                                <span>3</span>
+                                <p><strong>Zahlart: Privat</strong> setzen und speichern, damit kein Bankumsatz verknüpft wird.</p>
+                            </li>
+                            <li>
+                                <span>4</span>
+                                <p>Stripe-Auszahlungen in der Bankansicht als <strong>1360 Geldtransit</strong> kategorisieren.</p>
+                            </li>
+                        </ol>
+                    </section>
+
+                    <div id="shopify-warning-list" class="shopify-warning-list"></div>
+
+                    <div class="shopify-summary-shell">
+                        <table class="shopify-summary-table">
+                            <thead>
+                                <tr>
+                                    <th>Monat</th>
+                                    <th>Deutschland</th>
+                                    <th>Europe</th>
+                                    <th>Rest der Welt</th>
+                                    <th>Stripe Gebühren</th>
+                                </tr>
+                            </thead>
+                            <tbody id="shopify-summary-body"></tbody>
+                        </table>
+                    </div>
+
+                    <div id="shopify-months" class="shopify-months"></div>
+                </section>
+            </div>
+        </div>
 
         <div id="paypal-view" class="hidden">
             <div class="max-w-3xl mx-auto text-left mb-8">
@@ -636,7 +927,7 @@
                 </div>
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                     <h3 class="font-bold text-gray-800 mb-2">Welche Banken und Zahlungsanbieter werden unterstützt?</h3>
-                    <p class="text-sm text-gray-600">Aktuell werden PayPal, Revolut und Deutsche Bank unterstützt. Weitere Banken können über das Anfrageformular auf der Startseite mit anonymisierter Beispieldatei vorgeschlagen werden.</p>
+                    <p class="text-sm text-gray-600">Aktuell werden PayPal, Wise, Stripe, Revolut und Deutsche Bank unterstützt. Weitere Banken können über das Anfrageformular auf der Startseite mit anonymisierter Beispieldatei vorgeschlagen werden.</p>
                 </div>
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                     <h3 class="font-bold text-gray-800 mb-2">Muss ich mich registrieren oder ein Konto erstellen?</h3>
@@ -1014,7 +1305,7 @@
             });
         })();
 
-        var ALL_VIEWS = ['home', 'paypal', 'deutsche-bank', 'revolut'];
+        var ALL_VIEWS = ['home', 'paypal', 'deutsche-bank', 'revolut', 'shopify'];
 
         function setActiveView(view, updateHash = true) {
             ALL_VIEWS.forEach(function(v) {
@@ -1147,6 +1438,750 @@
         if (requestBankFrame) {
             requestBankFrame.addEventListener('load', handleBankRequestFrameLoad);
         }
+
+        window.SHOP = (function() {
+            const MONTH_NAMES = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+            const EU_COUNTRIES = new Set([
+                'austria', 'belgium', 'bulgaria', 'croatia', 'cyprus', 'czech republic', 'czechia', 'denmark',
+                'estonia', 'finland', 'france', 'greece', 'hungary', 'ireland', 'italy', 'latvia', 'lithuania',
+                'luxembourg', 'malta', 'netherlands', 'the netherlands', 'poland', 'portugal', 'romania',
+                'slovakia', 'slovenia', 'spain', 'sweden'
+            ]);
+            const GERMANY_NAMES = new Set(['germany', 'deutschland', 'germania', 'allemagne']);
+            const TOTAL_COUNTRY_NAMES = new Set(['total', 'totals', 'gesamt', 'summe', 'all', 'alle', 'grand total']);
+            const state = {
+                salesFiles: [],
+                stripeFiles: [],
+                activeYear: null,
+                result: null
+            };
+
+            function el(id) { return document.getElementById('shopify-' + id); }
+
+            function normalizeKey(value) {
+                return String(value || '')
+                    .toLowerCase()
+                    .replace(/^\uFEFF/, '')
+                    .replace(/[_\-./()]+/g, ' ')
+                    .replace(/\s+/g, ' ')
+                    .trim();
+            }
+
+            function findKey(row, aliases) {
+                const rowKeys = Object.keys(row || {});
+                const normalized = rowKeys.map(function(key) {
+                    return { original: key, normalized: normalizeKey(key) };
+                });
+
+                for (let i = 0; i < aliases.length; i++) {
+                    const alias = normalizeKey(aliases[i]);
+                    const exact = normalized.find(function(item) { return item.normalized === alias; });
+                    if (exact) return exact.original;
+                }
+
+                for (let i = 0; i < aliases.length; i++) {
+                    const alias = normalizeKey(aliases[i]);
+                    const fuzzy = normalized.find(function(item) {
+                        return item.normalized.indexOf(alias) !== -1 || alias.indexOf(item.normalized) !== -1;
+                    });
+                    if (fuzzy) return fuzzy.original;
+                }
+
+                return '';
+            }
+
+            function getVal(row) {
+                const aliases = Array.prototype.slice.call(arguments, 1);
+                const key = findKey(row, aliases);
+                if (!key || row[key] === undefined || row[key] === null) return '';
+                return String(row[key]).trim();
+            }
+
+            function parseAmount(value) {
+                if (value === null || value === undefined) return null;
+                let raw = String(value).trim();
+                if (!raw || raw === '-' || raw.toLowerCase() === 'null') return null;
+                let negative = false;
+                if (/^\(.*\)$/.test(raw)) {
+                    negative = true;
+                    raw = raw.slice(1, -1);
+                }
+                if (/^[−-]/.test(raw)) negative = true;
+                raw = raw.replace(/[^\d,.\-−]/g, '').replace(/[−-]/g, '');
+                if (!raw) return null;
+
+                const lastComma = raw.lastIndexOf(',');
+                const lastDot = raw.lastIndexOf('.');
+                let decimalSeparator = null;
+                if (lastComma !== -1 && lastDot !== -1) {
+                    decimalSeparator = lastComma > lastDot ? ',' : '.';
+                } else if (lastComma !== -1) {
+                    decimalSeparator = raw.length - lastComma <= 3 ? ',' : null;
+                } else if (lastDot !== -1) {
+                    decimalSeparator = raw.length - lastDot <= 3 ? '.' : null;
+                }
+
+                if (decimalSeparator === ',') {
+                    raw = raw.replace(/\./g, '').replace(',', '.');
+                } else if (decimalSeparator === '.') {
+                    raw = raw.replace(/,/g, '');
+                } else {
+                    raw = raw.replace(/[,.]/g, '');
+                }
+
+                const parsed = parseFloat(raw);
+                if (isNaN(parsed)) return null;
+                return negative ? -parsed : parsed;
+            }
+
+            function parseOrders(value) {
+                if (value === null || value === undefined || String(value).trim() === '') return null;
+                const parsed = parseInt(String(value).replace(/[^\d-]/g, ''), 10);
+                return isNaN(parsed) ? null : parsed;
+            }
+
+            function parseMonthValue(value, periodKey) {
+                const raw = String(value || '').trim();
+                if (!raw) return null;
+
+                let match = raw.match(/^(\d{4})-(\d{1,2})(?:-(\d{1,2}))?/);
+                if (match) {
+                    const month = match[2].padStart(2, '0');
+                    const normalizedPeriod = normalizeKey(periodKey);
+                    const periodType = normalizedPeriod.indexOf('tag') !== -1 || normalizedPeriod.indexOf('day') !== -1 || normalizedPeriod.indexOf('date') !== -1 || normalizedPeriod.indexOf('datum') !== -1
+                        ? 'day'
+                        : 'month';
+                    return { monthKey: match[1] + '-' + month, periodType: periodType };
+                }
+
+                match = raw.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})/);
+                if (match) {
+                    return { monthKey: match[3] + '-' + match[2].padStart(2, '0'), periodType: 'day' };
+                }
+
+                match = raw.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})/);
+                if (match) {
+                    const first = parseInt(match[1], 10);
+                    const second = parseInt(match[2], 10);
+                    const year = match[3].length === 2 ? '20' + match[3] : match[3];
+                    const month = first > 12 ? second : first;
+                    return { monthKey: year + '-' + String(month).padStart(2, '0'), periodType: 'day' };
+                }
+
+                const date = new Date(raw);
+                if (!isNaN(date.getTime())) {
+                    return {
+                        monthKey: date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0'),
+                        periodType: 'day'
+                    };
+                }
+
+                return null;
+            }
+
+            function parseDateMonth(value) {
+                const info = parseMonthValue(value, '');
+                return info ? info.monthKey : '';
+            }
+
+            function formatAmount(value) {
+                const rounded = Math.round((value + Number.EPSILON) * 100) / 100;
+                return rounded.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            }
+
+            function formatSignedAmount(value) {
+                if (Math.abs(value) < 0.005) return '0,00';
+                return (value < 0 ? '-' : '') + formatAmount(Math.abs(value));
+            }
+
+            function monthLabel(monthKey) {
+                const parts = monthKey.split('-');
+                const monthIndex = parseInt(parts[1], 10) - 1;
+                return MONTH_NAMES[monthIndex] + ' ' + parts[0];
+            }
+
+            function lastDayGerman(monthKey) {
+                const parts = monthKey.split('-');
+                const year = parseInt(parts[0], 10);
+                const month = parseInt(parts[1], 10);
+                const date = new Date(year, month, 0);
+                return String(date.getDate()).padStart(2, '0') + '.' + parts[1] + '.' + parts[0];
+            }
+
+            function escapeHTML(value) {
+                return String(value || '')
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#39;');
+            }
+
+            function compactCountries(countries) {
+                const list = Array.from(countries || []).sort(function(a, b) { return a.localeCompare(b, 'de'); });
+                if (list.length <= 6) return list.join(', ');
+                return list.slice(0, 6).join(', ') + ' +' + (list.length - 6) + ' weitere';
+            }
+
+            function makeEmptyMonth(monthKey) {
+                return {
+                    monthKey: monthKey,
+                    de: { amount: 0, orders: 0, countries: new Set() },
+                    eu: { amount: 0, orders: 0, countries: new Set() },
+                    ex: { amount: 0, orders: 0, countries: new Set() },
+                    stripe: { fees: 0, charges: 0, count: 0 },
+                    warnings: []
+                };
+            }
+
+            function ensureMonth(months, monthKey) {
+                if (!months[monthKey]) months[monthKey] = makeEmptyMonth(monthKey);
+                return months[monthKey];
+            }
+
+            function classifyCountry(country) {
+                const normalized = normalizeKey(country);
+                if (!normalized || TOTAL_COUNTRY_NAMES.has(normalized)) return 'total';
+                if (GERMANY_NAMES.has(normalized)) return 'de';
+                if (EU_COUNTRIES.has(normalized)) return 'eu';
+                return 'ex';
+            }
+
+            function readCSVFile(file) {
+                return new Promise(function(resolve, reject) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const text = event.target.result || '';
+                        Papa.parse(text, {
+                            header: true,
+                            skipEmptyLines: 'greedy',
+                            complete: function(results) {
+                                if (results.errors.length > 0 && results.data.length === 0) {
+                                    reject(new Error(file.name + ': ' + results.errors[0].message));
+                                    return;
+                                }
+                                resolve(results.data.map(function(row) {
+                                    row.__shopifySourceFile = file.name;
+                                    return row;
+                                }));
+                            },
+                            error: function(error) {
+                                reject(new Error(file.name + ': ' + error.message));
+                            }
+                        });
+                    };
+                    reader.onerror = function() {
+                        reject(new Error(file.name + ' konnte nicht gelesen werden.'));
+                    };
+                    reader.readAsText(file, 'UTF-8');
+                });
+            }
+
+            function readFiles(files) {
+                return Promise.all(files.map(readCSVFile)).then(function(chunks) {
+                    return chunks.reduce(function(allRows, rows) { return allRows.concat(rows); }, []);
+                });
+            }
+
+            function aggregateShopify(rows, warnings) {
+                const months = {};
+                const seenMonthCountry = {};
+                const totalRows = {};
+                let validRows = 0;
+                let skippedRows = 0;
+
+                rows.forEach(function(row) {
+                    const countryKey = findKey(row, ['Land der Rechnungsadresse', 'Billing country', 'customers billing country', 'billing country', 'billing_country']);
+                    const periodKey = findKey(row, ['Monat', 'Month', 'Tag', 'Day', 'date', 'Datum']);
+                    const ordersKey = findKey(row, ['Bestellungen', 'Orders']);
+                    const totalKey = findKey(row, ['Gesamtumsatz', 'Total sales', 'total sales', 'total_sales']);
+
+                    if (!countryKey || !periodKey || !ordersKey || !totalKey) {
+                        skippedRows++;
+                        return;
+                    }
+
+                    const country = String(row[countryKey] || '').trim();
+                    const periodInfo = parseMonthValue(row[periodKey], periodKey);
+                    const orders = parseOrders(row[ordersKey]);
+                    const totalSales = parseAmount(row[totalKey]);
+                    if (!periodInfo || orders === null || totalSales === null) {
+                        skippedRows++;
+                        return;
+                    }
+
+                    const countryType = classifyCountry(country);
+                    if (countryType === 'total') {
+                        totalRows[periodInfo.monthKey] = (totalRows[periodInfo.monthKey] || 0) + totalSales;
+                        return;
+                    }
+
+                    if (orders === 0) {
+                        skippedRows++;
+                        return;
+                    }
+
+                    validRows++;
+                    const duplicateKey = periodInfo.monthKey + '|' + normalizeKey(country);
+                    if (periodInfo.periodType === 'month' && seenMonthCountry[duplicateKey]) {
+                        warnings.push('Doppelte Shopify-Zeile für ' + country + ' in ' + monthLabel(periodInfo.monthKey) + ' erkannt. Die Werte wurden addiert; bitte überlappende Exporte prüfen.');
+                    }
+                    seenMonthCountry[duplicateKey] = true;
+
+                    const month = ensureMonth(months, periodInfo.monthKey);
+                    const bucket = month[countryType];
+                    bucket.amount += totalSales;
+                    bucket.orders += orders;
+                    bucket.countries.add(country);
+                });
+
+                if (!validRows) {
+                    throw new Error('Keine gültigen Shopify-Umsatzzeilen gefunden. Erwartet werden Land, Monat/Tag, Bestellungen und Gesamtumsatz.');
+                }
+
+                Object.keys(totalRows).forEach(function(monthKey) {
+                    if (!months[monthKey]) return;
+                    const calculated = months[monthKey].de.amount + months[monthKey].eu.amount + months[monthKey].ex.amount;
+                    if (Math.abs(calculated - totalRows[monthKey]) > 0.02) {
+                        warnings.push('Shopify-Gesamtsumme in ' + monthLabel(monthKey) + ' weicht um ' + formatAmount(calculated - totalRows[monthKey]) + ' EUR von den Länderzeilen ab.');
+                    }
+                });
+
+                Object.keys(months).forEach(function(monthKey) {
+                    const month = months[monthKey];
+                    if (Math.abs(month.de.amount) > 0.005 && Math.abs(month.eu.amount) < 0.005) {
+                        month.warnings.push('DE-Umsatz vorhanden, aber keine EU-Umsätze im Shopify-Report.');
+                    }
+                    if (Math.abs(month.de.amount) > 0.005 && Math.abs(month.ex.amount) < 0.005) {
+                        month.warnings.push('Deutschland-Umsatz vorhanden, aber keine Rest-der-Welt-Umsätze im Shopify-Report.');
+                    }
+                });
+
+                if (skippedRows > 0) {
+                    warnings.push(skippedRows + ' Shopify-Zeilen ohne vollständige Daten oder mit 0 Bestellungen übersprungen.');
+                }
+
+                return months;
+            }
+
+            function mergeStripe(rows, months, warnings) {
+                if (!rows.length) return;
+                const salesMonthKeys = new Set(Object.keys(months));
+                const hasSalesMonths = salesMonthKeys.size > 0;
+                const unmatchedStripeMonths = {};
+                let parsedRows = 0;
+                let skippedRows = 0;
+
+                rows.forEach(function(row) {
+                    const monthKey = parseDateMonth(getVal(row, 'Payout Date', 'Payout date', 'Payout date (UTC)', 'payout_date', 'Arrival Date', 'Date', 'Datum', 'Auszahlungsdatum'));
+                    if (!monthKey) {
+                        skippedRows += 1;
+                        return;
+                    }
+                    const fees = parseAmount(getVal(row, 'Fees', 'Fee', 'Fees total', 'Fee amount', 'Gebühren', 'Gebühr'));
+                    const charges = parseAmount(getVal(row, 'Charges', 'Charge', 'Gross', 'Gross amount', 'Umsätze', 'Bruttobetrag'));
+                    const currency = getVal(row, 'Currency', 'Payout Currency', 'Payout currency', 'Währung');
+                    if (currency && currency.toUpperCase() !== 'EUR') {
+                        warnings.push('Stripe-Zeile in ' + monthLabel(monthKey) + ' nutzt ' + currency + ' statt EUR. Gebühren wurden nicht umgerechnet.');
+                    }
+                    if (fees === null) {
+                        skippedRows += 1;
+                        return;
+                    }
+                    const month = ensureMonth(months, monthKey);
+                    month.stripe.fees += fees;
+                    month.stripe.count += 1;
+                    if (charges !== null) month.stripe.charges += charges;
+                    parsedRows += 1;
+                    if (hasSalesMonths && !salesMonthKeys.has(monthKey)) unmatchedStripeMonths[monthKey] = true;
+                });
+
+                if (parsedRows === 0) {
+                    warnings.push('Stripe-Payouts konnten nicht gelesen werden. Erwartet werden mindestens Payout Date, Fees und Currency.');
+                }
+                if (skippedRows > 0) {
+                    warnings.push(skippedRows + ' Stripe-Payout-Zeilen ohne Datum oder Gebührenwert übersprungen.');
+                }
+                const unmatched = Object.keys(unmatchedStripeMonths).sort();
+                if (unmatched.length) {
+                    warnings.push('Stripe-Payouts enthalten Monate ohne passende Shopify-Umsätze: ' + unmatched.map(monthLabel).join(', ') + '. Bitte denselben Zeitraum im Shopify Sales Report hochladen oder getrennt prüfen.');
+                }
+
+                Object.keys(months).forEach(function(monthKey) {
+                    const month = months[monthKey];
+                    const charges = Math.abs(month.stripe.charges);
+                    const fees = Math.abs(month.stripe.fees);
+                    if (charges > 0 && fees > 0) {
+                        const ratio = fees / charges;
+                        if (ratio < 0.015 || ratio > 0.06) {
+                            month.warnings.push('Stripe-Gebührenquote liegt bei ' + (ratio * 100).toFixed(1).replace('.', ',') + '%. Üblich sind grob 2-4%.');
+                        }
+                    }
+                });
+            }
+
+            function buildBeleg(type, partyLabel, partyValue, number, date, description, category, tax, amount, payment) {
+                return {
+                    type: type,
+                    fields: [
+                        ['Belegtyp', type],
+                        [partyLabel, partyValue],
+                        ['Belegnummer', number],
+                        ['Belegdatum', date],
+                        ['Beschreibung', description],
+                        ['Kategorie', category],
+                        ['Steuer', tax],
+                        ['Betrag', amount],
+                        ['Zahlart', payment]
+                    ]
+                };
+            }
+
+            function buildBelege(month) {
+                const parts = month.monthKey.split('-');
+                const year = parts[0];
+                const monthNo = parts[1];
+                const date = lastDayGerman(month.monthKey);
+                const label = monthLabel(month.monthKey);
+                const belege = [];
+
+                if (Math.abs(month.de.amount) > 0.005) {
+                    belege.push(buildBeleg(
+                        'Einnahme',
+                        'Kunde',
+                        'Sammelbeleg Shopify',
+                        'SHOP-' + year + '-' + monthNo + '-DE',
+                        date,
+                        'Shopify Verkäufe DE ' + label + ' - ' + month.de.orders + ' Bestellungen',
+                        '8400 Erlöse 19%',
+                        '19%',
+                        formatSignedAmount(month.de.amount),
+                        'Privat'
+                    ));
+                }
+
+                if (Math.abs(month.eu.amount) > 0.005) {
+                    belege.push(buildBeleg(
+                        'Einnahme',
+                        'Kunde',
+                        'Sammelbeleg Shopify',
+                        'SHOP-' + year + '-' + monthNo + '-EU',
+                        date,
+                        'Shopify Verkäufe EU ' + label + ' - ' + compactCountries(month.eu.countries) + ' - ' + month.eu.orders + ' Best.',
+                        '8400 Erlöse 19%',
+                        '19%',
+                        formatSignedAmount(month.eu.amount),
+                        'Privat'
+                    ));
+                }
+
+                if (Math.abs(month.ex.amount) > 0.005) {
+                    belege.push(buildBeleg(
+                        'Einnahme',
+                        'Kunde',
+                        'Sammelbeleg Shopify',
+                        'SHOP-' + year + '-' + monthNo + '-EX',
+                        date,
+                        'Shopify Verkäufe Rest der Welt ' + label + ' - ' + compactCountries(month.ex.countries) + ' - ' + month.ex.orders + ' Best.',
+                        '8338 Erlöse steuerfrei Ausfuhrlieferung',
+                        'Keine',
+                        formatSignedAmount(month.ex.amount),
+                        'Privat'
+                    ));
+                }
+
+                if (Math.abs(month.stripe.fees) > 0.005) {
+                    belege.push(buildBeleg(
+                        'Ausgabe',
+                        'Lieferant',
+                        'Stripe / Shopify Payments',
+                        'SHOP-GEB-' + year + '-' + monthNo,
+                        date,
+                        'Stripe/Shopify Transaktionsgebühren ' + label,
+                        '4970 Nebenkosten des Geldverkehrs',
+                        'Keine',
+                        formatAmount(Math.abs(month.stripe.fees)),
+                        'Privat'
+                    ));
+                }
+
+                return belege;
+            }
+
+            function renderWarnings(warnings) {
+                const wrapper = el('warning-list');
+                wrapper.innerHTML = '';
+                if (!warnings.length) return;
+                warnings.forEach(function(message) {
+                    const item = document.createElement('div');
+                    item.className = 'shopify-warning';
+                    item.textContent = message;
+                    wrapper.appendChild(item);
+                });
+            }
+
+            function renderSummary(months) {
+                const tbody = el('summary-body');
+                tbody.innerHTML = '';
+                months.forEach(function(month) {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML =
+                        '<td>' + escapeHTML(monthLabel(month.monthKey)) + '</td>' +
+                        '<td>' + escapeHTML(formatSignedAmount(month.de.amount)) + '</td>' +
+                        '<td>' + escapeHTML(formatSignedAmount(month.eu.amount)) + '</td>' +
+                        '<td>' + escapeHTML(formatSignedAmount(month.ex.amount)) + '</td>' +
+                        '<td>' + escapeHTML(month.stripe.fees ? formatAmount(Math.abs(month.stripe.fees)) : '0,00') + '</td>';
+                    tbody.appendChild(tr);
+                });
+            }
+
+            function renderField(label, value) {
+                return '<div class="shopify-field-row">' +
+                    '<span>' + escapeHTML(label) + '</span>' +
+                    '<strong>' + escapeHTML(value) + '</strong>' +
+                    '<button type="button" data-copy="' + escapeHTML(value) + '" title="In Zwischenablage kopieren">Kopieren</button>' +
+                    '</div>';
+            }
+
+            function renderMonths(months) {
+                const wrapper = el('months');
+                wrapper.innerHTML = '';
+                months.forEach(function(month) {
+                    const belege = buildBelege(month);
+                    const article = document.createElement('article');
+                    article.className = 'shopify-month-card';
+                    const monthWarnings = month.warnings.map(function(warning) {
+                        return '<span>' + escapeHTML(warning) + '</span>';
+                    }).join('');
+                    const belegeHtml = belege.map(function(beleg) {
+                        const fields = beleg.fields.map(function(field) {
+                            return renderField(field[0], field[1]);
+                        }).join('');
+                        return '<section class="shopify-beleg-card">' +
+                            '<div class="shopify-beleg-card__header">' +
+                            '<span>' + escapeHTML(beleg.type) + '</span>' +
+                            '<strong>' + escapeHTML(beleg.fields[2][1]) + '</strong>' +
+                            '</div>' +
+                            '<div class="shopify-field-grid">' + fields + '</div>' +
+                            '</section>';
+                    }).join('');
+
+                    article.innerHTML =
+                        '<div class="shopify-month-card__header">' +
+                        '<div><p class="shopify-kicker">Monatsakte</p><h3>' + escapeHTML(monthLabel(month.monthKey)) + '</h3></div>' +
+                        '<div class="shopify-month-total">' + escapeHTML(formatSignedAmount(month.de.amount + month.eu.amount + month.ex.amount)) + ' EUR Umsatz</div>' +
+                        '</div>' +
+                        (monthWarnings ? '<div class="shopify-month-warnings">' + monthWarnings + '</div>' : '') +
+                        '<div class="shopify-beleg-grid">' + (belegeHtml || '<p class="shopify-empty">Keine Belege für diesen Monat.</p>') + '</div>';
+                    wrapper.appendChild(article);
+                });
+            }
+
+            function renderYearFilters(years) {
+                const wrapper = el('year-filters');
+                wrapper.innerHTML = '';
+                years.forEach(function(year) {
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.textContent = year;
+                    button.className = year === state.activeYear ? 'is-active' : '';
+                    button.addEventListener('click', function() {
+                        state.activeYear = year;
+                        renderResult();
+                    });
+                    wrapper.appendChild(button);
+                });
+            }
+
+            function renderResult() {
+                if (!state.result) return;
+                const allMonths = state.result.months;
+                const years = Array.from(new Set(allMonths.map(function(month) { return month.monthKey.slice(0, 4); }))).sort();
+                if (!state.activeYear || years.indexOf(state.activeYear) === -1) state.activeYear = years[years.length - 1];
+                const months = allMonths.filter(function(month) { return month.monthKey.slice(0, 4) === state.activeYear; });
+                renderYearFilters(years);
+                renderWarnings(state.result.warnings);
+                renderSummary(months);
+                renderMonths(months);
+                el('results').classList.remove('hidden');
+            }
+
+            function validateYearlyEuSales(months, warnings) {
+                const totals = {};
+                months.forEach(function(month) {
+                    const year = month.monthKey.slice(0, 4);
+                    totals[year] = (totals[year] || 0) + month.eu.amount;
+                });
+                Object.keys(totals).forEach(function(year) {
+                    if (totals[year] > 10000) {
+                        warnings.push('OSS-Hinweis: EU-Umsätze ' + year + ' liegen bei ' + formatAmount(totals[year]) + ' EUR und überschreiten 10.000 EUR.');
+                    }
+                });
+            }
+
+            async function generate() {
+                if (!state.salesFiles.length && !state.stripeFiles.length) {
+                    setStatus('Bitte zuerst eine Shopify Sales CSV oder Stripe Payouts CSV hochladen.', 'error');
+                    return;
+                }
+
+                try {
+                    setStatus('Dateien werden gelesen und aggregiert...', 'info');
+                    const warnings = [];
+                    const hasSalesFiles = state.salesFiles.length > 0;
+                    const salesRows = hasSalesFiles ? await readFiles(state.salesFiles) : [];
+                    const monthsByKey = hasSalesFiles ? aggregateShopify(salesRows, warnings) : {};
+                    const stripeRows = state.stripeFiles.length ? await readFiles(state.stripeFiles) : [];
+                    mergeStripe(stripeRows, monthsByKey, warnings);
+                    const months = Object.keys(monthsByKey).sort().map(function(key) { return monthsByKey[key]; });
+                    validateYearlyEuSales(months, warnings);
+
+                    months.forEach(function(month) {
+                        if (hasSalesFiles &&
+                            Math.abs(month.de.amount + month.eu.amount + month.ex.amount) < 0.005 &&
+                            Math.abs(month.stripe.fees) > 0.005) {
+                            month.warnings.push('Gebühren vorhanden, aber kein Shopify-Umsatz in diesem Monat.');
+                        }
+                    });
+
+                    state.result = { months: months, warnings: warnings };
+                    state.activeYear = null;
+                    renderResult();
+                    setStatus(months.length + ' Monate verarbeitet. Felder können jetzt einzeln kopiert werden.', 'success');
+                } catch (error) {
+                    console.error(error);
+                    setStatus(error.message || 'Shopify-Daten konnten nicht verarbeitet werden.', 'error');
+                }
+            }
+
+            function setStatus(message, type) {
+                const status = el('status');
+                status.textContent = message;
+                status.className = 'shopify-status is-' + (type || 'info');
+            }
+
+            function updateFileLabel(kind) {
+                const files = state[kind + 'Files'];
+                const label = el(kind + '-files');
+                const generateButton = el('generate');
+                if (!label) return;
+                if (!files.length) {
+                    label.textContent = kind === 'sales'
+                        ? 'Noch keine Shopify CSV ausgewählt'
+                        : 'Keine Stripe CSV ausgewählt';
+                } else if (files.length === 1) {
+                    label.textContent = files[0].name + ' - ' + formatSampleFileSize(files[0].size);
+                } else {
+                    const totalBytes = files.reduce(function(sum, file) { return sum + file.size; }, 0);
+                    label.textContent = files.length + ' Dateien - ' + formatSampleFileSize(totalBytes);
+                }
+                if (generateButton) generateButton.disabled = !(state.salesFiles.length || state.stripeFiles.length);
+            }
+
+            function setFiles(kind, files) {
+                state[kind + 'Files'] = Array.prototype.slice.call(files || []);
+                updateFileLabel(kind);
+                if (kind === 'sales' && state[kind + 'Files'].length) {
+                    setStatus('Shopify Sales Report geladen. Optional Stripe Gebühren-CSV ergänzen oder Belege erstellen.', 'success');
+                } else if (kind === 'stripe' && state[kind + 'Files'].length) {
+                    setStatus('Stripe Payouts geladen. Gebühren-Belege können jetzt erstellt werden.', 'success');
+                }
+            }
+
+            function bindDropzone(kind) {
+                const drop = el(kind + '-drop');
+                const input = el(kind + '-input');
+                if (!drop || !input) return;
+
+                input.addEventListener('change', function(event) {
+                    setFiles(kind, event.target.files);
+                });
+                drop.addEventListener('dragover', function(event) {
+                    event.preventDefault();
+                    drop.classList.add('is-dragging');
+                });
+                drop.addEventListener('dragleave', function() {
+                    drop.classList.remove('is-dragging');
+                });
+                drop.addEventListener('drop', function(event) {
+                    event.preventDefault();
+                    drop.classList.remove('is-dragging');
+                    if (event.dataTransfer.files.length) setFiles(kind, event.dataTransfer.files);
+                });
+            }
+
+            function reset() {
+                state.salesFiles = [];
+                state.stripeFiles = [];
+                state.result = null;
+                state.activeYear = null;
+                ['sales', 'stripe'].forEach(function(kind) {
+                    const input = el(kind + '-input');
+                    if (input) input.value = '';
+                    updateFileLabel(kind);
+                });
+                el('results').classList.add('hidden');
+                el('summary-body').innerHTML = '';
+                el('months').innerHTML = '';
+                el('warning-list').innerHTML = '';
+                setStatus('Shopify Sales Report oder Stripe Payouts hochladen. Beides kann auch getrennt verarbeitet werden.', 'info');
+            }
+
+            function copyFallback(text) {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                textarea.setAttribute('readonly', '');
+                textarea.style.position = 'fixed';
+                textarea.style.left = '-9999px';
+                document.body.appendChild(textarea);
+                textarea.select();
+                const ok = document.execCommand('copy');
+                document.body.removeChild(textarea);
+                return ok;
+            }
+
+            function copyText(text, button) {
+                const original = button.textContent;
+                const done = function() {
+                    button.textContent = 'Kopiert';
+                    button.classList.add('is-copied');
+                    window.setTimeout(function() {
+                        button.textContent = original;
+                        button.classList.remove('is-copied');
+                    }, 1200);
+                };
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text).then(done).catch(function() {
+                        if (copyFallback(text)) done();
+                    });
+                } else if (copyFallback(text)) {
+                    done();
+                }
+            }
+
+            function init() {
+                bindDropzone('sales');
+                bindDropzone('stripe');
+                el('generate').addEventListener('click', generate);
+                el('reset').addEventListener('click', reset);
+                const queryButton = document.querySelector('[data-shopify-copy-query]');
+                if (queryButton) {
+                    queryButton.addEventListener('click', function() {
+                        const querySource = document.querySelector('[data-shopify-query-source]');
+                        if (querySource) copyText(querySource.value, queryButton);
+                    });
+                }
+                el('months').addEventListener('click', function(event) {
+                    const button = event.target.closest('button[data-copy]');
+                    if (!button) return;
+                    copyText(button.getAttribute('data-copy'), button);
+                });
+                reset();
+            }
+
+            init();
+            return { generate: generate, reset: reset };
+        })();
 
         function showStatus(message, type = 'info') {
             const statusEl = document.getElementById('status');

@@ -48,7 +48,9 @@ function showStatus(message, type) {
         subtitle.className = "text-sm text-green-600 mt-1";
     } else {
         statusEl.textContent = message;
-        statusEl.className = 'mt-6 p-4 rounded-xl text-sm font-medium bg-blue-50 text-[' + brand + '] border-l-4 border-[' + brand + ']';
+        statusEl.className = 'mt-6 p-4 rounded-xl text-sm font-medium bg-blue-50 border-l-4';
+        statusEl.style.color = brand;
+        statusEl.style.borderLeftColor = brand;
         statusEl.classList.remove('hidden');
 
         if (type === 'info') {
