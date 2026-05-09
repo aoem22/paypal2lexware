@@ -71,14 +71,10 @@ html.theme-dark .converter-card__action-inner { color: #bfdbfe; }
 .brand-logo--paypal { filter: drop-shadow(0 10px 18px rgba(0, 48, 135, 0.08)); }
 .brand-logo--deutsche { filter: drop-shadow(0 10px 18px rgba(0, 24, 168, 0.08)); }
 .brand-logo--revolut { filter: drop-shadow(0 10px 18px rgba(25, 28, 31, 0.08)); }
-.brand-logo--wise { filter: drop-shadow(0 10px 18px rgba(22, 51, 0, 0.1)); }
-.brand-logo--stripe { filter: drop-shadow(0 10px 18px rgba(99, 91, 255, 0.12)); }
 .brand-logo--shopify { filter: drop-shadow(0 10px 18px rgba(94, 142, 62, 0.14)); }
 html.theme-dark .brand-logo--paypal { filter: brightness(1.28) saturate(1.18) drop-shadow(0 0 20px rgba(96, 165, 250, 0.18)); }
 html.theme-dark .brand-logo--deutsche { filter: brightness(1.36) saturate(1.2) drop-shadow(0 0 20px rgba(96, 165, 250, 0.16)); }
 html.theme-dark .brand-logo--revolut { filter: brightness(0) saturate(100%) invert(91%) sepia(10%) saturate(470%) hue-rotate(181deg) brightness(100%) contrast(94%) drop-shadow(0 0 20px rgba(148, 163, 184, 0.12)); }
-html.theme-dark .brand-logo--wise { filter: brightness(1.04) saturate(1.08) drop-shadow(0 0 20px rgba(159, 232, 112, 0.16)); }
-html.theme-dark .brand-logo--stripe { filter: brightness(1.08) saturate(1.12) drop-shadow(0 0 20px rgba(129, 140, 248, 0.18)); }
 html.theme-dark .brand-logo--shopify { filter: brightness(1.06) saturate(1.08) drop-shadow(0 0 20px rgba(190, 242, 100, 0.18)); }
 
 .surface-chip {
@@ -93,8 +89,6 @@ html.theme-dark .brand-logo--shopify { filter: brightness(1.06) saturate(1.08) d
 .surface-chip--neutral { --chip-border-hover: rgba(100, 116, 139, 0.32); --chip-text-hover: var(--ink); }
 .surface-chip--deutsche { --chip-border-hover: rgba(0, 24, 168, 0.24); --chip-text-hover: #0018A8; }
 .surface-chip--revolut { --chip-border-hover: rgba(25, 28, 31, 0.22); --chip-text-hover: #111827; }
-.surface-chip--wise { --chip-border-hover: rgba(22, 101, 52, 0.28); --chip-text-hover: #166534; }
-.surface-chip--stripe { --chip-border-hover: rgba(99, 91, 255, 0.28); --chip-text-hover: #4f46e5; }
 .surface-chip--shopify { --chip-border-hover: rgba(94, 142, 62, 0.34); --chip-text-hover: #3f6f2a; }
 
 html.theme-dark .surface-chip { --chip-border: rgba(148, 163, 184, 0.16); --chip-surface: rgba(15, 23, 42, 0.56); --chip-surface-hover: rgba(30, 41, 59, 0.82); --chip-text: var(--ink-soft); --chip-text-hover: var(--ink); }
@@ -103,8 +97,6 @@ html.theme-dark .surface-chip--alert { --chip-border-hover: rgba(251, 113, 133, 
 html.theme-dark .surface-chip--neutral { --chip-border-hover: rgba(148, 163, 184, 0.34); --chip-text-hover: var(--ink); }
 html.theme-dark .surface-chip--deutsche { --chip-border-hover: rgba(147, 197, 253, 0.34); --chip-text-hover: #bfdbfe; }
 html.theme-dark .surface-chip--revolut { --chip-border-hover: rgba(148, 163, 184, 0.34); --chip-text-hover: #e2e8f0; }
-html.theme-dark .surface-chip--wise { --chip-border-hover: rgba(134, 239, 172, 0.34); --chip-text-hover: #bbf7d0; }
-html.theme-dark .surface-chip--stripe { --chip-border-hover: rgba(165, 180, 252, 0.34); --chip-text-hover: #c7d2fe; }
 html.theme-dark .surface-chip--shopify { --chip-border-hover: rgba(190, 242, 100, 0.34); --chip-text-hover: #d9f99d; }
 
 .surface-input { background: var(--surface-muted); border: 1px solid var(--line); color: var(--ink); }

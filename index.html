@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bank2Lexware – CSV & Sammelbelege für Lexware vorbereiten (2026)</title>
     <meta name="description"
-        content="PayPal, Wise, Stripe, Revolut, Shopify & Bankauszüge kostenlos für Lexware vorbereiten. Konverter laufen lokal im Browser; neue Banken per anonymisierter Beispieldatei anfragen.">
+        content="PayPal, Revolut, Shopify & Bankauszüge kostenlos für Lexware vorbereiten. Konverter laufen lokal im Browser; neue Banken per anonymisierter Beispieldatei anfragen.">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Alan Özalp">
     <meta name="color-scheme" content="light dark">
@@ -24,7 +24,7 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="Bank2Lexware – CSV & Sammelbelege für Lexware vorbereiten (2026)">
     <meta property="og:description"
-        content="PayPal, Wise, Stripe, Revolut, Shopify & Bankauszüge kostenlos für Lexware vorbereiten. Konverter laufen lokal im Browser; neue Banken per anonymisierter Beispieldatei anfragen.">
+        content="PayPal, Revolut, Shopify & Bankauszüge kostenlos für Lexware vorbereiten. Konverter laufen lokal im Browser; neue Banken per anonymisierter Beispieldatei anfragen.">
     <meta property="og:image" content="https://www.bank2lexware.de/assets/og/main.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -35,7 +35,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Bank2Lexware – CSV & Sammelbelege für Lexware vorbereiten (2026)">
     <meta name="twitter:description"
-        content="PayPal, Wise, Stripe, Revolut, Shopify & Bankauszüge kostenlos für Lexware vorbereiten. Konverter laufen lokal im Browser; neue Banken per anonymisierter Beispieldatei anfragen.">
+        content="PayPal, Revolut, Shopify & Bankauszüge kostenlos für Lexware vorbereiten. Konverter laufen lokal im Browser; neue Banken per anonymisierter Beispieldatei anfragen.">
     <meta name="twitter:image" content="https://www.bank2lexware.de/assets/og/main.jpg">
 
     <!-- Structured Data -->
@@ -55,7 +55,7 @@
             "url": "https://www.bank2lexware.de/",
             "applicationCategory": "BusinessApplication",
             "operatingSystem": "Any",
-            "description": "Lokales Tool zur Konvertierung von PayPal-, Wise-, Stripe-, Revolut- und Bankauszügen sowie zur Erstellung von Shopify-Sammelbelegen für Lexware.",
+            "description": "Lokales Tool zur Konvertierung von PayPal-, Revolut- und Bankauszügen sowie zur Erstellung von Shopify-Sammelbelegen für Lexware.",
             "offers": {
                 "@type": "Offer",
                 "price": "0",
@@ -67,8 +67,6 @@
                 "Historische Umsätze importieren",
                 "Offline-Konten vorbereiten",
                 "PayPal zu Lexware Konverter",
-                "Wise zu Lexware Konverter",
-                "Stripe zu Lexware Konverter",
                 "Shopify Sammelbeleg Generator",
                 "Automatische Währungsumrechnung",
                 "Gebühren-Splitting",
@@ -121,7 +119,7 @@
                     "name": "Welche Banken und Zahlungsanbieter werden unterstützt?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Aktuell werden PayPal, Wise, Stripe, Revolut und Deutsche Bank unterstützt. Weitere Banken können über das Anfrageformular auf der Startseite mit anonymisierter Beispieldatei vorgeschlagen werden."
+                        "text": "Aktuell werden PayPal, Revolut, Deutsche Bank und Shopify Sammelbelege unterstützt. Weitere Banken können über das Anfrageformular auf der Startseite mit anonymisierter Beispieldatei vorgeschlagen werden."
                     }
                 },
                 {
@@ -229,14 +227,6 @@
                         class="surface-chip surface-chip--revolut inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
                         Revolut CSV importieren
                     </a>
-                    <a href="wise/"
-                        class="surface-chip surface-chip--wise inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
-                        Wise CSV importieren
-                    </a>
-                    <a href="stripe/"
-                        class="surface-chip surface-chip--stripe inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
-                        Stripe CSV importieren
-                    </a>
                     <button type="button" onclick="openTool('shopify')"
                         class="surface-chip surface-chip--shopify inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
                         Shopify Sammelbelege
@@ -341,70 +331,6 @@
                         </div>
                     </button>
 
-                    <a href="wise/"
-                        class="converter-card surface-card group hover:-translate-y-1 hover:border-[#003087]/30 hover:bg-blue-50/30 focus:outline-none focus:ring-2 focus:ring-[#003087]/20">
-                        <div class="converter-card__header">
-                            <div class="converter-card__brand">
-                                <img src="assets/logos/wise.svg" alt="Wise Logo"
-                                    class="brand-logo brand-logo--wise group-hover:scale-105" />
-                            </div>
-                            <span
-                                class="inline-flex items-center rounded-full bg-green-50 px-3 py-1 text-xs font-semibold text-green-700">Live</span>
-                        </div>
-                        <div class="converter-card__body">
-                            <div class="converter-card__title">
-                                <h2 class="text-2xl font-bold text-gray-800">Wise</h2>
-                            </div>
-                            <p class="converter-card__description text-sm text-gray-600">
-                                Wise Balance Statements lokal in Lexware-Importzeilen umwandeln, inklusive separater
-                                Gebührenzeilen.
-                            </p>
-                            <div class="converter-card__chips">
-                                <span class="converter-chip bg-gray-100 text-gray-600">Balance Statement</span>
-                                <span class="converter-chip bg-gray-100 text-gray-600">Gebühren</span>
-                                <span class="converter-chip bg-gray-100 text-gray-600">Lexware-CSV</span>
-                            </div>
-                            <div class="converter-card__action">
-                                <div class="converter-card__action-inner">
-                                    <span class="text-sm font-semibold">Konverter öffnen</span>
-                                    <span aria-hidden="true" class="text-2xl leading-none">→</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="stripe/"
-                        class="converter-card surface-card group hover:-translate-y-1 hover:border-[#003087]/30 hover:bg-blue-50/30 focus:outline-none focus:ring-2 focus:ring-[#003087]/20">
-                        <div class="converter-card__header">
-                            <div class="converter-card__brand">
-                                <img src="assets/logos/stripe.svg" alt="Stripe Logo"
-                                    class="brand-logo brand-logo--stripe group-hover:scale-105" />
-                            </div>
-                            <span
-                                class="inline-flex items-center rounded-full bg-[#003087]/10 px-3 py-1 text-xs font-semibold text-[#003087]">Live</span>
-                        </div>
-                        <div class="converter-card__body">
-                            <div class="converter-card__title">
-                                <h2 class="text-2xl font-bold text-gray-800">Stripe</h2>
-                            </div>
-                            <p class="converter-card__description text-sm text-gray-600">
-                                Stripe Balance Reports für Lexware vorbereiten: Bruttobeträge, Gebühren und
-                                Rückerstattungen sauber trennen.
-                            </p>
-                            <div class="converter-card__chips">
-                                <span class="converter-chip bg-gray-100 text-gray-600">Balance Report</span>
-                                <span class="converter-chip bg-gray-100 text-gray-600">Fee-Splitting</span>
-                                <span class="converter-chip bg-gray-100 text-gray-600">Lexware-CSV</span>
-                            </div>
-                            <div class="converter-card__action">
-                                <div class="converter-card__action-inner">
-                                    <span class="text-sm font-semibold">Konverter öffnen</span>
-                                    <span aria-hidden="true" class="text-2xl leading-none">→</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-
                     <button type="button" onclick="openTool('shopify')"
                         class="converter-card surface-card shopify-converter-card group focus:outline-none">
                         <div class="converter-card__header">
@@ -471,7 +397,7 @@
                                     <div class="grid gap-3">
                                         <label class="flex flex-col gap-2 text-left">
                                             <span class="text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-500">Bank oder Anbieter</span>
-                                            <input id="requestBankName" name="Bank / Anbieter" type="text" required aria-required="true" placeholder="z. B. N26, Wise oder AMEX"
+                                                <input id="requestBankName" name="Bank / Anbieter" type="text" required aria-required="true" placeholder="z. B. N26 oder AMEX"
                                                 class="surface-input w-full rounded-2xl px-4 py-3 text-sm outline-none" />
                                         </label>
                                         <label class="flex flex-col gap-2 text-left">
@@ -927,7 +853,7 @@ VISUALIZE customers TYPE line</textarea>
                 </div>
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                     <h3 class="font-bold text-gray-800 mb-2">Welche Banken und Zahlungsanbieter werden unterstützt?</h3>
-                    <p class="text-sm text-gray-600">Aktuell werden PayPal, Wise, Stripe, Revolut und Deutsche Bank unterstützt. Weitere Banken können über das Anfrageformular auf der Startseite mit anonymisierter Beispieldatei vorgeschlagen werden.</p>
+                    <p class="text-sm text-gray-600">Aktuell werden PayPal, Revolut, Deutsche Bank und Shopify Sammelbelege unterstützt. Weitere Banken können über das Anfrageformular auf der Startseite mit anonymisierter Beispieldatei vorgeschlagen werden.</p>
                 </div>
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                     <h3 class="font-bold text-gray-800 mb-2">Muss ich mich registrieren oder ein Konto erstellen?</h3>

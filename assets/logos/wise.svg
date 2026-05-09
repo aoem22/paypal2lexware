@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 48" role="img" aria-labelledby="wise-title">
-  <title id="wise-title">Wise</title>
-  <rect width="160" height="48" rx="8" fill="#9FE870"/>
-  <path d="M22 13h45l-8 9h-25l21 13-6 8-34-21 7-9z" fill="#163300"/>
-  <text x="75" y="32" fill="#163300" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="800">wise</text>
-</svg>
