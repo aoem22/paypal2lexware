@@ -467,10 +467,10 @@
                 <header class="shopify-hero">
                     <div class="shopify-hero__copy">
                         <p class="shopify-kicker">Shopify zu Lexware</p>
-                        <h1>Shopify-Umsätze einfach vorbereiten</h1>
+                        <h1>Shopify-Umsätze für Lexware vorbereiten</h1>
                         <p>
-                            Verwandeln Sie Ihre Shopify-Umsätze in einfache Lexware-Daten für den Monatsabschluss.
-                            Ohne teure oder verwirrende Zusatztools, lokal im Browser und direkt zum Kopieren.
+                            Laden Sie Ihren Shopify-Bericht hoch. Das Tool erstellt daraus monatliche Sammelbelege für
+                            Lexware mit Feldern zum Kopieren. Lokal im Browser, ohne teure oder komplizierte Software.
                         </p>
                     </div>
                     <div class="shopify-hero__panel" aria-label="Sammelbeleg Konten">
@@ -505,11 +505,11 @@
                         <article>
                             <span>1</span>
                             <strong>Shopify Sales Report</strong>
-                            <p>Shopify Admin > Statistiken > Berichte > Benutzerdefinierten Bericht erstellen. Diese Query einfügen, Zeitraum wählen und als CSV exportieren.</p>
+                            <p>Shopify Admin > Statistiken > Neue Analyse erstellen. Im Fenster "Was möchtest du erkunden" rechts auf den Pfeil nach unten klicken, diese Query einfügen, Zeitraum wählen und als CSV exportieren.</p>
                             <div class="shopify-query-copy">
                                 <button type="button" data-shopify-copy-query>Query kopieren</button>
                                 <textarea class="shopify-query-source" data-shopify-query-source readonly>FROM sales
-  SHOW orders, gross_sales, discounts, returns, net_sales, shipping_charges,
+  SHOW orders, gross_sales, discounts, sales_reversals, net_sales, shipping_charges,
     duties, additional_fees, taxes, total_sales, customers
   GROUP BY billing_country, month WITH GROUP_TOTALS, TOTALS, CURRENCY 'EUR'
   TIMESERIES month
@@ -520,7 +520,7 @@
 VISUALIZE customers TYPE line</textarea>
                                 <div class="shopify-query-editor" aria-label="Shopify Query">
                                     <div class="shopify-query-line" data-line="1"><span class="q-keyword">FROM</span> <span class="q-source">sales</span></div>
-                                    <div class="shopify-query-line" data-line="2">  <span class="q-keyword">SHOW</span> <span class="q-field">orders</span>, <span class="q-field">gross_sales</span>, <span class="q-field">discounts</span>, <span class="q-field">returns</span>, <span class="q-field">net_sales</span>, <span class="q-field">shipping_charges</span>,</div>
+                                    <div class="shopify-query-line" data-line="2">  <span class="q-keyword">SHOW</span> <span class="q-field">orders</span>, <span class="q-field">gross_sales</span>, <span class="q-field">discounts</span>, <span class="q-field">sales_reversals</span>, <span class="q-field">net_sales</span>, <span class="q-field">shipping_charges</span>,</div>
                                     <div class="shopify-query-line" data-line="3">    <span class="q-field">duties</span>, <span class="q-field">additional_fees</span>, <span class="q-field">taxes</span>, <span class="q-field">total_sales</span>, <span class="q-field">customers</span></div>
                                     <div class="shopify-query-line" data-line="4">  <span class="q-keyword">GROUP BY</span> <span class="q-field">billing_country</span>, <span class="q-field">month</span> <span class="q-keyword">WITH</span> <span class="q-keyword">GROUP_TOTALS</span>, <span class="q-keyword">TOTALS</span>, <span class="q-keyword">CURRENCY</span> <span class="q-string">'EUR'</span></div>
                                     <div class="shopify-query-line" data-line="5">  <span class="q-keyword">TIMESERIES</span> <span class="q-value">month</span></div>
@@ -596,19 +596,15 @@ VISUALIZE customers TYPE line</textarea>
                         <ol>
                             <li>
                                 <span>1</span>
-                                <p><strong>Belege > Neuer Beleg</strong> öffnen und Einnahme oder Ausgabe passend zur Karte wählen.</p>
+                                <p><strong>Belege > Neuer Beleg > Beleg erfassen</strong> öffnen und Einnahme oder Ausgabe passend zur Karte wählen.</p>
                             </li>
                             <li>
                                 <span>2</span>
-                                <p>Belegnummer, Datum, Beschreibung, Kategorie, Steuer, Betrag und Zahlart aus der Karte kopieren.</p>
+                                <p>Den Schalter <strong>Kein Bilddokument verwenden</strong> einschalten.</p>
                             </li>
                             <li>
                                 <span>3</span>
-                                <p><strong>Zahlart: Privat</strong> setzen und speichern, damit kein Bankumsatz verknüpft wird.</p>
-                            </li>
-                            <li>
-                                <span>4</span>
-                                <p>Stripe-Auszahlungen in der Bankansicht als <strong>1360 Geldtransit</strong> kategorisieren.</p>
+                                <p>Belegnummer, Datum, Beschreibung, Kategorie, Steuer, Betrag und Zahlart aus der Karte kopieren und speichern.</p>
                             </li>
                         </ol>
                     </section>
