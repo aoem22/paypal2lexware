@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <title>PayPal Gebühren in Lexware buchen – Praxisbeispiel | Bank2Lexware</title>
+    <meta name="description" content="PayPal-Gebühren, Rückzahlungen und Fremdwährungen in Lexware sauber buchen. Praxis-Workflow mit CSV-Import und Gebühren-Splitting.">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Alan Özalp">
+    <meta name="theme-color" content="#f4f6fa">
+    <link rel="canonical" href="https://www.bank2lexware.de/paypal-gebuehren-lexware/">
+    <link rel="alternate" hreflang="de" href="https://www.bank2lexware.de/paypal-gebuehren-lexware/">
+    <link rel="alternate" hreflang="de-AT" href="https://www.bank2lexware.de/paypal-gebuehren-lexware/">
+    <link rel="alternate" hreflang="de-CH" href="https://www.bank2lexware.de/paypal-gebuehren-lexware/">
+    <link rel="alternate" hreflang="x-default" href="https://www.bank2lexware.de/paypal-gebuehren-lexware/">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💶</text></svg>">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="PayPal Gebühren in Lexware buchen – Praxisbeispiel | Bank2Lexware">
+    <meta property="og:description" content="PayPal-Gebühren, Rückzahlungen und Fremdwährungen in Lexware sauber buchen. Praxis-Workflow mit CSV-Import und Gebühren-Splitting.">
+    <meta property="og:image" content="https://www.bank2lexware.de/assets/og/main.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="de_DE">
+    <meta property="og:site_name" content="Bank2Lexware">
+    <meta property="og:url" content="https://www.bank2lexware.de/paypal-gebuehren-lexware/">
+    <meta property="article:modified_time" content="2026-05-10">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+[
+        {
+                "@context": "https://schema.org",
+                "@type": "WebPage",
+                "name": "PayPal-Gebühren in Lexware buchen",
+                "url": "https://www.bank2lexware.de/paypal-gebuehren-lexware/",
+                "description": "PayPal-Gebühren, Rückzahlungen und Fremdwährungen in Lexware sauber buchen. Praxis-Workflow mit CSV-Import und Gebühren-Splitting.",
+                "isPartOf": {
+                        "@type": "WebSite",
+                        "name": "Bank2Lexware",
+                        "url": "https://www.bank2lexware.de/"
+                }
+        },
+        {
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": [
+                        {
+                                "@type": "Question",
+                                "name": "Wie buche ich PayPal-Gebühren in Lexware?",
+                                "acceptedAnswer": {
+                                        "@type": "Answer",
+                                        "text": "PayPal-Gebühren sollten als eigene Kostenzeile oder eigener Aufwand erfasst werden, damit Umsatz und Zahlungsgebühr nachvollziehbar getrennt bleiben."
+                                }
+                        },
+                        {
+                                "@type": "Question",
+                                "name": "Warum stimmt PayPal nicht mit Lexware überein?",
+                                "acceptedAnswer": {
+                                        "@type": "Answer",
+                                        "text": "Häufig fehlen Gebühren, Rückzahlungen, Währungsumrechnungen oder alte Zeiträume im Import."
+                                }
+                        },
+                        {
+                                "@type": "Question",
+                                "name": "Kann Bank2Lexware PayPal-Gebühren splitten?",
+                                "acceptedAnswer": {
+                                        "@type": "Answer",
+                                        "text": "Ja. Der PayPal-Workflow bereitet Bruttoumsätze und Gebühren getrennt für den Lexware-Import vor."
+                                }
+                        }
+                ]
+        },
+        {
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                        {
+                                "@type": "ListItem",
+                                "position": 1,
+                                "name": "Bank2Lexware",
+                                "item": "https://www.bank2lexware.de/"
+                        },
+                        {
+                                "@type": "ListItem",
+                                "position": 2,
+                                "name": "PayPal-Gebühren in Lexware buchen",
+                                "item": "https://www.bank2lexware.de/paypal-gebuehren-lexware/"
+                        }
+                ]
+        },
+        {
+                "@context": "https://schema.org",
+                "@type": "HowTo",
+                "name": "So buchen Sie PayPal-Gebühren praktisch",
+                "step": [
+                        {
+                                "@type": "HowToStep",
+                                "name": "PayPal-CSV exportieren",
+                                "text": "Nutzen Sie einen Bericht mit abgeschlossenen Zahlungen, Gebühren und Währung."
+                        },
+                        {
+                                "@type": "HowToStep",
+                                "name": "Brutto und Gebühren trennen",
+                                "text": "Bank2Lexware bereitet getrennte Zeilen vor, statt Nettozuflüsse zu vermischen."
+                        },
+                        {
+                                "@type": "HowToStep",
+                                "name": "Rückzahlungen prüfen",
+                                "text": "Refunds und Gebührenrückerstattungen separat kontrollieren."
+                        },
+                        {
+                                "@type": "HowToStep",
+                                "name": "In Lexware importieren",
+                                "text": "Die vorbereitete CSV in ein geeignetes Konto importieren und Saldo prüfen."
+                        }
+                ]
+        }
+]
+    </script>
+    <link rel="preload" href="../shared/styles.css" as="style">
+    <link rel="stylesheet" href="../shared/styles.css">
+</head>
+
+<body class="min-h-screen bg-slate-50 text-slate-900">
+    <main class="mx-auto flex w-full max-w-5xl flex-col gap-10 px-4 py-6 sm:py-8 md:px-6">
+        <div class="flex items-center justify-between">
+            <a href="../" class="inline-flex items-center gap-2 text-sm font-medium text-[#003087] transition-colors hover:text-[#002569]"><span>←</span><span>Zur Übersicht</span></a>
+            <span class="inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">PayPal Gebühren</span>
+        </div>
+
+        <section class="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm md:p-12">
+            <p class="text-sm font-semibold uppercase tracking-[0.22em] text-[#003087]">PayPal Gebühren zu Lexware</p>
+            <h1 class="mt-4 max-w-3xl text-4xl font-black tracking-tight text-slate-900 md:text-6xl">PayPal-Gebühren in Lexware buchen</h1>
+            <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-600">Viele suchen nicht nur nach einem PayPal-Import, sondern nach der richtigen Behandlung der Gebühren. Der Bank- oder PayPal-Saldo passt nur dann, wenn Bruttoumsatz, Gebühren, Rückzahlungen und Fremdwährungen getrennt nachvollziehbar bleiben.</p>
+            <div class="mt-8 flex flex-wrap gap-3">
+                <a href="../#paypal" class="inline-flex items-center rounded-2xl bg-[#003087] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#002569]">PayPal-Konverter öffnen</a>
+                <a href="../paypal-csv-lexware/" class="inline-flex items-center rounded-2xl border border-slate-200 bg-slate-50 px-5 py-3 text-sm font-semibold text-slate-700 transition-colors hover:border-slate-300 hover:bg-white">PayPal CSV Import ansehen</a>
+            </div>
+        </section>
+
+        <section class="grid gap-4 md:grid-cols-2">
+            <article class="rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-sm"><h2 class="text-lg font-bold text-slate-900">Suchintention</h2><p class="mt-3 text-sm leading-7 text-slate-600">Zielt auf Suchanfragen wie lexoffice paypal gebühren buchen, paypal gebühren lexoffice, paypal rückzahlung buchen und paypal gebühren rückzahlung.</p></article>
+            <article class="rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-sm"><h2 class="text-lg font-bold text-slate-900">Buchhaltungsproblem</h2><p class="mt-3 text-sm leading-7 text-slate-600">Wer nur den Nettozufluss bucht, verliert die Verbindung zwischen Umsatz, PayPal-Gebühr und möglicher Rückerstattung. Das führt später zu Abstimmungsfehlern.</p></article>
+        </section>
+
+        <section class="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+            <h2 class="text-2xl font-bold tracking-tight text-slate-900">PayPal-Fälle, die getrennt gehören</h2>
+            <div class="mt-6 grid gap-4 md:grid-cols-2">
+                <article class="rounded-[1.25rem] bg-slate-50 p-5"><h3 class="font-bold text-slate-900">Bruttoumsatz</h3><p class="mt-2 text-sm leading-7 text-slate-600">Der Kundenzahlungsbetrag bleibt die Umsatzbasis und sollte nicht direkt um Gebühren gekürzt werden.</p></article>
+                <article class="rounded-[1.25rem] bg-slate-50 p-5"><h3 class="font-bold text-slate-900">PayPal-Gebühr</h3><p class="mt-2 text-sm leading-7 text-slate-600">Die PayPal-Gebühr gehört als eigene Kostenposition in die Buchhaltung.</p></article>
+                <article class="rounded-[1.25rem] bg-slate-50 p-5"><h3 class="font-bold text-slate-900">Rückzahlungen</h3><p class="mt-2 text-sm leading-7 text-slate-600">Refunds müssen den ursprünglichen Umsatz nachvollziehbar korrigieren.</p></article>
+                <article class="rounded-[1.25rem] bg-slate-50 p-5"><h3 class="font-bold text-slate-900">Fremdwährungen</h3><p class="mt-2 text-sm leading-7 text-slate-600">FX-Beträge und Umrechnungskurse müssen zum Buchungstag passen.</p></article>
+            </div>
+        </section>
+
+        <section class="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+            <h2 class="text-2xl font-bold tracking-tight text-slate-900">So buchen Sie PayPal-Gebühren praktisch</h2>
+            <ol class="mt-6 space-y-4 text-sm leading-7 text-slate-600">
+                    <li><strong class="text-slate-900">1. PayPal-CSV exportieren:</strong> Nutzen Sie einen Bericht mit abgeschlossenen Zahlungen, Gebühren und Währung.</li>
+                    <li><strong class="text-slate-900">2. Brutto und Gebühren trennen:</strong> Bank2Lexware bereitet getrennte Zeilen vor, statt Nettozuflüsse zu vermischen.</li>
+                    <li><strong class="text-slate-900">3. Rückzahlungen prüfen:</strong> Refunds und Gebührenrückerstattungen separat kontrollieren.</li>
+                    <li><strong class="text-slate-900">4. In Lexware importieren:</strong> Die vorbereitete CSV in ein geeignetes Konto importieren und Saldo prüfen.</li>
+            </ol>
+        </section>
+
+        <section class="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+            <h2 class="text-2xl font-bold tracking-tight text-slate-900">Häufige Fragen</h2>
+            <div class="mt-6 space-y-5">
+                <article><h3 class="text-base font-bold text-slate-900">Wie buche ich PayPal-Gebühren in Lexware?</h3><p class="mt-2 text-sm leading-7 text-slate-600">PayPal-Gebühren sollten als eigene Kostenzeile oder eigener Aufwand erfasst werden, damit Umsatz und Zahlungsgebühr nachvollziehbar getrennt bleiben.</p></article>
+                <article><h3 class="text-base font-bold text-slate-900">Warum stimmt PayPal nicht mit Lexware überein?</h3><p class="mt-2 text-sm leading-7 text-slate-600">Häufig fehlen Gebühren, Rückzahlungen, Währungsumrechnungen oder alte Zeiträume im Import.</p></article>
+                <article><h3 class="text-base font-bold text-slate-900">Kann Bank2Lexware PayPal-Gebühren splitten?</h3><p class="mt-2 text-sm leading-7 text-slate-600">Ja. Der PayPal-Workflow bereitet Bruttoumsätze und Gebühren getrennt für den Lexware-Import vor.</p></article>
+            </div>
+        </section>
+
+        <section class="rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-sm">
+            <h2 class="mb-4 text-lg font-bold text-slate-900">Verwandte Themen</h2>
+            <div class="grid gap-3 md:grid-cols-2">
+                <a href="../paypal-csv-lexware/" class="rounded-xl border border-slate-200 p-4 text-sm font-medium text-slate-700 transition-colors hover:border-[#003087]/30 hover:bg-blue-50/20">PayPal CSV in Lexware importieren</a>
+                <a href="../stripe/" class="rounded-xl border border-slate-200 p-4 text-sm font-medium text-slate-700 transition-colors hover:border-[#003087]/30 hover:bg-blue-50/20">Stripe in Lexware importieren</a>
+                <a href="../shopify-auszahlung-lexware/" class="rounded-xl border border-slate-200 p-4 text-sm font-medium text-slate-700 transition-colors hover:border-[#003087]/30 hover:bg-blue-50/20">Shopify-Auszahlung in Lexware buchen</a>
+                <a href="../fehlende-umsaetze-lexware-importieren/" class="rounded-xl border border-slate-200 p-4 text-sm font-medium text-slate-700 transition-colors hover:border-[#003087]/30 hover:bg-blue-50/20">Fehlende Umsätze in Lexware importieren</a>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

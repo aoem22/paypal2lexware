@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <title>Qonto mit Lexware verbinden – Bankabgleich &amp; CSV | Bank2Lexware</title>
+    <meta name="description" content="Qonto und Lexware Office verbinden, Bankumsätze abstimmen und CSV-Workarounds für fehlende oder historische Umsätze verstehen.">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Alan Özalp">
+    <meta name="theme-color" content="#f4f6fa">
+    <link rel="canonical" href="https://www.bank2lexware.de/qonto-lexware/">
+    <link rel="alternate" hreflang="de" href="https://www.bank2lexware.de/qonto-lexware/">
+    <link rel="alternate" hreflang="de-AT" href="https://www.bank2lexware.de/qonto-lexware/">
+    <link rel="alternate" hreflang="de-CH" href="https://www.bank2lexware.de/qonto-lexware/">
+    <link rel="alternate" hreflang="x-default" href="https://www.bank2lexware.de/qonto-lexware/">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💶</text></svg>">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Qonto mit Lexware verbinden – Bankabgleich &amp; CSV | Bank2Lexware">
+    <meta property="og:description" content="Qonto und Lexware Office verbinden, Bankumsätze abstimmen und CSV-Workarounds für fehlende oder historische Umsätze verstehen.">
+    <meta property="og:image" content="https://www.bank2lexware.de/assets/og/main.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="de_DE">
+    <meta property="og:site_name" content="Bank2Lexware">
+    <meta property="og:url" content="https://www.bank2lexware.de/qonto-lexware/">
+    <meta property="article:modified_time" content="2026-05-10">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+[
+        {
+                "@context": "https://schema.org",
+                "@type": "WebPage",
+                "name": "Qonto mit Lexware verbinden",
+                "url": "https://www.bank2lexware.de/qonto-lexware/",
+                "description": "Qonto und Lexware Office verbinden, Bankumsätze abstimmen und CSV-Workarounds für fehlende oder historische Umsätze verstehen.",
+                "isPartOf": {
+                        "@type": "WebSite",
+                        "name": "Bank2Lexware",
+                        "url": "https://www.bank2lexware.de/"
+                }
+        },
+        {
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": [
+                        {
+                                "@type": "Question",
+                                "name": "Kann ich Qonto mit Lexware verbinden?",
+                                "acceptedAnswer": {
+                                        "@type": "Answer",
+                                        "text": "Qonto wird häufig mit Lexware Office verbunden; bei Lücken hilft ein CSV- oder Offline-Konto-Workflow."
+                                }
+                        },
+                        {
+                                "@type": "Question",
+                                "name": "Was tun bei fehlenden Qonto-Umsätzen?",
+                                "acceptedAnswer": {
+                                        "@type": "Answer",
+                                        "text": "Zeitraum aus Qonto exportieren und gezielt in Lexware nachimportieren."
+                                }
+                        },
+                        {
+                                "@type": "Question",
+                                "name": "Brauche ich ein Offline-Konto?",
+                                "acceptedAnswer": {
+                                        "@type": "Answer",
+                                        "text": "Für Workarounds oder historische Daten kann ein Offline-Konto sinnvoll sein."
+                                }
+                        }
+                ]
+        },
+        {
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                        {
+                                "@type": "ListItem",
+                                "position": 1,
+                                "name": "Bank2Lexware",
+                                "item": "https://www.bank2lexware.de/"
+                        },
+                        {
+                                "@type": "ListItem",
+                                "position": 2,
+                                "name": "Qonto mit Lexware verbinden",
+                                "item": "https://www.bank2lexware.de/qonto-lexware/"
+                        }
+                ]
+        },
+        {
+                "@context": "https://schema.org",
+                "@type": "HowTo",
+                "name": "Qonto sauber abstimmen",
+                "step": [
+                        {
+                                "@type": "HowToStep",
+                                "name": "Anbindung prüfen",
+                                "text": "Kontostatus und Abrufzeitraum kontrollieren."
+                        },
+                        {
+                                "@type": "HowToStep",
+                                "name": "Lücken identifizieren",
+                                "text": "Qonto-Saldo gegen Lexware-Saldo vergleichen."
+                        },
+                        {
+                                "@type": "HowToStep",
+                                "name": "CSV vorbereiten",
+                                "text": "Fehlende Zeiträume exportieren und normalisieren."
+                        },
+                        {
+                                "@type": "HowToStep",
+                                "name": "Import abstimmen",
+                                "text": "Offline- oder Zielkonto gegen Qonto prüfen."
+                        }
+                ]
+        }
+]
+    </script>
+    <link rel="preload" href="../shared/styles.css" as="style">
+    <link rel="stylesheet" href="../shared/styles.css">
+</head>
+
+<body class="min-h-screen bg-slate-50 text-slate-900">
+    <main class="mx-auto flex w-full max-w-5xl flex-col gap-10 px-4 py-6 sm:py-8 md:px-6">
+        <div class="flex items-center justify-between">
+            <a href="../" class="inline-flex items-center gap-2 text-sm font-medium text-[#003087] transition-colors hover:text-[#002569]"><span>←</span><span>Zur Übersicht</span></a>
+            <span class="inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">Geschäftskonto</span>
+        </div>
+
+        <section class="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm md:p-12">
+            <p class="text-sm font-semibold uppercase tracking-[0.22em] text-[#003087]">Qonto zu Lexware</p>
+            <h1 class="mt-4 max-w-3xl text-4xl font-black tracking-tight text-slate-900 md:text-6xl">Qonto mit Lexware verbinden</h1>
+            <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-600">Qonto wird oft als Geschäftskonto mit Lexware gesucht. Wichtig sind Anbindung, historische Umsätze, fehlende Bewegungen und ein sauberer CSV-Plan, wenn der automatische Abruf Lücken hat.</p>
+            <div class="mt-8 flex flex-wrap gap-3">
+                <a href="../fehlende-umsaetze-lexware-importieren/" class="inline-flex items-center rounded-2xl bg-[#003087] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#002569]">Fehlende Umsätze importieren</a>
+                <a href="../bank-csv-lexware/" class="inline-flex items-center rounded-2xl border border-slate-200 bg-slate-50 px-5 py-3 text-sm font-semibold text-slate-700 transition-colors hover:border-slate-300 hover:bg-white">Bank-CSV Hub öffnen</a>
+            </div>
+        </section>
+
+        <section class="grid gap-4 md:grid-cols-2">
+            <article class="rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-sm"><h2 class="text-lg font-bold text-slate-900">Suchintention</h2><p class="mt-3 text-sm leading-7 text-slate-600">Zielt auf lexoffice qonto anbinden und qonto lexoffice verbinden.</p></article>
+            <article class="rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-sm"><h2 class="text-lg font-bold text-slate-900">Buchhaltungsproblem</h2><p class="mt-3 text-sm leading-7 text-slate-600">Auch bei angebundenen Banken können historische Zeiträume, neue Konten oder Abruflücken manuelle Nachimporte nötig machen.</p></article>
+        </section>
+
+        <section class="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+            <h2 class="text-2xl font-bold tracking-tight text-slate-900">Qonto-Abgleich in Lexware</h2>
+            <div class="mt-6 grid gap-4 md:grid-cols-2">
+                <article class="rounded-[1.25rem] bg-slate-50 p-5"><h3 class="font-bold text-slate-900">Bankanbindung</h3><p class="mt-2 text-sm leading-7 text-slate-600">Automatischen Abruf prüfen und Konten korrekt zuordnen.</p></article>
+                <article class="rounded-[1.25rem] bg-slate-50 p-5"><h3 class="font-bold text-slate-900">Historische Umsätze</h3><p class="mt-2 text-sm leading-7 text-slate-600">Alte Zeiträume bei Bedarf per CSV nachpflegen.</p></article>
+                <article class="rounded-[1.25rem] bg-slate-50 p-5"><h3 class="font-bold text-slate-900">Fehlende Buchungen</h3><p class="mt-2 text-sm leading-7 text-slate-600">Lücken zwischen Qonto und Lexware gezielt suchen.</p></article>
+                <article class="rounded-[1.25rem] bg-slate-50 p-5"><h3 class="font-bold text-slate-900">Belege</h3><p class="mt-2 text-sm leading-7 text-slate-600">Ausgabenbelege nicht nur über die Bankbewegung erklären.</p></article>
+            </div>
+        </section>
+
+        <section class="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+            <h2 class="text-2xl font-bold tracking-tight text-slate-900">Qonto sauber abstimmen</h2>
+            <ol class="mt-6 space-y-4 text-sm leading-7 text-slate-600">
+                    <li><strong class="text-slate-900">1. Anbindung prüfen:</strong> Kontostatus und Abrufzeitraum kontrollieren.</li>
+                    <li><strong class="text-slate-900">2. Lücken identifizieren:</strong> Qonto-Saldo gegen Lexware-Saldo vergleichen.</li>
+                    <li><strong class="text-slate-900">3. CSV vorbereiten:</strong> Fehlende Zeiträume exportieren und normalisieren.</li>
+                    <li><strong class="text-slate-900">4. Import abstimmen:</strong> Offline- oder Zielkonto gegen Qonto prüfen.</li>
+            </ol>
+        </section>
+
+        <section class="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+            <h2 class="text-2xl font-bold tracking-tight text-slate-900">Häufige Fragen</h2>
+            <div class="mt-6 space-y-5">
+                <article><h3 class="text-base font-bold text-slate-900">Kann ich Qonto mit Lexware verbinden?</h3><p class="mt-2 text-sm leading-7 text-slate-600">Qonto wird häufig mit Lexware Office verbunden; bei Lücken hilft ein CSV- oder Offline-Konto-Workflow.</p></article>
+                <article><h3 class="text-base font-bold text-slate-900">Was tun bei fehlenden Qonto-Umsätzen?</h3><p class="mt-2 text-sm leading-7 text-slate-600">Zeitraum aus Qonto exportieren und gezielt in Lexware nachimportieren.</p></article>
+                <article><h3 class="text-base font-bold text-slate-900">Brauche ich ein Offline-Konto?</h3><p class="mt-2 text-sm leading-7 text-slate-600">Für Workarounds oder historische Daten kann ein Offline-Konto sinnvoll sein.</p></article>
+            </div>
+        </section>
+
+        <section class="rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-sm">
+            <h2 class="mb-4 text-lg font-bold text-slate-900">Verwandte Themen</h2>
+            <div class="grid gap-3 md:grid-cols-2">
+                <a href="../bank-csv-lexware/" class="rounded-xl border border-slate-200 p-4 text-sm font-medium text-slate-700 transition-colors hover:border-[#003087]/30 hover:bg-blue-50/20">Bank CSV in Lexware importieren</a>
+                <a href="../offline-konto-lexware/" class="rounded-xl border border-slate-200 p-4 text-sm font-medium text-slate-700 transition-colors hover:border-[#003087]/30 hover:bg-blue-50/20">Offline-Konto für Lexware vorbereiten</a>
+                <a href="../finom-lexware/" class="rounded-xl border border-slate-200 p-4 text-sm font-medium text-slate-700 transition-colors hover:border-[#003087]/30 hover:bg-blue-50/20">Finom mit Lexware verbinden</a>
+                <a href="../n26-lexware/" class="rounded-xl border border-slate-200 p-4 text-sm font-medium text-slate-700 transition-colors hover:border-[#003087]/30 hover:bg-blue-50/20">N26 mit Lexware verbinden</a>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bank2Lexware – CSV, Stripe & Shopify für Lexware vorbereiten (2026)</title>
     <meta name="description"
-        content="PayPal, Stripe/Shopify Payments, Revolut, Deutsche Bank & Bankauszüge für Lexware vorbereiten. Lokale CSV-Konverter für Nachimporte.">
+        content="PayPal, Stripe, Shopify, Amazon, eBay, Etsy, Wise, Revolut & Bankauszüge für Lexware vorbereiten. CSV-Workflows für Nachimporte.">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Alan Özalp">
     <meta name="color-scheme" content="light dark">
@@ -24,7 +24,7 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="Bank2Lexware – CSV, Stripe & Shopify für Lexware vorbereiten (2026)">
     <meta property="og:description"
-        content="PayPal, Stripe/Shopify Payments, Revolut, Deutsche Bank & Bankauszüge für Lexware vorbereiten. Lokale CSV-Konverter für Nachimporte.">
+        content="PayPal, Stripe, Shopify, Amazon, eBay, Etsy, Wise, Revolut & Bankauszüge für Lexware vorbereiten. CSV-Workflows für Nachimporte.">
     <meta property="og:image" content="https://www.bank2lexware.de/assets/og/main.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -35,7 +35,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Bank2Lexware – CSV, Stripe & Shopify für Lexware vorbereiten (2026)">
     <meta name="twitter:description"
-        content="PayPal, Stripe/Shopify Payments, Revolut, Deutsche Bank & Bankauszüge für Lexware vorbereiten. Lokale CSV-Konverter für Nachimporte.">
+        content="PayPal, Stripe, Shopify, Amazon, eBay, Etsy, Wise, Revolut & Bankauszüge für Lexware vorbereiten. CSV-Workflows für Nachimporte.">
     <meta name="twitter:image" content="https://www.bank2lexware.de/assets/og/main.jpg">
 
     <!-- Structured Data -->
@@ -69,6 +69,8 @@
                 "PayPal zu Lexware Konverter",
                 "Shopify Sammelbeleg Generator",
                 "Stripe Payouts und Gebührenbelege",
+                "Marketplace-Workflows für Amazon, eBay und Etsy",
+                "Wise CSV Workaround",
                 "Automatische Währungsumrechnung",
                 "Gebühren-Splitting",
                 "Konfliktlösung",
@@ -120,7 +122,7 @@
                     "name": "Welche Banken und Zahlungsanbieter werden unterstützt?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Aktuell werden PayPal, Revolut, Deutsche Bank und Shopify Sammelbelege unterstützt. Weitere Banken können über das Anfrageformular auf der Startseite mit anonymisierter Beispieldatei vorgeschlagen werden."
+                        "text": "Aktuell werden PayPal, Revolut, Deutsche Bank und Shopify Sammelbelege direkt als Browsertools unterstützt. Für Stripe, Amazon, eBay, Etsy, Klarna, Mollie und Wise gibt es ergänzende Workflow-Seiten; konkrete Importformate können mit anonymisierter Beispieldatei angefragt werden."
                     }
                 },
                 {
@@ -205,7 +207,8 @@
                 </p>
                 <p class="mt-4 max-w-3xl mx-auto text-sm leading-6 text-gray-500 md:text-base">
                     Häufig gesucht: PayPal CSV in Lexware importieren, fehlende Umsätze nachimportieren,
-                    historische Kontoauszüge übernehmen und Offline-Konten für Lexware vorbereiten.
+                    Stripe-Gebühren buchen, Shopify Payments abstimmen, Amazon/eBay/Etsy verbuchen und
+                    Wise per CSV nach Lexware bringen.
                 </p>
                 <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
                     <a href="paypal-csv-lexware/"
@@ -235,6 +238,50 @@
                     <a href="shopify-lexware/"
                         class="surface-chip surface-chip--shopify inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
                         Shopify in Lexware verbuchen
+                    </a>
+                    <a href="amazon-lexware/"
+                        class="surface-chip surface-chip--neutral inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
+                        Amazon FBA verbuchen
+                    </a>
+                    <a href="ebay-lexware/"
+                        class="surface-chip surface-chip--neutral inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
+                        eBay Gebühren buchen
+                    </a>
+                    <a href="etsy-lexware/"
+                        class="surface-chip surface-chip--neutral inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
+                        Etsy Umsätze verbuchen
+                    </a>
+                    <a href="klarna-mollie-lexware/"
+                        class="surface-chip surface-chip--neutral inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
+                        Klarna &amp; Mollie buchen
+                    </a>
+                    <a href="wise/"
+                        class="surface-chip surface-chip--revolut inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
+                        Wise CSV Workaround
+                    </a>
+                    <a href="ecommerce-buchhaltung-lexware/"
+                        class="surface-chip surface-chip--neutral inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
+                        E-Commerce Buchhaltung
+                    </a>
+                    <a href="zahlungsanbieter-lexware/"
+                        class="surface-chip surface-chip--neutral inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
+                        Zahlungsanbieter buchen
+                    </a>
+                    <a href="bank-csv-lexware/"
+                        class="surface-chip surface-chip--neutral inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
+                        Bank CSV importieren
+                    </a>
+                    <a href="paypal-gebuehren-lexware/"
+                        class="surface-chip surface-chip--paypal inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
+                        PayPal Gebühren buchen
+                    </a>
+                    <a href="shopify-auszahlung-lexware/"
+                        class="surface-chip surface-chip--shopify inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
+                        Shopify Auszahlung buchen
+                    </a>
+                    <a href="datev-lexware-office/"
+                        class="surface-chip surface-chip--neutral inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
+                        DATEV Export vorbereiten
                     </a>
                     <button type="button" onclick="openTool('shopify')"
                         class="surface-chip surface-chip--shopify inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
@@ -858,7 +905,7 @@ VISUALIZE customers TYPE line</textarea>
                 </div>
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                     <h3 class="font-bold text-gray-800 mb-2">Welche Banken und Zahlungsanbieter werden unterstützt?</h3>
-                    <p class="text-sm text-gray-600">Aktuell werden PayPal, Revolut, Deutsche Bank und Shopify Sammelbelege unterstützt. Weitere Banken können über das Anfrageformular auf der Startseite mit anonymisierter Beispieldatei vorgeschlagen werden.</p>
+                    <p class="text-sm text-gray-600">Aktuell werden PayPal, Revolut, Deutsche Bank und Shopify Sammelbelege direkt als Browsertools unterstützt. Für Stripe, Amazon, eBay, Etsy, Klarna, Mollie und Wise gibt es ergänzende Workflow-Seiten; konkrete Importformate können mit anonymisierter Beispieldatei angefragt werden.</p>
                 </div>
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                     <h3 class="font-bold text-gray-800 mb-2">Muss ich mich registrieren oder ein Konto erstellen?</h3>
