@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <title>Shopify Umsätze in Lexware verbuchen – Sammelbelege | Bank2Lexware</title>
+    <meta name="description"
+        content="Shopify-Umsätze, Shopify Payments und Stripe-Gebühren für Lexware vorbereiten. Monatliche Sammelbelege nach DE, EU und Drittland erstellen.">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Alan Özalp">
+    <meta name="theme-color" content="#f4f6fa">
+    <link rel="canonical" href="https://www.bank2lexware.de/shopify-lexware/">
+    <link rel="alternate" hreflang="de" href="https://www.bank2lexware.de/shopify-lexware/">
+    <link rel="alternate" hreflang="de-AT" href="https://www.bank2lexware.de/shopify-lexware/">
+    <link rel="alternate" hreflang="de-CH" href="https://www.bank2lexware.de/shopify-lexware/">
+    <link rel="alternate" hreflang="x-default" href="https://www.bank2lexware.de/shopify-lexware/">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💶</text></svg>">
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Shopify Umsätze in Lexware verbuchen – Sammelbelege | Bank2Lexware">
+    <meta property="og:description"
+        content="Shopify-Umsätze, Shopify Payments und Stripe-Gebühren für Lexware vorbereiten. Monatliche Sammelbelege nach DE, EU und Drittland erstellen.">
+    <meta property="og:image" content="https://www.bank2lexware.de/assets/og/main.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="de_DE">
+    <meta property="og:site_name" content="Bank2Lexware">
+    <meta property="og:url" content="https://www.bank2lexware.de/shopify-lexware/">
+    <meta property="article:modified_time" content="2026-05-10">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Shopify Umsätze in Lexware verbuchen – Sammelbelege | Bank2Lexware">
+    <meta name="twitter:description"
+        content="Shopify-Umsätze, Shopify Payments und Stripe-Gebühren für Lexware vorbereiten. Monatliche Sammelbelege nach DE, EU und Drittland erstellen.">
+    <meta name="twitter:image" content="https://www.bank2lexware.de/assets/og/main.jpg">
+
+    <script type="application/ld+json">
+    [
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Shopify Umsätze in Lexware verbuchen",
+            "url": "https://www.bank2lexware.de/shopify-lexware/",
+            "description": "Landingpage für Shopify-Sammelbelege, Shopify Payments und Stripe-Gebühren in Lexware Office.",
+            "isPartOf": {
+                "@type": "WebSite",
+                "name": "Bank2Lexware",
+                "url": "https://www.bank2lexware.de/"
+            }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "Wie verbuche ich Shopify-Umsätze in Lexware?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Für viele Shops ist ein monatlicher Sammelbeleg sinnvoll. Umsätze werden nach Deutschland, EU und Drittland getrennt und anschließend in Lexware erfasst."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Warum reicht der Shopify-Auszahlungsbetrag nicht?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Der Auszahlungsbetrag enthält oft bereits Abzüge, Gebühren oder Zahlungsanbieterlogik. Für Lexware sollten Umsätze, Steuern, Gebühren und Auszahlungen getrennt nachvollziehbar sein."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Kann Bank2Lexware Shopify Payments und Stripe-Gebühren berücksichtigen?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Ja. Der Shopify-Workflow kann optional Stripe- beziehungsweise Shopify-Payments-Gebühren aus einem Payout-Export berücksichtigen und daraus separate Gebührenbelege vorbereiten."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Welche Shopify-Datei brauche ich?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Benötigt wird ein Shopify Sales Report mit Land der Rechnungsadresse, Zeitraum, Bestellungen und Gesamtumsatz. Das Tool zeigt die passende Query direkt an."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Werden meine Shopify-Daten hochgeladen?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Nein. Die CSV-Verarbeitung läuft lokal im Browser. Die Shopify- und Stripe-Dateien verlassen den Rechner nicht."
+                    }
+                }
+            ]
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Bank2Lexware", "item": "https://www.bank2lexware.de/" },
+                { "@type": "ListItem", "position": 2, "name": "Shopify in Lexware", "item": "https://www.bank2lexware.de/shopify-lexware/" }
+            ]
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            "name": "Shopify-Umsätze in Lexware verbuchen",
+            "description": "So erstellen Sie monatliche Shopify-Sammelbelege für Lexware Office.",
+            "step": [
+                { "@type": "HowToStep", "name": "Shopify Sales Report exportieren", "text": "Exportieren Sie den Shopify Sales Report mit Rechnungsland, Monat, Bestellungen und Umsatzsummen." },
+                { "@type": "HowToStep", "name": "Optional Stripe-Payouts exportieren", "text": "Wenn Shopify Payments oder Stripe-Gebühren separat geprüft werden sollen, exportieren Sie zusätzlich die Payout-Daten." },
+                { "@type": "HowToStep", "name": "Sammelbelege erstellen", "text": "Laden Sie die CSV-Dateien in Bank2Lexware hoch und erstellen Sie monatliche Sammelbelege nach DE, EU und Drittland." },
+                { "@type": "HowToStep", "name": "In Lexware erfassen", "text": "Übertragen Sie die vorbereiteten Belegdaten in Lexware und gleichen Sie die Auszahlungen mit dem Bankkonto ab." }
+            ]
+        }
+    ]
+    </script>
+
+    <link rel="preload" href="../shared/styles.css" as="style">
+    <link rel="stylesheet" href="../shared/styles.css">
+</head>
+
+<body class="min-h-screen bg-slate-50 text-slate-900">
+    <main class="mx-auto flex w-full max-w-5xl flex-col gap-10 px-4 py-6 sm:py-8 md:px-6">
+        <div class="flex items-center justify-between">
+            <a href="../"
+                class="inline-flex items-center gap-2 text-sm font-medium text-[#3f6f2a] transition-colors hover:text-[#2f5d1e]">
+                <span>←</span>
+                <span>Zur Übersicht</span>
+            </a>
+            <span class="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
+                Shopify Sammelbelege
+            </span>
+        </div>
+
+        <section class="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm md:p-12">
+            <div class="max-w-3xl">
+                <p class="text-sm font-semibold uppercase tracking-[0.22em] text-[#3f6f2a]">Shopify zu Lexware</p>
+                <h1 class="mt-4 text-4xl font-black tracking-tight text-slate-900 md:text-6xl">
+                    Shopify-Umsätze in Lexware verbuchen
+                </h1>
+                <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+                    Shopify-Shops brauchen in Lexware oft keine einzelne Buchung pro Bestellung, sondern saubere
+                    Monatsbelege: Deutschland, EU, Drittland, Steuern, Rückerstattungen und optional
+                    Stripe- oder Shopify-Payments-Gebühren getrennt nachvollziehbar.
+                </p>
+                <div class="mt-8 flex flex-wrap gap-3">
+                    <a href="../#shopify"
+                        class="inline-flex items-center rounded-2xl bg-[#3f6f2a] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#2f5d1e]">
+                        Shopify-Tool öffnen
+                    </a>
+                    <a href="../stripe/"
+                        class="inline-flex items-center rounded-2xl border border-slate-200 bg-slate-50 px-5 py-3 text-sm font-semibold text-slate-700 transition-colors hover:border-slate-300 hover:bg-white">
+                        Stripe-Gebühren ansehen
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid gap-4 md:grid-cols-2">
+            <article class="rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-sm">
+                <h2 class="text-lg font-bold text-slate-900">Warum Shopify ein eigenes Thema ist</h2>
+                <p class="mt-3 text-sm leading-7 text-slate-600">
+                    Suchanfragen wie Shopify Lexware, Shopify Payments Lexware, Shopify Auszahlung buchen
+                    und Shopify Sammelbeleg Lexware zeigen denselben Bedarf: die Shop-Auswertung muss in
+                    eine Buchungslogik übersetzt werden.
+                </p>
+            </article>
+            <article class="rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-sm">
+                <h2 class="text-lg font-bold text-slate-900">Was der Generator erstellt</h2>
+                <p class="mt-3 text-sm leading-7 text-slate-600">
+                    Bank2Lexware bereitet monatliche Summen für Deutschland, EU und Rest der Welt vor.
+                    Zusätzlich können Stripe-Payouts eingelesen werden, um Gebührenbelege für Lexware zu erstellen.
+                </p>
+            </article>
+        </section>
+
+        <section class="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+            <h2 class="text-2xl font-bold tracking-tight text-slate-900">Welche Buchungslogik dahinter steckt</h2>
+            <div class="mt-6 grid gap-4 md:grid-cols-2">
+                <article class="rounded-[1.25rem] bg-slate-50 p-5">
+                    <h3 class="text-base font-bold text-slate-900">Deutschland getrennt ausweisen</h3>
+                    <p class="mt-2 text-sm leading-7 text-slate-600">
+                        Inland-Umsätze lassen sich anders behandeln als EU- und Drittland-Umsätze. Die Trennung
+                        macht den Monatsabschluss leichter prüfbar.
+                    </p>
+                </article>
+                <article class="rounded-[1.25rem] bg-slate-50 p-5">
+                    <h3 class="text-base font-bold text-slate-900">EU und Drittland sauber bündeln</h3>
+                    <p class="mt-2 text-sm leading-7 text-slate-600">
+                        Internationale Bestellungen sollten nicht als undifferenzierte Gesamtsumme in Lexware landen.
+                        Der Report trennt Ländergruppen und Zeiträume.
+                    </p>
+                </article>
+                <article class="rounded-[1.25rem] bg-slate-50 p-5">
+                    <h3 class="text-base font-bold text-slate-900">Shopify Payments Gebühren ergänzen</h3>
+                    <p class="mt-2 text-sm leading-7 text-slate-600">
+                        Gebühren aus Stripe- oder Shopify-Payouts können als eigene Ausgabenbelege vorbereitet werden.
+                    </p>
+                </article>
+                <article class="rounded-[1.25rem] bg-slate-50 p-5">
+                    <h3 class="text-base font-bold text-slate-900">Bankauszahlung danach abstimmen</h3>
+                    <p class="mt-2 text-sm leading-7 text-slate-600">
+                        Die Auszahlung auf dem Bankkonto ist der Abgleich, nicht die einzige Buchungsgrundlage.
+                        Umsatz, Gebühren und Auszahlung bleiben getrennt erklärbar.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,22rem)]">
+            <div class="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+                <h2 class="text-2xl font-bold tracking-tight text-slate-900">So nutzen Sie den Shopify-Workflow</h2>
+                <ol class="mt-6 space-y-4 text-sm leading-7 text-slate-600">
+                    <li><strong class="text-slate-900">1. Shopify Sales Report erzeugen:</strong> Nutzen Sie die Query im Tool, damit Land, Monat, Bestellungen und Umsatzsummen im Export enthalten sind.</li>
+                    <li><strong class="text-slate-900">2. Zeitraum monatlich halten:</strong> Monatsweise Dateien sind einfacher mit Lexware und den Zahlungen auf dem Bankkonto abzugleichen.</li>
+                    <li><strong class="text-slate-900">3. Optional Payouts ergänzen:</strong> Laden Sie Stripe- oder Shopify-Payments-Payouts hoch, wenn Gebühren getrennt vorbereitet werden sollen.</li>
+                    <li><strong class="text-slate-900">4. Belegdaten übertragen:</strong> Kopieren Sie die vorbereiteten Lexware-Felder in Ihre Buchhaltung und gleichen Sie die Bankauszahlungen ab.</li>
+                </ol>
+            </div>
+            <aside class="rounded-[2rem] bg-[#3f6f2a] p-8 text-white shadow-sm">
+                <p class="text-sm font-semibold uppercase tracking-[0.18em] text-lime-100">Browsertool</p>
+                <h2 class="mt-4 text-2xl font-bold tracking-tight">Sammelbelege lokal erstellen</h2>
+                <p class="mt-4 text-sm leading-7 text-lime-50">
+                    Der Generator läuft ohne Upload im Browser. Er liest Shopify Sales Reports und optional
+                    Stripe-Payouts, danach zeigt er die Lexware-Felder zum Kopieren.
+                </p>
+                <a href="../#shopify"
+                    class="mt-6 inline-flex rounded-2xl bg-white/10 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/20">
+                    Tool starten
+                </a>
+            </aside>
+        </section>
+
+        <section class="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+            <h2 class="text-2xl font-bold tracking-tight text-slate-900">Häufige Fragen</h2>
+            <div class="mt-6 space-y-5">
+                <article>
+                    <h3 class="text-base font-bold text-slate-900">Ist ein Sammelbeleg für Shopify immer ausreichend?</h3>
+                    <p class="mt-2 text-sm leading-7 text-slate-600">
+                        Das hängt vom Setup und der Abstimmung mit Steuerberatung oder Buchhaltung ab. Für viele
+                        Shops ist ein nachvollziehbarer Monatsbeleg deutlich praktikabler als Einzelbuchungen pro Bestellung.
+                    </p>
+                </article>
+                <article>
+                    <h3 class="text-base font-bold text-slate-900">Was passiert mit Rückerstattungen?</h3>
+                    <p class="mt-2 text-sm leading-7 text-slate-600">
+                        Rückerstattungen sollten im Shopify-Report sichtbar sein und bei den Monatssummen geprüft werden.
+                        Bei größeren Abweichungen lohnt sich ein separater Kontrollbeleg.
+                    </p>
+                </article>
+                <article>
+                    <h3 class="text-base font-bold text-slate-900">Warum sind Shopify Payments und Stripe in einer Seite erwähnt?</h3>
+                    <p class="mt-2 text-sm leading-7 text-slate-600">
+                        Viele Händler suchen nach Shopify Payments, sehen in Exporten oder Gebührenlogik aber
+                        Stripe-nahe Payout-Daten. Für Lexware ist entscheidend, dass Gebühren und Auszahlungen
+                        separat nachvollziehbar bleiben.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section class="rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-sm">
+            <h2 class="text-lg font-bold text-slate-900 mb-4">Verwandte Themen</h2>
+            <div class="grid gap-3 md:grid-cols-2">
+                <a href="../stripe/" class="flex items-center gap-3 rounded-xl border border-slate-200 p-4 text-sm font-medium text-slate-700 transition-colors hover:border-[#3f6f2a]/30 hover:bg-green-50/20">
+                    <span>Stripe-Gebühren in Lexware buchen</span>
+                </a>
+                <a href="../paypal-csv-lexware/" class="flex items-center gap-3 rounded-xl border border-slate-200 p-4 text-sm font-medium text-slate-700 transition-colors hover:border-[#3f6f2a]/30 hover:bg-green-50/20">
+                    <span>PayPal CSV in Lexware importieren</span>
+                </a>
+                <a href="../ratgeber/lexware-csv-import-formate/" class="flex items-center gap-3 rounded-xl border border-slate-200 p-4 text-sm font-medium text-slate-700 transition-colors hover:border-[#3f6f2a]/30 hover:bg-green-50/20">
+                    <span>Lexware CSV-Formate verstehen</span>
+                </a>
+                <a href="../fehlende-umsaetze-lexware-importieren/" class="flex items-center gap-3 rounded-xl border border-slate-200 p-4 text-sm font-medium text-slate-700 transition-colors hover:border-[#3f6f2a]/30 hover:bg-green-50/20">
+                    <span>Fehlende Umsätze nachimportieren</span>
+                </a>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bank2Lexware – CSV & Sammelbelege für Lexware vorbereiten (2026)</title>
+    <title>Bank2Lexware – CSV, Stripe & Shopify für Lexware vorbereiten (2026)</title>
     <meta name="description"
-        content="PayPal, Revolut, Shopify & Bankauszüge kostenlos für Lexware vorbereiten. Konverter laufen lokal im Browser; neue Banken per anonymisierter Beispieldatei anfragen.">
+        content="PayPal, Stripe/Shopify Payments, Revolut, Deutsche Bank & Bankauszüge für Lexware vorbereiten. Lokale CSV-Konverter für Nachimporte.">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Alan Özalp">
     <meta name="color-scheme" content="light dark">
@@ -22,9 +22,9 @@
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Bank2Lexware – CSV & Sammelbelege für Lexware vorbereiten (2026)">
+    <meta property="og:title" content="Bank2Lexware – CSV, Stripe & Shopify für Lexware vorbereiten (2026)">
     <meta property="og:description"
-        content="PayPal, Revolut, Shopify & Bankauszüge kostenlos für Lexware vorbereiten. Konverter laufen lokal im Browser; neue Banken per anonymisierter Beispieldatei anfragen.">
+        content="PayPal, Stripe/Shopify Payments, Revolut, Deutsche Bank & Bankauszüge für Lexware vorbereiten. Lokale CSV-Konverter für Nachimporte.">
     <meta property="og:image" content="https://www.bank2lexware.de/assets/og/main.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -33,9 +33,9 @@
     <meta property="og:url" content="https://www.bank2lexware.de/">
     <meta property="article:modified_time" content="2026-05-10">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Bank2Lexware – CSV & Sammelbelege für Lexware vorbereiten (2026)">
+    <meta name="twitter:title" content="Bank2Lexware – CSV, Stripe & Shopify für Lexware vorbereiten (2026)">
     <meta name="twitter:description"
-        content="PayPal, Revolut, Shopify & Bankauszüge kostenlos für Lexware vorbereiten. Konverter laufen lokal im Browser; neue Banken per anonymisierter Beispieldatei anfragen.">
+        content="PayPal, Stripe/Shopify Payments, Revolut, Deutsche Bank & Bankauszüge für Lexware vorbereiten. Lokale CSV-Konverter für Nachimporte.">
     <meta name="twitter:image" content="https://www.bank2lexware.de/assets/og/main.jpg">
 
     <!-- Structured Data -->
@@ -55,7 +55,7 @@
             "url": "https://www.bank2lexware.de/",
             "applicationCategory": "BusinessApplication",
             "operatingSystem": "Any",
-            "description": "Lokales Tool zur Konvertierung von PayPal-, Revolut- und Bankauszügen sowie zur Erstellung von Shopify-Sammelbelegen für Lexware.",
+            "description": "Lokales Tool zur Konvertierung von PayPal-, Revolut- und Bankauszügen sowie zur Erstellung von Shopify-Sammelbelegen und Stripe-Gebührenbelegen für Lexware.",
             "offers": {
                 "@type": "Offer",
                 "price": "0",
@@ -68,6 +68,7 @@
                 "Offline-Konten vorbereiten",
                 "PayPal zu Lexware Konverter",
                 "Shopify Sammelbeleg Generator",
+                "Stripe Payouts und Gebührenbelege",
                 "Automatische Währungsumrechnung",
                 "Gebühren-Splitting",
                 "Konfliktlösung",
@@ -226,6 +227,14 @@
                     <a href="revolut/"
                         class="surface-chip surface-chip--revolut inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
                         Revolut CSV importieren
+                    </a>
+                    <a href="stripe/"
+                        class="surface-chip surface-chip--neutral inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
+                        Stripe Gebühren buchen
+                    </a>
+                    <a href="shopify-lexware/"
+                        class="surface-chip surface-chip--shopify inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
+                        Shopify in Lexware verbuchen
                     </a>
                     <button type="button" onclick="openTool('shopify')"
                         class="surface-chip surface-chip--shopify inline-flex items-center rounded-full px-4 py-2 text-sm font-medium">
@@ -467,7 +476,7 @@
                 <header class="shopify-hero">
                     <div class="shopify-hero__copy">
                         <p class="shopify-kicker">Shopify zu Lexware</p>
-                        <h1>Shopify-Umsätze für Lexware vorbereiten</h1>
+                        <h2>Shopify-Umsätze für Lexware vorbereiten</h2>
                         <p>
                             Laden Sie Ihren Shopify-Bericht hoch. Das Tool erstellt daraus monatliche Sammelbelege für
                             Lexware mit Feldern zum Kopieren. Lokal im Browser, ohne teure oder komplizierte Software.
@@ -646,10 +655,10 @@ VISUALIZE customers TYPE line</textarea>
                 <span>🔒</span>
                 <span>Konverter lokal & privat - Importdateien bleiben im Browser</span>
             </div>
-            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-2 tracking-tight">
+            <h2 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-2 tracking-tight">
                 <span class="text-[#003087]">PayPal</span><span class="text-gray-300 mx-2">2</span><span
                     class="text-[#C40029]">Lexware</span>
-            </h1>
+            </h2>
         </header>
 
         <section id="upload-section" class="mt-12">
@@ -879,9 +888,9 @@ VISUALIZE customers TYPE line</textarea>
                     <span>🔒</span>
                     <span>Konverter lokal & privat - Importdateien bleiben im Browser</span>
                 </div>
-                <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-2 tracking-tight">
+                <h2 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-2 tracking-tight">
                     <span class="text-[#0018A8]">DeutscheBank</span><span class="text-gray-300 mx-2">2</span><span class="text-[#C40029]">Lexware</span>
-                </h1>
+                </h2>
             </header>
 
             <section class="mt-12 max-w-3xl mx-auto text-center">
@@ -1040,9 +1049,9 @@ VISUALIZE customers TYPE line</textarea>
                     <span>🔒</span>
                     <span>Konverter lokal & privat - Importdateien bleiben im Browser</span>
                 </div>
-                <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-2 tracking-tight">
+                <h2 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-2 tracking-tight">
                     <span class="text-[#0666EB]">Revolut</span><span class="text-gray-300 mx-2">2</span><span class="text-[#C40029]">Lexware</span>
-                </h1>
+                </h2>
             </header>
 
             <section class="mt-12 max-w-3xl mx-auto text-center">

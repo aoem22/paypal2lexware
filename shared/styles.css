@@ -346,7 +346,8 @@ html.theme-dark .request-form-shell { box-shadow: inset 0 1px 0 rgba(255, 255, 2
     border-radius: 1.5rem;
     padding: 2rem;
 }
-.shopify-hero__copy h1 {
+.shopify-hero__copy h1,
+.shopify-hero__copy h2 {
     margin-top: 0.6rem;
     color: var(--ink);
     font-size: clamp(2.1rem, 6vw, 4rem);
