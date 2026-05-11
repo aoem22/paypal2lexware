@@ -90,6 +90,7 @@ html.theme-dark .brand-logo--shopify { filter: brightness(1.06) saturate(1.08) d
 .surface-chip--deutsche { --chip-border-hover: rgba(0, 24, 168, 0.24); --chip-text-hover: #0018A8; }
 .surface-chip--revolut { --chip-border-hover: rgba(25, 28, 31, 0.22); --chip-text-hover: #111827; }
 .surface-chip--shopify { --chip-border-hover: rgba(94, 142, 62, 0.34); --chip-text-hover: #3f6f2a; }
+.surface-chip--amazon { --chip-border-hover: rgba(255, 153, 0, 0.36); --chip-text-hover: #8a4b00; }
 
 html.theme-dark .surface-chip { --chip-border: rgba(148, 163, 184, 0.16); --chip-surface: rgba(15, 23, 42, 0.56); --chip-surface-hover: rgba(30, 41, 59, 0.82); --chip-text: var(--ink-soft); --chip-text-hover: var(--ink); }
 html.theme-dark .surface-chip--paypal { --chip-border-hover: rgba(147, 197, 253, 0.34); --chip-text-hover: #bfdbfe; }
@@ -98,6 +99,7 @@ html.theme-dark .surface-chip--neutral { --chip-border-hover: rgba(148, 163, 184
 html.theme-dark .surface-chip--deutsche { --chip-border-hover: rgba(147, 197, 253, 0.34); --chip-text-hover: #bfdbfe; }
 html.theme-dark .surface-chip--revolut { --chip-border-hover: rgba(148, 163, 184, 0.34); --chip-text-hover: #e2e8f0; }
 html.theme-dark .surface-chip--shopify { --chip-border-hover: rgba(190, 242, 100, 0.34); --chip-text-hover: #d9f99d; }
+html.theme-dark .surface-chip--amazon { --chip-border-hover: rgba(251, 191, 36, 0.38); --chip-text-hover: #fde68a; }
 
 .surface-input { background: var(--surface-muted); border: 1px solid var(--line); color: var(--ink); }
 .surface-input::placeholder { color: var(--ink-muted); }
@@ -965,10 +967,235 @@ html.theme-dark .request-form-shell { box-shadow: inset 0 1px 0 rgba(255, 255, 2
     font-weight: 400;
     padding: 1rem;
 }
+
+/* ── Amazon fee calculator ─────────────────────── */
+.amazon-converter-card:hover,
+.amazon-converter-card:focus-visible {
+    border-color: rgba(255, 153, 0, 0.36);
+    background: rgba(255, 251, 235, 0.62);
+    box-shadow: 0 18px 44px rgba(146, 64, 14, 0.1);
+    transform: translateY(-0.25rem);
+}
+.amazon-wordmark {
+    display: grid;
+    align-content: center;
+    min-height: 3rem;
+    color: #111827;
+    line-height: 1;
+}
+.amazon-wordmark span {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+}
+.amazon-wordmark small {
+    color: #b45309;
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+}
+.amazon-live-pill {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 9999px;
+    background: rgba(255, 153, 0, 0.16);
+    color: #92400e;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 0.25rem 0.75rem;
+}
+.amazon-action-inner { color: #92400e; }
+
+.amazon-shell .shopify-back-button,
+.amazon-shell .shopify-kicker,
+.amazon-shell .shopify-action-inner,
+.amazon-shell .shopify-hero__panel span,
+.amazon-shell .shopify-dropzone__source,
+.amazon-shell .shopify-status.is-success {
+    color: #92400e;
+}
+.amazon-shell .shopify-back-button:hover,
+.amazon-shell .shopify-back-button:focus-visible {
+    color: #78350f;
+}
+.amazon-shell .shopify-privacy-pill,
+.amazon-shell .shopify-live-pill,
+.amazon-shell .shopify-month-total,
+.amazon-shell .shopify-beleg-card__header span,
+.amazon-shell .shopify-field-row button,
+.amazon-shell .shopify-report-guide__steps article > span,
+.amazon-shell .shopify-lexware-guide li > span,
+.amazon-shell .shopify-dropzone__badge,
+.amazon-shell .shopify-dropzone__action {
+    background: rgba(255, 153, 0, 0.13);
+    color: #92400e;
+}
+.amazon-shell .shopify-dropzone--required .shopify-dropzone__badge,
+.amazon-shell .shopify-primary-button,
+.amazon-shell .shopify-year-filters button.is-active,
+.amazon-shell .shopify-field-row button:hover,
+.amazon-shell .shopify-field-row button:focus-visible,
+.amazon-shell .shopify-field-row button.is-copied {
+    border-color: #92400e;
+    background: #92400e;
+    color: #ffffff;
+}
+.amazon-shell .shopify-primary-button:not(:disabled):hover,
+.amazon-shell .shopify-primary-button:not(:disabled):focus-visible {
+    background: #78350f;
+}
+.amazon-shell .shopify-secondary-button:hover,
+.amazon-shell .shopify-secondary-button:focus-visible,
+.amazon-shell .shopify-year-filters button.is-active {
+    border-color: rgba(146, 64, 14, 0.34);
+}
+.amazon-shell .shopify-dropzone:hover,
+.amazon-shell .shopify-dropzone:focus-within,
+.amazon-shell .shopify-dropzone.is-dragging {
+    border-color: rgba(255, 153, 0, 0.52);
+    background: rgba(255, 251, 235, 0.72);
+}
+.amazon-shell .shopify-dropzone:hover .shopify-dropzone__action,
+.amazon-shell .shopify-dropzone:focus-within .shopify-dropzone__action,
+.amazon-shell .shopify-dropzone.is-dragging .shopify-dropzone__action {
+    background: #92400e;
+    color: #ffffff;
+}
+.amazon-format-card {
+    display: grid;
+    align-content: start;
+    gap: 0.8rem;
+    border: 1px solid var(--line);
+    border-radius: 1.15rem;
+    background: var(--surface);
+    box-shadow: var(--shadow-card);
+    min-height: 15.5rem;
+    padding: 1rem;
+}
+.amazon-format-card h3 {
+    color: var(--ink);
+    font-size: 1.18rem;
+    font-weight: 900;
+    letter-spacing: -0.015em;
+    line-height: 1.12;
+}
+.amazon-metric-grid {
+    display: grid;
+    grid-template-columns: minmax(5.5rem, 0.55fr) minmax(0, 1fr);
+    gap: 0.55rem 0.8rem;
+    border-radius: 0.9rem;
+    background: var(--surface-muted);
+    padding: 0.85rem;
+}
+.amazon-metric-grid span,
+.amazon-month-metrics span {
+    color: #92400e;
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+.amazon-metric-grid strong,
+.amazon-month-metrics strong {
+    min-width: 0;
+    color: var(--ink);
+    font-size: 0.88rem;
+    font-weight: 650;
+    line-height: 1.25;
+}
+.amazon-summary-table {
+    min-width: 54rem;
+}
+.amazon-summary-total-row td {
+    border-top: 2px solid rgba(146, 64, 14, 0.18);
+    background: rgba(255, 251, 235, 0.78);
+    color: var(--ink);
+    font-weight: 800;
+}
+.amazon-year-total {
+    display: grid;
+    margin-bottom: 1rem;
+}
+.amazon-year-card {
+    border-color: rgba(146, 64, 14, 0.18);
+    background: linear-gradient(135deg, rgba(255, 251, 235, 0.78), rgba(255, 255, 255, 0.88));
+}
+.amazon-month-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+    margin-bottom: 0.9rem;
+}
+.amazon-month-metrics div {
+    display: grid;
+    gap: 0.25rem;
+    border: 1px solid var(--line);
+    border-radius: 0.85rem;
+    background: var(--surface-muted);
+    padding: 0.75rem;
+}
+
 html.theme-dark .shopify-converter-card:hover,
 html.theme-dark .shopify-converter-card:focus-visible {
     background: rgba(63, 111, 42, 0.16);
     border-color: rgba(190, 242, 100, 0.28);
+}
+html.theme-dark .amazon-converter-card:hover,
+html.theme-dark .amazon-converter-card:focus-visible {
+    background: rgba(146, 64, 14, 0.18);
+    border-color: rgba(251, 191, 36, 0.3);
+}
+html.theme-dark .amazon-wordmark {
+    color: #f8fafc;
+}
+html.theme-dark .amazon-wordmark small,
+html.theme-dark .amazon-shell .shopify-back-button,
+html.theme-dark .amazon-shell .shopify-kicker,
+html.theme-dark .amazon-shell .shopify-action-inner,
+html.theme-dark .amazon-shell .shopify-hero__panel span,
+html.theme-dark .amazon-shell .shopify-dropzone__source,
+html.theme-dark .amazon-shell .shopify-status.is-success,
+html.theme-dark .amazon-metric-grid span,
+html.theme-dark .amazon-month-metrics span {
+    color: #fde68a;
+}
+html.theme-dark .amazon-live-pill,
+html.theme-dark .amazon-shell .shopify-privacy-pill,
+html.theme-dark .amazon-shell .shopify-month-total,
+html.theme-dark .amazon-shell .shopify-beleg-card__header span,
+html.theme-dark .amazon-shell .shopify-field-row button,
+html.theme-dark .amazon-shell .shopify-report-guide__steps article > span,
+html.theme-dark .amazon-shell .shopify-lexware-guide li > span,
+html.theme-dark .amazon-shell .shopify-dropzone__badge,
+html.theme-dark .amazon-shell .shopify-dropzone__action {
+    background: rgba(251, 191, 36, 0.14);
+    color: #fde68a;
+}
+html.theme-dark .amazon-shell .shopify-dropzone--required .shopify-dropzone__badge,
+html.theme-dark .amazon-shell .shopify-primary-button,
+html.theme-dark .amazon-shell .shopify-year-filters button.is-active,
+html.theme-dark .amazon-shell .shopify-field-row button:hover,
+html.theme-dark .amazon-shell .shopify-field-row button:focus-visible,
+html.theme-dark .amazon-shell .shopify-field-row button.is-copied {
+    background: #d97706;
+    color: #ffffff;
+}
+html.theme-dark .amazon-shell .shopify-dropzone:hover,
+html.theme-dark .amazon-shell .shopify-dropzone:focus-within,
+html.theme-dark .amazon-shell .shopify-dropzone.is-dragging {
+    border-color: rgba(251, 191, 36, 0.32);
+    background: rgba(15, 23, 42, 0.82);
+    box-shadow: inset 0 0 0 1px rgba(251, 191, 36, 0.08);
+}
+html.theme-dark .amazon-summary-total-row td {
+    border-top-color: rgba(251, 191, 36, 0.22);
+    background: rgba(146, 64, 14, 0.2);
+}
+html.theme-dark .amazon-year-card {
+    border-color: rgba(251, 191, 36, 0.22);
+    background: linear-gradient(135deg, rgba(146, 64, 14, 0.18), rgba(15, 23, 42, 0.82));
 }
 html.theme-dark .shopify-primary-button,
 html.theme-dark .shopify-year-filters button.is-active,
@@ -1064,6 +1291,10 @@ html.theme-dark .shopify-month-warnings span {
     .shopify-field-row {
         grid-template-columns: 1fr;
         gap: 0.35rem;
+    }
+    .amazon-month-metrics,
+    .amazon-metric-grid {
+        grid-template-columns: 1fr;
     }
     .shopify-field-row button {
         justify-self: start;
