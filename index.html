@@ -3328,10 +3328,8 @@ VISUALIZE customers TYPE line</textarea>
 
         async function fetchNeededRates(data) {
             const needed = new Set();
-            const rateCache = {};
 
             data.forEach(row => {
-                const typ = getVal(row, "Typ");
                 const currency = getVal(row, "Währung");
 
                 if (currency && currency !== "EUR") {
@@ -3347,17 +3345,29 @@ VISUALIZE customers TYPE line</textarea>
             });
 
             const rates = {};
+            const missingRates = [];
             const promises = Array.from(needed).map(async (key) => {
                 const [date, currency] = key.split('_');
                 try {
                     const rate = await fetchExchangeRate(date, currency);
+                    if (!Number.isFinite(rate) || rate <= 0) {
+                        throw new Error("No exchange rate returned");
+                    }
                     rates[key] = rate;
                 } catch (e) {
                     console.warn(`Could not fetch rate for ${key}`, e);
+                    missingRates.push(`${date} ${currency}`);
                 }
             });
 
             await Promise.all(promises);
+
+            if (missingRates.length > 0) {
+                const preview = missingRates.slice(0, 8).join(', ');
+                const suffix = missingRates.length > 8 ? ` und ${missingRates.length - 8} weitere` : '';
+                throw new Error(`Wechselkurse konnten nicht geladen werden (${preview}${suffix}). Bitte Internetverbindung prüfen und Konvertierung erneut starten.`);
+            }
+
             return rates;
         }
 
@@ -3367,6 +3377,14 @@ VISUALIZE customers TYPE line</textarea>
             if (!response.ok) throw new Error(`API Error: ${response.status}`);
             const data = await response.json();
             return data.rates[currency];
+        }
+
+        function requireExchangeRate(rates, isoDate, currency, datum) {
+            const rate = rates[`${isoDate}_${currency}`];
+            if (!Number.isFinite(rate) || rate <= 0) {
+                throw new Error(`Wechselkurs fehlt für ${currency} am ${datum || isoDate}. Bitte Internetverbindung prüfen und erneut konvertieren.`);
+            }
+            return rate;
         }
 
         function getVal(row, key) {
@@ -3616,8 +3634,7 @@ VISUALIZE customers TYPE line</textarea>
             if (currency && currency !== "EUR") {
                 const parts = datum.split('.');
                 const isoDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
-                const rateKey = `${isoDate}_${currency}`;
-                const ezbRate = rates[rateKey];
+                const ezbRate = requireExchangeRate(rates, isoDate, currency, datum);
 
                 if (ezbRate) {
                     const bruttoEur = brutto / ezbRate;
@@ -3716,8 +3733,7 @@ VISUALIZE customers TYPE line</textarea>
                 if (typ === "Zahlung im Einzugsverfahren mit Zahlungsrechnung" && currency && currency !== "EUR") {
                     const parts = datum.split('.');
                     const isoDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
-                    const rateKey = `${isoDate}_${currency}`;
-                    const ezbRate = rates[rateKey];
+                    const ezbRate = requireExchangeRate(rates, isoDate, currency, datum);
 
                     if (ezbRate) {
                         const foreignAmount = Math.abs(brutto);
@@ -3814,8 +3830,7 @@ VISUALIZE customers TYPE line</textarea>
                                 const eurAmount = parseGermanFloat(getVal(nextRow, "Brutto"));
                                 const parts = datum.split('.');
                                 const isoDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
-                                const rateKey = `${isoDate}_${currency}`;
-                                const ezbRate = rates[rateKey];
+                                const ezbRate = requireExchangeRate(rates, isoDate, currency, datum);
 
                                 if (ezbRate) {
                                     const feeValue = eurAmount - (foreignAmount / ezbRate);
@@ -3856,8 +3871,7 @@ VISUALIZE customers TYPE line</textarea>
                 if (currency && currency !== "EUR") {
                     const parts = datum.split('.');
                     const isoDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
-                    const rateKey = `${isoDate}_${currency}`;
-                    const ezbRate = rates[rateKey];
+                    const ezbRate = requireExchangeRate(rates, isoDate, currency, datum);
 
                     if (ezbRate) {
                         const bruttoEur = brutto / ezbRate;
