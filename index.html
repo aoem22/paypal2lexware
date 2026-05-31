@@ -3327,7 +3327,10 @@ VISUALIZE customers TYPE line</textarea>
         }
 
         async function fetchNeededRates(data) {
-            const needed = new Set();
+            // Group needed currencies by date so all currencies for a given day are
+            // fetched in ONE request (the API accepts to=CHF,USD,...). This drastically
+            // cuts the number of calls and avoids the rate-limiting that caused random misses.
+            const neededByDate = new Map();
 
             data.forEach(row => {
                 const currency = getVal(row, "Währung");
@@ -3338,7 +3341,8 @@ VISUALIZE customers TYPE line</textarea>
                         const parts = dateStr.split('.');
                         if (parts.length === 3) {
                             const isoDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
-                            needed.add(`${isoDate}_${currency}`);
+                            if (!neededByDate.has(isoDate)) neededByDate.set(isoDate, new Set());
+                            neededByDate.get(isoDate).add(currency);
                         }
                     }
                 }
@@ -3346,21 +3350,25 @@ VISUALIZE customers TYPE line</textarea>
 
             const rates = {};
             const missingRates = [];
-            const promises = Array.from(needed).map(async (key) => {
-                const [date, currency] = key.split('_');
+            const jobs = Array.from(neededByDate, ([date, set]) => ({ date, currencies: Array.from(set) }));
+
+            // Run through a small worker pool so we never flood the free rate API.
+            await runRateJobs(jobs, 5, async ({ date, currencies }) => {
                 try {
-                    const rate = await fetchExchangeRate(date, currency);
-                    if (!Number.isFinite(rate) || rate <= 0) {
-                        throw new Error("No exchange rate returned");
-                    }
-                    rates[key] = rate;
+                    const fetched = await fetchExchangeRates(date, currencies);
+                    currencies.forEach(currency => {
+                        const rate = fetched[currency];
+                        if (Number.isFinite(rate) && rate > 0) {
+                            rates[`${date}_${currency}`] = rate;
+                        } else {
+                            missingRates.push(`${date} ${currency}`);
+                        }
+                    });
                 } catch (e) {
-                    console.warn(`Could not fetch rate for ${key}`, e);
-                    missingRates.push(`${date} ${currency}`);
+                    console.warn(`Could not fetch rates for ${date} (${currencies.join(', ')})`, e);
+                    currencies.forEach(currency => missingRates.push(`${date} ${currency}`));
                 }
             });
-
-            await Promise.all(promises);
 
             if (missingRates.length > 0) {
                 const preview = missingRates.slice(0, 8).join(', ');
@@ -3371,12 +3379,37 @@ VISUALIZE customers TYPE line</textarea>
             return rates;
         }
 
-        async function fetchExchangeRate(date, currency) {
-            const url = `https://api.frankfurter.app/${date}?from=EUR&to=${currency}`;
-            const response = await fetch(url);
-            if (!response.ok) throw new Error(`API Error: ${response.status}`);
-            const data = await response.json();
-            return data.rates[currency];
+        // Fetch all requested currencies for one date in a single call, retrying with
+        // exponential backoff so a transient network/throttle blip doesn't fail the job.
+        async function fetchExchangeRates(date, currencies, attempts = 3) {
+            const url = `https://api.frankfurter.dev/v1/${date}?from=EUR&to=${currencies.join(',')}`;
+            let lastErr;
+            for (let attempt = 0; attempt < attempts; attempt++) {
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error(`API Error: ${response.status}`);
+                    const data = await response.json();
+                    return (data && data.rates) ? data.rates : {};
+                } catch (e) {
+                    lastErr = e;
+                    if (attempt < attempts - 1) {
+                        await new Promise(resolve => setTimeout(resolve, 400 * Math.pow(2, attempt)));
+                    }
+                }
+            }
+            throw lastErr;
+        }
+
+        // Run async jobs with a bounded number of concurrent workers.
+        async function runRateJobs(jobs, concurrency, worker) {
+            let index = 0;
+            async function runNext() {
+                while (index < jobs.length) {
+                    await worker(jobs[index++]);
+                }
+            }
+            const pool = Array.from({ length: Math.min(concurrency, jobs.length) }, runNext);
+            await Promise.all(pool);
         }
 
         function requireExchangeRate(rates, isoDate, currency, datum) {
@@ -4553,30 +4586,71 @@ VISUALIZE customers TYPE line</textarea>
             };
             function translateType(type) { return typeTranslations[type] || type; }
 
-            async function fetchExchangeRate(date, currency) {
-                var url = 'https://api.frankfurter.app/' + date + '?from=EUR&to=' + currency;
-                var response = await fetch(url);
-                if (!response.ok) throw new Error('API Error: ' + response.status);
-                var data = await response.json();
-                return data.rates[currency];
+            // Fetch all requested currencies for one date in a single call, retrying with
+            // exponential backoff so a transient network/throttle blip doesn't drop the rate.
+            async function fetchExchangeRatesForDate(date, currencies, attempts) {
+                attempts = attempts || 3;
+                var url = 'https://api.frankfurter.dev/v1/' + date + '?from=EUR&to=' + currencies.join(',');
+                var lastErr;
+                for (var attempt = 0; attempt < attempts; attempt++) {
+                    try {
+                        var response = await fetch(url);
+                        if (!response.ok) throw new Error('API Error: ' + response.status);
+                        var data = await response.json();
+                        return (data && data.rates) ? data.rates : {};
+                    } catch (e) {
+                        lastErr = e;
+                        if (attempt < attempts - 1) {
+                            await new Promise(function(resolve) { setTimeout(resolve, 400 * Math.pow(2, attempt)); });
+                        }
+                    }
+                }
+                throw lastErr;
             }
 
             async function fetchNeededRates(data) {
-                var needed = new Set();
+                // Group needed currencies by date -> one batched request per day.
+                var neededByDate = new Map();
                 data.forEach(function(row) {
                     var currency = getVal(row, 'Currency', 'Währung');
                     if (currency && currency !== 'EUR') {
                         var isoDate = extractISODate(row);
-                        if (isoDate) needed.add(isoDate + '_' + currency);
+                        if (isoDate) {
+                            if (!neededByDate.has(isoDate)) neededByDate.set(isoDate, new Set());
+                            neededByDate.get(isoDate).add(currency);
+                        }
                     }
                 });
+
                 var rates = {};
-                var promises = Array.from(needed).map(async function(key) {
-                    var parts = key.split('_');
-                    try { rates[key] = await fetchExchangeRate(parts[0], parts[1]); }
-                    catch(e) { console.warn('Could not fetch rate for ' + key, e); }
+                var jobs = [];
+                neededByDate.forEach(function(set, date) {
+                    jobs.push({ date: date, currencies: Array.from(set) });
                 });
-                await Promise.all(promises);
+
+                // Bounded worker pool so we never flood the free rate API.
+                var index = 0;
+                async function runNext() {
+                    while (index < jobs.length) {
+                        var job = jobs[index++];
+                        try {
+                            var fetched = await fetchExchangeRatesForDate(job.date, job.currencies);
+                            job.currencies.forEach(function(currency) {
+                                var rate = fetched[currency];
+                                if (Number.isFinite(rate) && rate > 0) {
+                                    rates[job.date + '_' + currency] = rate;
+                                }
+                            });
+                        } catch (e) {
+                            console.warn('Could not fetch rates for ' + job.date + ' (' + job.currencies.join(', ') + ')', e);
+                        }
+                    }
+                }
+                var pool = [];
+                var poolSize = Math.min(5, jobs.length);
+                for (var i = 0; i < poolSize; i++) pool.push(runNext());
+                await Promise.all(pool);
+
                 return rates;
             }
 
