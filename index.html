@@ -368,6 +368,38 @@
                         </div>
                     </button>
 
+                    <button type="button" onclick="openTool('ebay')"
+                        class="converter-card surface-card group hover:-translate-y-1 hover:border-[#0064D2]/30 hover:bg-blue-50/30 focus:outline-none focus:ring-2 focus:ring-[#0064D2]/20">
+                        <div class="converter-card__header">
+                            <div class="converter-card__brand">
+                                <img src="assets/logos/ebay.svg" alt="eBay Logo"
+                                    class="brand-logo brand-logo--ebay group-hover:scale-105" />
+                            </div>
+                            <span
+                                class="inline-flex items-center rounded-full bg-[#0064D2]/10 px-3 py-1 text-xs font-semibold text-[#0064D2]">Live</span>
+                        </div>
+                        <div class="converter-card__body">
+                            <div class="converter-card__title">
+                                <h2 class="text-2xl font-bold text-gray-800">eBay</h2>
+                            </div>
+                            <p class="converter-card__description text-sm text-gray-600">
+                                eBay-Transaktionsbericht lokal aufbereiten: Verkäufe, Gebühren, Versandetiketten,
+                                Rückerstattungen und Auszahlungen sauber getrennt als Lexware-CSV.
+                            </p>
+                            <div class="converter-card__chips">
+                                <span class="converter-chip bg-gray-100 text-gray-600">Verkaufsgebühren</span>
+                                <span class="converter-chip bg-gray-100 text-gray-600">Auszahlungen</span>
+                                <span class="converter-chip bg-gray-100 text-gray-600">Lexware-CSV</span>
+                            </div>
+                            <div class="converter-card__action">
+                                <div class="converter-card__action-inner">
+                                    <span class="text-sm font-semibold">Konverter öffnen</span>
+                                    <span aria-hidden="true" class="text-2xl leading-none">→</span>
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+
                     <div class="request-strip rounded-[2rem] p-6 text-left md:col-span-2 md:p-8 xl:col-span-3">
                         <div class="grid gap-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(23rem,0.95fr)] xl:items-center">
                             <div class="max-w-2xl">
@@ -472,6 +504,7 @@
                     <button type="button" onclick="openTool('amazon-fees')" class="topic-link">Amazon Gebühren berechnen</button>
                     <a href="shopify-lexware/" class="topic-link">Shopify in Lexware verbuchen</a>
                     <a href="amazon-lexware/" class="topic-link">Amazon FBA verbuchen</a>
+                    <button type="button" onclick="openTool('ebay')" class="topic-link">eBay Umsätze konvertieren</button>
                     <a href="ebay-lexware/" class="topic-link">eBay Gebühren buchen</a>
                     <a href="etsy-lexware/" class="topic-link">Etsy Umsätze verbuchen</a>
                     <a href="klarna-mollie-lexware/" class="topic-link">Klarna &amp; Mollie buchen</a>
@@ -1047,7 +1080,7 @@ VISUALIZE customers TYPE line</textarea>
                 </div>
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                     <h3 class="font-bold text-gray-800 mb-2">Welche Banken und Zahlungsanbieter werden unterstützt?</h3>
-                    <p class="text-sm text-gray-600">Aktuell werden PayPal, Revolut, Deutsche Bank, Shopify Sammelbelege und Amazon-Gebühren direkt als Browsertools unterstützt. Für Stripe, eBay, Etsy, Klarna, Mollie und Wise gibt es ergänzende Workflow-Seiten; konkrete Importformate können mit anonymisierter Beispieldatei angefragt werden.</p>
+                    <p class="text-sm text-gray-600">Aktuell werden PayPal, Revolut, Deutsche Bank, Shopify Sammelbelege, Amazon-Gebühren und eBay direkt als Browsertools unterstützt. Für Stripe, Etsy, Klarna, Mollie und Wise gibt es ergänzende Workflow-Seiten; konkrete Importformate können mit anonymisierter Beispieldatei angefragt werden.</p>
                 </div>
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                     <h3 class="font-bold text-gray-800 mb-2">Muss ich mich registrieren oder ein Konto erstellen?</h3>
@@ -1386,6 +1419,173 @@ VISUALIZE customers TYPE line</textarea>
             </section>
         </div>
 
+        <!-- eBay View -->
+        <div id="ebay-view" class="hidden">
+            <div class="max-w-3xl mx-auto text-left mb-8">
+                <button type="button" onclick="showHub()"
+                    class="inline-flex items-center gap-2 text-sm font-medium text-[#0064D2] hover:text-[#0050A8] transition-colors">
+                    <span>←</span>
+                    <span>Zur Übersicht</span>
+                </button>
+            </div>
+
+            <header class="text-center">
+                <div class="inline-flex items-center space-x-2 text-green-600 bg-green-50 px-3 py-1 rounded-full text-xs font-medium mb-4">
+                    <span>🔒</span>
+                    <span>Konverter lokal & privat - Importdateien bleiben im Browser</span>
+                </div>
+                <h2 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-2 tracking-tight">
+                    <span class="text-[#0064D2]">eBay</span><span class="text-gray-300 mx-2">2</span><span class="text-[#C40029]">Lexware</span>
+                </h2>
+            </header>
+
+            <section class="mt-12 max-w-3xl mx-auto text-center">
+                <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+                    <span class="font-semibold text-[#0064D2] block mb-2">eBay-Transaktionsberichte automatisch für Lexware aufbereiten.</span>
+                    Laden Sie hier Ihren eBay-Transaktionsbericht (CSV) hoch. Verkäufe, Verkaufsgebühren, Werbekosten,
+                    Versandetiketten, Rückerstattungen und Auszahlungen werden sauber getrennt in eine Lexware-CSV umgewandelt.
+                </p>
+                <div id="ebay-drop-zone"
+                    class="border-2 border-dashed border-gray-300 rounded-xl p-8 sm:p-16 text-center transition-all hover:border-[#0064D2] hover:bg-blue-50/30 cursor-pointer bg-white shadow-sm group">
+                    <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">📂</div>
+                    <p class="text-xl font-medium text-gray-700 group-hover:text-[#0064D2] transition-colors">eBay-Transaktionsbericht (CSV) hier ablegen</p>
+                    <p class="text-sm text-gray-400 mt-3">oder klicken zum Auswählen</p>
+                    <input type="file" id="ebay-fileInput" accept=".csv" class="hidden" />
+                </div>
+
+                <div id="ebay-date-selection-container" class="hidden mt-8 bg-white p-6 rounded-xl shadow-sm border border-gray-200 max-w-xl mx-auto text-left">
+                    <button onclick="EBAY.toggleDateSelection()" class="flex items-center justify-between w-full text-left group focus:outline-none">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 group-hover:text-[#0064D2] transition-colors">Zeitraum anpassen (Optional)</h3>
+                            <p class="text-sm text-gray-500 mt-1">Standardmäßig wird der gesamte Zeitraum der Datei konvertiert.</p>
+                        </div>
+                        <span id="ebay-date-selection-icon" class="text-2xl text-gray-400 group-hover:text-[#0064D2] transition-transform transform">▼</span>
+                    </button>
+                    <div id="ebay-date-selection-content" class="hidden mt-6 transition-all duration-300 ease-in-out">
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div>
+                                <label for="ebay-startDate" class="block text-sm font-medium text-gray-700 mb-1">Von</label>
+                                <input type="date" id="ebay-startDate" class="w-full border-gray-300 rounded-lg shadow-sm focus:border-[#0064D2] focus:ring focus:ring-[#0064D2] focus:ring-opacity-50">
+                            </div>
+                            <div>
+                                <label for="ebay-endDate" class="block text-sm font-medium text-gray-700 mb-1">Bis</label>
+                                <input type="date" id="ebay-endDate" class="w-full border-gray-300 rounded-lg shadow-sm focus:border-[#0064D2] focus:ring focus:ring-[#0064D2] focus:ring-opacity-50">
+                            </div>
+                        </div>
+                        <button onclick="EBAY.startConversion()" class="w-full px-6 py-3 rounded-lg bg-[#0064D2] text-white font-bold shadow-md hover:bg-[#0050A8] transition-all transform hover:-translate-y-0.5">
+                            Zeitraum anwenden & Konvertieren
+                        </button>
+                    </div>
+                </div>
+
+                <div id="ebay-loading-indicator" class="hidden mt-8 max-w-md mx-auto">
+                    <div class="flex justify-between mb-1">
+                        <span class="text-sm font-medium text-[#0064D2]">Verarbeite Daten...</span>
+                        <span id="ebay-progress-text" class="text-sm font-medium text-[#0064D2]">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                        <div id="ebay-progress-bar" class="bg-[#0064D2] h-2.5 rounded-full transition-all duration-300 ease-out" style="width: 0%"></div>
+                    </div>
+                    <p class="mt-2 text-xs text-gray-500 animate-pulse">Trenne Umsätze, Gebühren & Auszahlungen...</p>
+                </div>
+
+                <div id="ebay-status" class="hidden mt-6 p-4 rounded-xl text-sm font-medium border-l-4"></div>
+
+                <div id="ebay-download-area" class="hidden mt-8">
+                    <a id="ebay-downloadLink" class="inline-block px-10 py-4 rounded-lg bg-[#0064D2] text-white font-bold shadow-md hover:bg-[#0050A8] transition-all transform hover:-translate-y-0.5">
+                        Lexware CSV herunterladen
+                    </a>
+                </div>
+            </section>
+
+            <section>
+                <div id="ebay-conversion-details-container" class="hidden mt-8 text-left max-w-4xl mx-auto bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-all">
+                    <button onclick="EBAY.toggleDetails()" class="flex items-center justify-between w-full p-6 text-left group focus:outline-none hover:bg-gray-50 transition-colors">
+                        <div>
+                            <h3 id="ebay-details-title" class="text-lg font-bold text-gray-800 group-hover:text-[#0064D2] transition-colors">Umrechnungsdetails</h3>
+                            <p id="ebay-details-subtitle" class="text-sm text-gray-500 mt-1">Hier sehen Sie alle durchgeführten Währungsumrechnungen.</p>
+                        </div>
+                        <span id="ebay-details-icon" class="text-2xl text-gray-400 group-hover:text-[#0064D2] transition-transform transform">▼</span>
+                    </button>
+                    <div id="ebay-conversion-details-content" class="hidden border-t border-gray-100">
+                        <div class="overflow-x-auto bg-white">
+                            <table class="min-w-full text-sm text-left text-gray-500">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b">
+                                    <tr>
+                                        <th class="px-4 py-3">Datum</th>
+                                        <th class="px-4 py-3">Beschreibung</th>
+                                        <th class="px-4 py-3">Währung</th>
+                                        <th class="px-4 py-3">Kurs</th>
+                                        <th class="px-4 py-3">Gebühr (EUR)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ebay-conversion-table-body" class="divide-y divide-gray-100"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mt-16 text-left max-w-2xl mx-auto">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Was dieses Tool leistet</h2>
+                <div class="grid gap-6 md:grid-cols-2">
+                    <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 hover:border-[#0064D2]/30 transition-colors">
+                        <h3 class="font-bold text-gray-800 mb-2 flex items-center"><span class="text-xl mr-2">📊</span> Gebühren-Splitting</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Jeder Verkauf wird in Brutto-Umsatz und separate eBay-Verkaufsgebühr getrennt. Werbe- und Versandkosten erscheinen als eigene Buchungszeilen – ideal für die korrekte steuerliche Erfassung.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 hover:border-[#0064D2]/30 transition-colors">
+                        <h3 class="font-bold text-gray-800 mb-2 flex items-center"><span class="text-xl mr-2">⚖️</span> Saubere Auszahlungen</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Auszahlungen aufs Bankkonto werden als eigene Zeile ausgewiesen, sodass das eBay-Verrechnungskonto in Lexware exakt mit der Bankbewegung abgestimmt werden kann.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 hover:border-[#0064D2]/30 transition-colors">
+                        <h3 class="font-bold text-gray-800 mb-2 flex items-center"><span class="text-xl mr-2">🔁</span> Einbehalte automatisch bereinigt</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Einbehaltene und wieder freigegebene Beträge werden als Paare erkannt und neutralisiert. Refunds, Fälle und Zahlungsstreitfälle werden korrekt verbucht.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 hover:border-[#0064D2]/30 transition-colors">
+                        <h3 class="font-bold text-gray-800 mb-2 flex items-center"><span class="text-xl mr-2">🔒</span> 100% Lokal & Privat</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Ihre Verkaufsdaten verlassen niemals Ihren Computer. Die gesamte Verarbeitung findet lokal in Ihrem Browser statt. Kein Upload, kein Server.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mt-16 text-left max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Anleitung: eBay-Transaktionsbericht exportieren</h2>
+                <ol class="list-decimal list-inside space-y-3 text-sm text-gray-600 leading-relaxed">
+                    <li>Öffnen Sie das <strong>eBay Seller Hub</strong> und wechseln Sie zu <strong>Zahlungen</strong>.</li>
+                    <li>Klicken Sie auf <strong>Berichte</strong> und anschließend auf <strong>Bericht erstellen</strong>.</li>
+                    <li>Wählen Sie als Berichtstyp den <strong>Transaktionsbericht</strong> und den gewünschten Zeitraum.</li>
+                    <li>Wählen Sie das Format <strong>CSV</strong> und erstellen Sie den Bericht.</li>
+                    <li>Laden Sie die Datei (z. B. <em>Transaktionsbericht_JJJJMMTT.csv</em>) herunter und ziehen Sie sie oben in das Feld.</li>
+                    <li>Laden Sie die konvertierte Datei herunter und importieren Sie sie in Lexware.</li>
+                </ol>
+                <p class="mt-4 text-xs text-gray-400">
+                    Die Kopfzeilen und Hinweise am Anfang des eBay-Berichts werden automatisch erkannt und übersprungen.
+                </p>
+            </section>
+
+            <section class="mt-16 text-left max-w-2xl mx-auto">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Häufig gestellte Fragen (FAQ)</h2>
+                <div class="space-y-4">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                        <h3 class="font-bold text-gray-800 mb-2">Wie werden eBay-Gebühren gebucht?</h3>
+                        <p class="text-sm text-gray-600">Pro Verkauf wird der Brutto-Umsatz als Einnahme und die eBay-Verkaufsgebühr als separate Ausgabe ausgewiesen. Werbekosten („Anzeigen") und Versandetiketten erhalten ebenfalls eigene Zeilen.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                        <h3 class="font-bold text-gray-800 mb-2">Werden die Auszahlungen mit aufgenommen?</h3>
+                        <p class="text-sm text-gray-600">Ja. Auszahlungen aufs Bankkonto werden als negative Buchung auf dem eBay-Verrechnungskonto erfasst und entsprechen dem Geldeingang auf Ihrem Bankkonto – so bleibt alles abstimmbar.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                        <h3 class="font-bold text-gray-800 mb-2">Werden meine Daten gespeichert?</h3>
+                        <p class="text-sm text-gray-600">Nein. Die Verarbeitung erfolgt zu 100% lokal in Ihrem Browser. Ihre Verkaufsdaten verlassen niemals Ihren Computer.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                        <h3 class="font-bold text-gray-800 mb-2">Was passiert mit Rückerstattungen und Fällen?</h3>
+                        <p class="text-sm text-gray-600">Rückerstattungen, Fälle (eBay-Käuferschutz) und Zahlungsstreitfälle werden als negative Umsätze gebucht, inklusive der von eBay zurückerstatteten Gebührenanteile.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
         <!-- Footer -->
         <footer class="footer-rail mt-20 text-gray-500 text-sm">
             <div class="max-w-4xl mx-auto px-2 pt-8">
@@ -1425,7 +1625,7 @@ VISUALIZE customers TYPE line</textarea>
             });
         })();
 
-        var ALL_VIEWS = ['home', 'paypal', 'deutsche-bank', 'revolut', 'shopify', 'amazon-fees'];
+        var ALL_VIEWS = ['home', 'paypal', 'deutsche-bank', 'revolut', 'shopify', 'amazon-fees', 'ebay'];
 
         function setActiveView(view, updateHash = true) {
             ALL_VIEWS.forEach(function(v) {
@@ -4773,6 +4973,591 @@ VISUALIZE customers TYPE line</textarea>
             dropZone.addEventListener('drop', function(e) {
                 e.preventDefault();
                 dropZone.classList.remove('border-[#0666EB]', 'bg-blue-50/30');
+                if (e.dataTransfer.files.length) { resetUI(); parseCSV(e.dataTransfer.files[0]); }
+            });
+            fileInput.addEventListener('change', function(e) {
+                if (e.target.files.length) { resetUI(); parseCSV(e.target.files[0]); }
+            });
+
+            return { toggleDetails: toggleDetails, toggleDateSelection: toggleDateSelection, startConversion: startConversion };
+        })();
+
+        // ═══════════════════════════════════════════════
+        // EBAY CONVERTER (namespaced)
+        // ═══════════════════════════════════════════════
+        window.EBAY = (function() {
+            function el(id) { return document.getElementById('ebay-' + id); }
+
+            var rawCSVData = [];
+            var progressInterval;
+            var BRAND = '#0064D2';
+            var fxUnconverted = 0;
+
+            function showStatus(message, type) {
+                type = type || 'info';
+                var statusEl = el('status');
+                if (type === 'success') {
+                    statusEl.classList.add('hidden');
+                    var container = el('conversion-details-container');
+                    var title = el('details-title');
+                    var subtitle = el('details-subtitle');
+                    container.classList.remove('hidden');
+                    container.className = "mt-8 text-left max-w-4xl mx-auto bg-green-50 rounded-xl shadow-sm border border-green-200 overflow-hidden transition-all";
+                    title.innerHTML = '✅ ' + message;
+                    title.className = "text-lg font-bold text-green-800 flex items-center";
+                    subtitle.textContent = "Hier klicken für Umrechnungsdetails & Gebühren";
+                    subtitle.className = "text-sm text-green-600 mt-1";
+                } else {
+                    statusEl.textContent = message;
+                    statusEl.className = 'mt-6 p-4 rounded-xl text-sm font-medium bg-blue-50 border-l-4';
+                    statusEl.style.color = BRAND;
+                    statusEl.style.borderLeftColor = BRAND;
+                    statusEl.classList.remove('hidden');
+                    if (type === 'info') el('conversion-details-container').classList.add('hidden');
+                }
+            }
+
+            function showError(message) {
+                var statusEl = el('status');
+                statusEl.textContent = "⚠️ " + message;
+                statusEl.className = 'mt-6 p-4 rounded-xl text-sm font-medium bg-red-50 text-[#C40029] border-l-4 border-[#C40029]';
+                statusEl.style.color = '';
+                statusEl.style.borderLeftColor = '';
+                statusEl.classList.remove('hidden');
+                el('loading-indicator').classList.add('hidden');
+                el('conversion-details-container').classList.add('hidden');
+            }
+
+            function resetUI() {
+                el('status').classList.add('hidden');
+                el('download-area').classList.add('hidden');
+                el('date-selection-container').classList.add('hidden');
+                el('date-selection-content').classList.add('hidden');
+                el('date-selection-icon').style.transform = 'rotate(0deg)';
+                el('loading-indicator').classList.add('hidden');
+                stopProgress();
+                el('conversion-details-container').classList.add('hidden');
+                el('conversion-details-content').classList.add('hidden');
+                el('details-icon').style.transform = 'rotate(0deg)';
+                el('conversion-table-body').innerHTML = '';
+            }
+
+            function toggleDetails() {
+                var content = el('conversion-details-content');
+                var icon = el('details-icon');
+                if (content.classList.contains('hidden')) {
+                    content.classList.remove('hidden');
+                    icon.style.transform = 'rotate(180deg)';
+                } else {
+                    content.classList.add('hidden');
+                    icon.style.transform = 'rotate(0deg)';
+                }
+            }
+
+            function toggleDateSelection() {
+                var content = el('date-selection-content');
+                var icon = el('date-selection-icon');
+                if (content.classList.contains('hidden')) {
+                    content.classList.remove('hidden');
+                    icon.style.transform = 'rotate(180deg)';
+                } else {
+                    content.classList.add('hidden');
+                    icon.style.transform = 'rotate(0deg)';
+                }
+            }
+
+            function renderConversionDetails(logs) {
+                var tbody = el('conversion-table-body');
+                tbody.innerHTML = '';
+                if (logs.length === 0) {
+                    var tr = document.createElement('tr');
+                    tr.innerHTML = '<td colspan="5" class="px-4 py-3 text-center text-gray-500">Keine Währungsumrechnungen erforderlich – alle Beträge bereits in EUR.</td>';
+                    tbody.appendChild(tr);
+                } else {
+                    logs.forEach(function(log) {
+                        var tr = document.createElement('tr');
+                        tr.className = "bg-white hover:bg-gray-50 transition-colors";
+                        tr.innerHTML =
+                            '<td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">' + log.date + '</td>' +
+                            '<td class="px-4 py-3 text-gray-600">' + (log.description || '-') + '</td>' +
+                            '<td class="px-4 py-3 text-gray-600">' + log.currency + '</td>' +
+                            '<td class="px-4 py-3 text-gray-600">' + log.rate + '</td>' +
+                            '<td class="px-4 py-3 font-medium ' + (log.fee > 0 ? 'text-red-600' : 'text-gray-400') + '">' +
+                                (log.fee > 0 ? '-' + log.fee.toFixed(2).replace('.', ',') + ' EUR' : '-') + '</td>';
+                        tbody.appendChild(tr);
+                    });
+                }
+            }
+
+            function startProgress() {
+                var bar = el('progress-bar');
+                var text = el('progress-text');
+                var width = 0;
+                bar.style.width = '0%';
+                text.textContent = '0%';
+                clearInterval(progressInterval);
+                progressInterval = setInterval(function() {
+                    if (width >= 90) { clearInterval(progressInterval); return; }
+                    width += Math.random() * 10;
+                    if (width > 90) width = 90;
+                    bar.style.width = width + '%';
+                    text.textContent = Math.round(width) + '%';
+                }, 200);
+            }
+
+            function stopProgress() { clearInterval(progressInterval); }
+
+            function completeProgress() {
+                clearInterval(progressInterval);
+                el('progress-bar').style.width = '100%';
+                el('progress-text').textContent = '100%';
+            }
+
+            function normalizeKey(value) {
+                return String(value || '').replace(/^﻿/, '').trim().toLowerCase();
+            }
+
+            function getVal(row) {
+                var keys = Array.prototype.slice.call(arguments, 1).map(normalizeKey);
+                var foundKey = Object.keys(row).find(function(k) {
+                    return keys.indexOf(normalizeKey(k)) !== -1;
+                });
+                return foundKey ? String(row[foundKey] || '').trim() : '';
+            }
+
+            // Robust amount parser: handles "343,89", "-18,1", "329", "29.19",
+            // "1.234,56" and "-0"; returns NaN for "--" / empty.
+            function parseEbayAmount(value) {
+                var raw = String(value || '').trim().replace(/^"|"$/g, '');
+                if (!raw || raw === '--') return NaN;
+                raw = raw.replace(/\s/g, '');
+                var lastComma = raw.lastIndexOf(',');
+                var lastDot = raw.lastIndexOf('.');
+                if (lastComma !== -1 && lastDot !== -1) {
+                    raw = lastComma > lastDot
+                        ? raw.replace(/\./g, '').replace(',', '.')
+                        : raw.replace(/,/g, '');
+                } else if (lastComma !== -1) {
+                    raw = raw.replace(/\./g, '').replace(',', '.');
+                }
+                var n = parseFloat(raw);
+                return isFinite(n) ? n : NaN;
+            }
+            function num(value) { var n = parseEbayAmount(value); return isFinite(n) ? n : 0; }
+
+            var EBAY_MONTHS = {
+                jan: '01', feb: '02', 'mär': '03', mar: '03', mrz: '03', apr: '04',
+                mai: '05', may: '05', jun: '06', jul: '07', aug: '08', sep: '09',
+                okt: '10', oct: '10', nov: '11', dez: '12', dec: '12'
+            };
+            // eBay German dates look like "21. Jun 2026" / "7. Jan 2026"; also accept DD.MM.YYYY.
+            function parseEbayDateISO(str) {
+                str = String(str || '').trim().replace(/^"|"$/g, '');
+                if (!str) return null;
+                var m = str.match(/^(\d{1,2})\.?\s*([A-Za-zäöüÄÖÜ]+)\.?\s+(\d{4})/);
+                if (m) {
+                    var key = m[2].toLowerCase();
+                    var mon = EBAY_MONTHS[key] || EBAY_MONTHS[key.slice(0, 3)]; // also maps full month names
+                    if (mon) return m[3] + '-' + mon + '-' + ('0' + m[1]).slice(-2);
+                }
+                var g = str.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})/);
+                if (g) return g[3] + '-' + ('0' + g[2]).slice(-2) + '-' + ('0' + g[1]).slice(-2);
+                return null;
+            }
+
+            function isoToGermanDate(isoDate) {
+                var parts = isoDate.split('-');
+                return parts[2] + '.' + parts[1] + '.' + parts[0];
+            }
+
+            function toGerman(num) { return num.toFixed(2).replace('.', ','); }
+
+            function sanitizeLexwareField(value) {
+                return String(value || '')
+                    .replace(/€/g, 'EUR')
+                    .replace(/[„“”]/g, "'")
+                    .replace(/[‘’]/g, "'")
+                    .replace(/[–—]/g, '-')
+                    .replace(/…/g, '...')
+                    .replace(/;/g, ',')
+                    .replace(/"/g, '')
+                    .replace(/[\r\n]+/g, ' ')
+                    .replace(/[^\u0000-\u00FF]/g, '')
+                    .trim();
+            }
+
+            // Fetch all requested currencies for one date in a single call, retrying with
+            // exponential backoff so a transient network blip doesn't drop the rate.
+            async function fetchExchangeRatesForDate(date, currencies, attempts) {
+                attempts = attempts || 3;
+                var url = 'https://api.frankfurter.dev/v1/' + date + '?from=EUR&to=' + currencies.join(',');
+                var lastErr;
+                for (var attempt = 0; attempt < attempts; attempt++) {
+                    try {
+                        var response = await fetch(url);
+                        if (!response.ok) throw new Error('API Error: ' + response.status);
+                        var data = await response.json();
+                        return (data && data.rates) ? data.rates : {};
+                    } catch (e) {
+                        lastErr = e;
+                        if (attempt < attempts - 1) {
+                            await new Promise(function(resolve) { setTimeout(resolve, 400 * Math.pow(2, attempt)); });
+                        }
+                    }
+                }
+                throw lastErr;
+            }
+
+            async function fetchNeededRates(data) {
+                // Only transaction amounts may be in a foreign currency (net amounts are
+                // already in the EUR payout currency). Group by date -> one request per day.
+                var neededByDate = new Map();
+                data.forEach(function(row) {
+                    var txCur = getVal(row, 'Transaktionswährung');
+                    var payCur = getVal(row, 'Auszahlungswährung');
+                    [txCur, payCur].forEach(function(cur) {
+                        if (cur && cur !== 'EUR' && cur !== '--') {
+                            var isoDate = parseEbayDateISO(getVal(row, 'Datum der Transaktionserstellung'));
+                            if (isoDate) {
+                                if (!neededByDate.has(isoDate)) neededByDate.set(isoDate, new Set());
+                                neededByDate.get(isoDate).add(cur);
+                            }
+                        }
+                    });
+                });
+
+                var rates = {};
+                var jobs = [];
+                neededByDate.forEach(function(set, date) { jobs.push({ date: date, currencies: Array.from(set) }); });
+                if (jobs.length === 0) return rates;
+
+                var index = 0;
+                async function runNext() {
+                    while (index < jobs.length) {
+                        var job = jobs[index++];
+                        try {
+                            var fetched = await fetchExchangeRatesForDate(job.date, job.currencies);
+                            job.currencies.forEach(function(currency) {
+                                var rate = fetched[currency];
+                                if (Number.isFinite(rate) && rate > 0) rates[job.date + '_' + currency] = rate;
+                            });
+                        } catch (e) {
+                            console.warn('Could not fetch rates for ' + job.date + ' (' + job.currencies.join(', ') + ')', e);
+                        }
+                    }
+                }
+                var pool = [];
+                var poolSize = Math.min(5, jobs.length);
+                for (var i = 0; i < poolSize; i++) pool.push(runNext());
+                await Promise.all(pool);
+                return rates;
+            }
+
+            function readFileText(file) {
+                return new Promise(function(resolve, reject) {
+                    var reader = new FileReader();
+                    reader.onload = function() { resolve(reader.result); };
+                    reader.onerror = function() { reject(reader.error); };
+                    reader.readAsText(file, 'UTF-8');
+                });
+            }
+
+            // eBay reports start with several "Hinweise"/metadata lines before the real
+            // header. Locate the header row, then parse only from there.
+            async function parseCSV(file) {
+                try {
+                    var text = await readFileText(file);
+                    var lines = text.split(/\r?\n/);
+                    var hIdx = lines.findIndex(function(l) {
+                        var t = l.replace(/^﻿/, '');
+                        return /^\s*"?Datum der Transaktionserstellung/.test(t) ||
+                            (t.indexOf('Transaktionsnummer') !== -1 && t.indexOf('Bestellnummer') !== -1);
+                    });
+                    if (hIdx === -1) {
+                        showError("Diese Datei scheint kein eBay-Transaktionsbericht zu sein. Bitte den CSV-Transaktionsbericht aus dem eBay Seller Hub hochladen.");
+                        return;
+                    }
+                    var sliced = lines.slice(hIdx).join('\n');
+                    Papa.parse(sliced, {
+                        header: true, skipEmptyLines: true, delimiter: ';',
+                        complete: function(results) {
+                            rawCSVData = (results.data || []).filter(function(r) {
+                                return getVal(r, 'Typ') && getVal(r, 'Datum der Transaktionserstellung');
+                            });
+                            if (rawCSVData.length === 0) {
+                                showError("Keine eBay-Transaktionen in der Datei gefunden.");
+                                return;
+                            }
+                            showDateSelection(rawCSVData);
+                        },
+                        error: function(err) { showError("Parsing Fehler: " + err.message); }
+                    });
+                } catch (err) {
+                    console.error(err);
+                    showError("Fehler beim Lesen der Datei: " + (err && err.message ? err.message : err));
+                }
+            }
+
+            function showDateSelection(data) {
+                var minDate = null, maxDate = null;
+                data.forEach(function(row) {
+                    var isoDate = parseEbayDateISO(getVal(row, 'Datum der Transaktionserstellung'));
+                    if (isoDate) {
+                        if (!minDate || isoDate < minDate) minDate = isoDate;
+                        if (!maxDate || isoDate > maxDate) maxDate = isoDate;
+                    }
+                });
+                if (minDate && maxDate) {
+                    el('startDate').value = minDate;
+                    el('endDate').value = maxDate;
+                    el('startDate').min = minDate;
+                    el('startDate').max = maxDate;
+                    el('endDate').min = minDate;
+                    el('endDate').max = maxDate;
+                }
+                el('date-selection-container').classList.remove('hidden');
+                startConversion();
+            }
+
+            async function startConversion() {
+                var startDate = el('startDate').value;
+                var endDate = el('endDate').value;
+                if (!startDate || !endDate) { showError("Bitte Start- und Enddatum wählen."); return; }
+                el('status').classList.add('hidden');
+                el('loading-indicator').classList.remove('hidden');
+                startProgress();
+                var filteredData = rawCSVData.filter(function(row) {
+                    var isoDate = parseEbayDateISO(getVal(row, 'Datum der Transaktionserstellung'));
+                    if (!isoDate) return false;
+                    return isoDate >= startDate && isoDate <= endDate;
+                });
+                if (filteredData.length === 0) { showError("Keine Transaktionen im gewählten Zeitraum gefunden."); return; }
+                try {
+                    var rates = await fetchNeededRates(filteredData);
+                    processData(filteredData, rates);
+                } catch (err) {
+                    console.error(err);
+                    showError("Fehler bei der Verarbeitung: " + err.message);
+                    stopProgress();
+                }
+            }
+
+            // Convert a transaction-currency amount to EUR using the ECB rate for that day.
+            function toEur(amount, currency, isoDate, rates, logs, label) {
+                if (!isFinite(amount)) return 0;
+                if (!currency || currency === 'EUR' || currency === '--') return amount;
+                var rate = rates[isoDate + '_' + currency];
+                if (Number.isFinite(rate) && rate > 0) {
+                    if (logs) logs.push({ date: isoToGermanDate(isoDate), currency: currency, rate: rate, fee: 0, description: label || '' });
+                    return amount / rate;
+                }
+                // No ECB rate available: book the foreign value unchanged, but flag it so it
+                // never silently lands in the EUR file as a wrong number (counter surfaces in
+                // the status; the log row appears in the details table).
+                fxUnconverted++;
+                if (logs) logs.push({ date: isoToGermanDate(isoDate), currency: currency, rate: '—', fee: 0, description: (label || '') + ' (kein Kurs - nicht umgerechnet)' });
+                return amount;
+            }
+
+            function processData(data, rates) {
+                var outputRows = [];
+                var conversionLogs = [];
+                var stats = { sales: 0, fees: 0, shipping: 0, refunds: 0, payouts: 0, purchases: 0, other: 0 };
+                fxUnconverted = 0;
+                var skippedDates = 0;
+
+                // Pre-pass: neutralise Einbehalten hold/release pairs (same order, ± equal → net 0).
+                var skip = new Set();
+                var einIdx = [];
+                data.forEach(function(row, idx) { if (getVal(row, 'Typ') === 'Einbehalten') einIdx.push(idx); });
+                var used = new Set();
+                einIdx.forEach(function(ai) {
+                    if (used.has(ai)) return;
+                    var a = data[ai];
+                    var an = num(getVal(a, 'Betrag abzügl. Kosten', 'Betrag abzügl. Kosten '));
+                    var ao = getVal(a, 'Bestellnummer');
+                    for (var k = 0; k < einIdx.length; k++) {
+                        var bi = einIdx[k];
+                        if (bi === ai || used.has(bi)) continue;
+                        var b = data[bi];
+                        if (getVal(b, 'Bestellnummer') === ao &&
+                            Math.abs(an + num(getVal(b, 'Betrag abzügl. Kosten', 'Betrag abzügl. Kosten '))) < 0.01) {
+                            used.add(ai); used.add(bi); skip.add(ai); skip.add(bi); break;
+                        }
+                    }
+                });
+
+                function push(name, vz, amount, zusatz) {
+                    outputRows.push({
+                        "Buchungsdatum": currentGermanDate,
+                        "Auftraggeber/Empfänger": name || 'eBay',
+                        "Verwendungszweck": vz,
+                        "Betrag": toGerman(amount),
+                        "Zusatzinfo": zusatz
+                    });
+                }
+                var currentGermanDate = '';
+
+                for (var i = 0; i < data.length; i++) {
+                    if (skip.has(i)) continue;
+                    var row = data[i];
+                    var typ = getVal(row, 'Typ');
+                    var isoDate = parseEbayDateISO(getVal(row, 'Datum der Transaktionserstellung'));
+                    if (!isoDate) { skippedDates++; continue; }
+                    currentGermanDate = isoToGermanDate(isoDate);
+
+                    var order = getVal(row, 'Bestellnummer');
+                    var buyer = getVal(row, 'Name des Käufers');
+                    var title = getVal(row, 'Angebotstitel');
+                    var ref = getVal(row, 'Referenznummer');
+                    var beschr = getVal(row, 'Beschreibung');
+                    var txCur = getVal(row, 'Transaktionswährung') || 'EUR';
+                    var payCur = getVal(row, 'Auszahlungswährung') || 'EUR';
+
+                    var net = num(getVal(row, 'Betrag abzügl. Kosten', 'Betrag abzügl. Kosten '));   // payout currency
+                    var grossRaw = getVal(row, 'Transaktionsbetrag (inkl. Kosten)', 'Transaktionsbetrag inkl. Kosten');
+                    var gross = num(grossRaw);                                                       // transaction currency
+
+                    // Net is in the payout currency (normally EUR); gross is in the transaction currency.
+                    var netEur = (payCur && payCur !== 'EUR' && payCur !== '--')
+                        ? toEur(net, payCur, isoDate, rates, null, null) : net;
+                    var grossEur = toEur(gross, txCur, isoDate, rates, conversionLogs, typ + ' ' + (order || ''));
+
+                    if (typ === 'Bestellung') {
+                        if (!isFinite(gross) || gross === 0) {
+                            if (Math.abs(netEur) > 0.005) {
+                                push(buyer || 'eBay-Kunde', ((order ? order + ' – ' : '') + (title || 'eBay-Verkauf')), netEur, 'eBay-Verkauf');
+                                stats.sales++;
+                            }
+                            continue;
+                        }
+                        push(buyer || 'eBay-Kunde', ((order ? order + ' – ' : '') + (title || 'eBay-Verkauf')), grossEur, 'eBay-Verkauf');
+                        stats.sales++;
+                        var fee = netEur - grossEur; // selling fees (negative)
+                        if (Math.abs(fee) > 0.005) {
+                            push('eBay', 'eBay-Verkaufsgebühren zu ' + (order || title), fee, 'eBay-Gebühren');
+                            stats.fees++;
+                        }
+                    } else if (typ === 'Rückerstattung' || typ === 'Fall' || typ === 'Zahlungsstreitfall') {
+                        var label = typ === 'Rückerstattung' ? 'Rückerstattung'
+                            : (typ === 'Zahlungsstreitfall' ? 'Zahlungsstreitfall' : 'eBay-Fall');
+                        var zusatz = typ === 'Rückerstattung' ? 'eBay-Rückerstattung' : 'eBay-Fall';
+                        if (isFinite(gross) && gross !== 0) {
+                            push(buyer || 'eBay', label + ' ' + ((order ? order + ' ' : '') + title).trim(), grossEur, zusatz);
+                            var adj = netEur - grossEur; // refunded/charged fee portion
+                            if (Math.abs(adj) > 0.005) {
+                                push('eBay', 'eBay-Gebührenkorrektur zu ' + (order || label), adj, 'eBay-Gebühren');
+                                stats.fees++;
+                            }
+                        } else if (Math.abs(netEur) > 0.005) {
+                            push(buyer || 'eBay', label + ' ' + (order || ref || beschr || ''), netEur, zusatz);
+                        }
+                        stats.refunds++;
+                    } else if (typ === 'Andere Gebühr') {
+                        if (Math.abs(netEur) > 0.005) {
+                            push('eBay', (beschr || 'eBay-Gebühr') + (order ? ' (' + order + ')' : ''), netEur, 'eBay-Gebühren');
+                            stats.fees++;
+                        }
+                    } else if (typ === 'Versandetikett') {
+                        if (Math.abs(netEur) > 0.005) {
+                            var carrier = (beschr || '').replace(/^Storniert,\s*/i, '').trim() || 'Versanddienstleister';
+                            push(carrier, 'Versandetikett' + (order ? ' ' + order : '') + (ref ? ' (' + ref + ')' : ''), netEur, 'Versandkosten');
+                            stats.shipping++;
+                        }
+                    } else if (typ === 'Kauf') {
+                        if (Math.abs(netEur) > 0.005) {
+                            push(buyer || 'eBay-Einkauf', 'eBay-Einkauf: ' + (title || order || ref || ''), netEur, 'eBay-Einkauf');
+                            stats.purchases++;
+                        }
+                    } else if (typ === 'Auszahlung' || typ === 'Sekundäre Auszahlung') {
+                        if (Math.abs(netEur) > 0.005) {
+                            push('eBay Auszahlung', 'Auszahlung aufs Bankkonto' + (ref ? ' (' + ref + ')' : ''), netEur, 'Auszahlung');
+                            stats.payouts++;
+                        }
+                    } else if (typ === 'Belastung') {
+                        if (Math.abs(netEur) > 0.005) {
+                            push('eBay', beschr || 'eBay-Belastung', netEur, 'eBay-Belastung');
+                            stats.other++;
+                        }
+                    } else if (typ === 'Einbehalten') {
+                        // Only unmatched holds reach here (matched pairs already skipped).
+                        if (Math.abs(netEur) > 0.005) {
+                            push('eBay', 'Einbehalt: ' + (beschr || ref || order || ''), netEur, 'Einbehalt');
+                            stats.other++;
+                        }
+                    } else {
+                        // Generic fallback: Überweisung, Anpassung, Einbehaltene Steuer, Rücklage, ...
+                        if (Math.abs(netEur) > 0.005) {
+                            push('eBay', typ + (beschr ? ': ' + beschr : '') + (order ? ' (' + order + ')' : ''), netEur, typ || 'eBay');
+                            stats.other++;
+                        }
+                    }
+                }
+
+                outputRows.sort(function(a, b) {
+                    var dateA = a["Buchungsdatum"].split('.').reverse().join('-');
+                    var dateB = b["Buchungsdatum"].split('.').reverse().join('-');
+                    return dateA.localeCompare(dateB);
+                });
+
+                if (outputRows.length === 0) { showError("Keine gültigen eBay-Transaktionen gefunden."); stopProgress(); return; }
+
+                var sanitized = outputRows.map(function(row) {
+                    var clean = {};
+                    for (var key in row) clean[key] = sanitizeLexwareField(row[key]);
+                    return clean;
+                });
+                var csvContent = Papa.unparse(sanitized, { delimiter: ";", quotes: false });
+                var bytes = new Uint8Array(csvContent.length);
+                for (var b = 0; b < csvContent.length; b++) bytes[b] = csvContent.charCodeAt(b) & 0xFF;
+                var blob = new Blob([bytes], { type: 'text/csv;charset=iso-8859-1;' });
+                var url = URL.createObjectURL(blob);
+                var downloadLink = el('downloadLink');
+                downloadLink.href = url;
+
+                var filenameDatePart = "export";
+                if (outputRows.length > 0) {
+                    var fp = outputRows[0]["Buchungsdatum"].split('.');
+                    var lp = outputRows[outputRows.length - 1]["Buchungsdatum"].split('.');
+                    var firstDate = fp[2] + '-' + fp[1] + '-' + fp[0];
+                    var lastDate = lp[2] + '-' + lp[1] + '-' + lp[0];
+                    filenameDatePart = firstDate === lastDate ? firstDate : firstDate + '_bis_' + lastDate;
+                }
+                downloadLink.download = filenameDatePart + '_ebay_lexware_import.csv';
+
+                completeProgress();
+                setTimeout(function() {
+                    el('download-area').classList.remove('hidden');
+                    el('loading-indicator').classList.add('hidden');
+                    var msg = outputRows.length + ' Zeilen erfolgreich generiert (' +
+                        stats.sales + ' Verkäufe, ' + stats.fees + ' Gebühren, ' +
+                        stats.shipping + ' Versandetiketten, ' + stats.payouts + ' Auszahlungen).';
+                    var notes = [];
+                    if (fxUnconverted > 0) notes.push(fxUnconverted + ' Fremdwährungsbetrag/-beträge ohne Kurs nicht umgerechnet');
+                    if (skippedDates > 0) notes.push(skippedDates + ' Zeile(n) mit unlesbarem Datum übersprungen');
+                    if (notes.length) msg += ' Hinweis: ' + notes.join('; ') + '.';
+                    showStatus(msg, "success");
+                    renderConversionDetails(conversionLogs);
+                }, 600);
+
+                if (typeof gtag === 'function') {
+                    gtag('event', 'ebay_lexware_conversion', {
+                        event_category: 'tool_usage',
+                        event_label: 'conversion_success',
+                        rows_generated: outputRows.length
+                    });
+                }
+            }
+
+            // Init drag/drop
+            var dropZone = el('drop-zone');
+            var fileInput = el('fileInput');
+            dropZone.addEventListener('click', function() { fileInput.click(); });
+            dropZone.addEventListener('dragover', function(e) { e.preventDefault(); dropZone.classList.add('border-[#0064D2]', 'bg-blue-50/30'); });
+            dropZone.addEventListener('dragleave', function() { dropZone.classList.remove('border-[#0064D2]', 'bg-blue-50/30'); });
+            dropZone.addEventListener('drop', function(e) {
+                e.preventDefault();
+                dropZone.classList.remove('border-[#0064D2]', 'bg-blue-50/30');
                 if (e.dataTransfer.files.length) { resetUI(); parseCSV(e.dataTransfer.files[0]); }
             });
             fileInput.addEventListener('change', function(e) {
